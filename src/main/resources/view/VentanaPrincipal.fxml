@@ -15,11 +15,11 @@
                   <Insets />
                </VBox.margin>
             </AnchorPane>
-            <Button fx:id="btn_inicio" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="INICIO" />
-            <Button fx:id="btn_clientes" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CLIENTES" />
-            <Button fx:id="btn_empleados" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="EMPLEADOS" />
+            <Button fx:id="btn_inicio" mnemonicParsing="false" onAction="#btn_inicio" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="INICIO" />
+            <Button fx:id="btn_clientes" mnemonicParsing="false" onAction="#btn_clientes" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CLIENTES" />
+            <Button fx:id="btn_empleados" mnemonicParsing="false" onAction="#btn_empleados" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="EMPLEADOS" />
             <Button fx:id="btn_buses" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="BUSES" />
-            <Button fx:id="btn_rutas" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="RUTAS" />
+            <Button fx:id="btn_rutas" mnemonicParsing="false" onAction="#btn_rutas" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="RUTAS" />
             <Button fx:id="btn_facturacion" mnemonicParsing="false" onAction="#btnFacturacion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="FACTURACION" />
             <Button fx:id="btn_reportes" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="REPORTES">
                <VBox.margin>

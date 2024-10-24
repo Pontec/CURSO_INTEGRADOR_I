@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -28,6 +28,7 @@ public class EmpleadoModel {
     @Column(name = "id_sede")
     private int idSede;
 
+
     @ManyToOne
     @JoinColumn(name = "id_sede", insertable = false, updatable = false)
     private SedesModel sede;
@@ -38,16 +39,13 @@ public class EmpleadoModel {
             inverseJoinColumns = @JoinColumn(name = "id_rol")
     )
     private Set<RolModel> roles = new HashSet<>();
-    @Override
-    public String toString() {
-        return "EmpleadoModel{" +
-                "id=" + id +
-                ", dni='" + dni + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", correo='" + correo + '\'' +
-                ", password='" + password + '\'' +
-                ", telefono='" + telefono + '\'' +
-                '}';
+
+    // Método para obtener los nombres de todos los roles en una cadena
+    public String getRolNombres() {
+        return roles != null && !roles.isEmpty()
+                ? roles.stream().map(RolModel::getRole).collect(Collectors.joining(", "))
+                : "Sin Rol";
     }
+
+
 }

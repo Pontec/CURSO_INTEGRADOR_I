@@ -39,7 +39,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     // Metodo que maneja el inicio de sesión
@@ -70,24 +69,6 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
-    /*
-    // Metodo para abrir la nueva ventana o cambiar de escena
-    public void abrirNuevaVentana() throws IOException {
-        // Cargar el nuevo archivo FXML
-        Parent root = FxmlCargarUtil.load("/view/homeView.fxml");
-
-
-
-        // Obtener el stage actual desde el botón o la ventana
-        Stage stage = (Stage) btn_ingresar.getScene().getWindow();
-
-        // Cambiar la escena
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-     */
 
     // Metodo para abrir la nueva ventana o cambiar de escena
     public void abrirNuevaVentana(EmpleadoModel usuario) throws IOException {

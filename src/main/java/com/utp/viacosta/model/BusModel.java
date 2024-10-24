@@ -18,7 +18,7 @@ public class BusModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_bus")
-    private Long idBus;
+    private Integer idBus;
     private String marca;
     private String placa;
     private String modelo;
