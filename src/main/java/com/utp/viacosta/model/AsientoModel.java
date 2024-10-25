@@ -19,12 +19,18 @@ public class AsientoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_asiento")
     private Integer idAsiento;
+
     @Column(name = "id_bus")
     private int idBus;
+
     @Column(name = "numero_asiento")
     private int numeroAsiento;
-    private String estado;
-    private double precio; //Falta agregar a la base de datos :(
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Estado estado;
+    private double precio;
+
     @Column(name = "id_tipo_asiento")
     private int idTipoAsiento;
 
@@ -38,4 +44,9 @@ public class AsientoModel {
 
     @OneToMany(mappedBy = "asiento")
     private List<DetalleBoletaModel> detalleBoletas;
+
+    public enum Estado {
+        DISPONIBLE,
+        OCUPADO
+    }
 }
