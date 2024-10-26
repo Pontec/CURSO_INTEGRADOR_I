@@ -113,6 +113,13 @@ public class VentanaPrincipalController implements Initializable {
     }
 
     @FXML
+    public void btn_buses(ActionEvent actionEvent) throws IOException {
+        Parent vista = FxmlCargarUtil.load("/view/BusesVista.fxml");
+        ventanaPrincipal.setCenter(vista);
+    }
+
+
+    @FXML
     public void btnReportes(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/view/reportesview.fxml");
         ventanaPrincipal.setCenter(vista);

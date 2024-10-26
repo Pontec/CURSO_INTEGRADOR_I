@@ -19,10 +19,19 @@ public class TipoAsientoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_asiento")
     private Integer idAsiento;
-    private String nombre; //Falta agregar a la base de datos :(
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
+    private TipoAsiento nombre;
+
     private String descripcion;
     @Column(name = "cargo_adicional")
     private double cargoExtra;
+
     @OneToMany(mappedBy = "tipoAsiento")
     private List<AsientoModel> asientos;
+
+    public enum TipoAsiento {
+        VIP, ECONOMICO
+    }
 }

@@ -94,6 +94,60 @@
     -fx-background-color: #F8FBFF;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: #547fe8; /* Cambia el color de fondo al seleccionar */
+    -fx-text-fill: #000000; /* Cambia el color del texto a negro */
+}
+
+
+
+
+
+
+/* General styles */
+.root {
+    -fx-font-family: 'Arial';
+}
+
+ Button styles
+.button {
+    /*-fx-background-color: #0066CC;*/
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #005bb5;
+}
+
+.button:pressed {
+    -fx-background-color: #004c99;
+}
+
+ /*TitledPane styles */
+#panel-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+#panel-title > .title {
+    -fx-background-color: #e6e6e6;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+#panel-title > .content {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+
 .btn-export {
     /*-fx-background-color: #0066CC;*/
     -fx-background-color: #217346;

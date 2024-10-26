@@ -33,4 +33,10 @@ public class BusServiceImpl implements BusService {
     public void deleteById(Integer id) {
         busRepository.deleteById(id);
     }
+
+    @Override
+    public BusModel update(BusModel bus) {
+        busRepository.findById(bus.getIdBus()).orElseThrow(() -> new RuntimeException("El bus no existe"));
+        return busRepository.save(bus);
+    }
 }

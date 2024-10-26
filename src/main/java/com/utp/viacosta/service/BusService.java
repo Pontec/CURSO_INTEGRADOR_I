@@ -10,4 +10,5 @@ public interface BusService {
     BusModel findById(Integer id);
     BusModel save(BusModel bus);
     void deleteById(Integer id);
+    BusModel update(BusModel bus);
 }

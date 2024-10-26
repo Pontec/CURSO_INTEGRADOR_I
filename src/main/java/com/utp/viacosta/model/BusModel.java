@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -27,7 +28,7 @@ public class BusModel {
     @Column(name = "capacidad_carga")
     private double capacidadCarga;
 
-    @OneToMany(mappedBy = "bus")
+    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AsientoModel> asientos;
 
     @OneToMany(mappedBy = "busAsignado")
@@ -35,4 +36,9 @@ public class BusModel {
 
     @OneToMany(mappedBy = "bus")
     private List<DetalleEncomiendaModel> detalleEncomiendas;
+
+    public String toString() {
+        return marca + " " + modelo + " " + placa;
+    }
+
 }

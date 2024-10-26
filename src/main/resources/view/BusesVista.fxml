@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
+
+    <children>
+        <Pane layoutX="38.0" layoutY="74.0" prefHeight="563.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="83.0" AnchorPane.topAnchor="74.0">
+            <children>
+                <Label layoutX="27.0" layoutY="80.0" text="Placa:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="25.0" layoutY="145.0" text="Marca:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="26.0" layoutY="200.0" text="Modelo:">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="25.0" layoutY="254.0" text="Asientos Vip">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="26.0" layoutY="308.0" text="Asiento Economicos">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="25.0" layoutY="370.0" text="Capacidad carga (T):">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font></Label>
+                <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="165.0" text="Ingrese los datos de bus">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="23.0" layoutY="22.0" style="-fx-text-fill: #0066CC;" text="Registre nuevo Bus">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+            <TextField fx:id="txt_placa" layoutX="25.0" layoutY="97.0" promptText="Ingresa la placa" />
+            <TextField fx:id="txt_marca" layoutX="25.0" layoutY="162.0" promptText="Ingresa la marca" />
+            <TextField fx:id="txt_modelo" layoutX="25.0" layoutY="217.0" promptText="Ingresa el moledo" />
+            <TextField fx:id="txt_asiento_vip" layoutX="25.0" layoutY="271.0" promptText="ejem. 10" />
+            <TextField fx:id="txt_asiento_econocimio" layoutX="25.0" layoutY="325.0" promptText="ejem. 20" />
+            <TextField fx:id="txt_carga_maxima" layoutX="25.0" layoutY="393.0" promptText="ejem. 2" />
+            <Button fx:id="btn_guardar" layoutX="75.0" layoutY="434.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="25.0" prefWidth="88.0" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="75.0" layoutY="477.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="25.0" prefWidth="88.0" text="Actualizar" />
+            <Button fx:id="btn_eliminar" layoutX="75.0" layoutY="515.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
+            </children>
+        </Pane>
+        <Pane layoutX="274.0" layoutY="74.0" prefHeight="563.0" prefWidth="757.0" style="-fx-border-color: CCC;">
+            <children>
+                <TableView fx:id="tablaBuses" layoutX="14.0" layoutY="22.0" prefHeight="518.0" prefWidth="733.0" style="-fx-border-color: CCC;">
+                    <columns>
+                        <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
+                        <TableColumn fx:id="columnPlaca" prefWidth="153.60000610351562" text="PLACA" />
+                        <TableColumn fx:id="columnMarca" prefWidth="115.0" text="MARCA" />
+                        <TableColumn fx:id="columnModelo" prefWidth="119.0" text="MODELO" />
+                        <TableColumn fx:id="columnAsientoTotal" prefWidth="146.0" text="ASIENTO TOTAL" />
+                        <TableColumn fx:id="columnCarga" minWidth="0.0" prefWidth="163.0" text="CARGA" />
+                    </columns>
+                </TableView>
+            </children>
+        </Pane>
+        <Label layoutX="38.0" layoutY="28.0" style="-fx-text-fill: #0066CC;" text="Gestion de  Buses">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+      <Button fx:id="btnAsignacionAsiento" layoutX="450.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnAsignacionAsiento" prefHeight="39.0" prefWidth="149.0" text="Asignacion de Asiento" />
+      <Button fx:id="btnGestionAsiento" layoutX="274.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnGestionAsiento" prefHeight="39.0" prefWidth="149.0" text="Gestion de Asientos" />
+    </children>
+</AnchorPane>
