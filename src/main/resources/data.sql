@@ -63,7 +63,7 @@ CREATE TABLE buses (
                        placa VARCHAR(10) UNIQUE NOT NULL,
                        modelo VARCHAR(255) NOT NULL,
                        capacidad_asientos INT NOT NULL,
-                       capacidad_carga VARCHAR(10) NOT NULL
+                       capacidad_carga DECIMAL(10, 2) NOT NULL
 );
 
 CREATE TABLE tipo_asiento (

@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -22,9 +22,9 @@ public class DetalleBoletaModel {
     private Integer idDetalle;
     private String descripcion;
     @Column(name = "fecha_viaje")
-    private Time fechaViaje;
+    private Date fechaViaje;
     @Column(name = "hora_viaje")
-    private Timestamp horaViaje;
+    private Time horaViaje;
     @Column(name = "metodo_pago")
     private String metodoPago;
     @Column(name = "precio_unitario")
