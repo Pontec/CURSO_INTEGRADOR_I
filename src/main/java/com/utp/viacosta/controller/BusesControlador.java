@@ -1,6 +1,5 @@
 package com.utp.viacosta.controller;
 
-import com.utp.viacosta.dao.AsientoRepository;
 import com.utp.viacosta.model.AsientoModel;
 import com.utp.viacosta.model.BusModel;
 import com.utp.viacosta.model.TipoAsientoModel;
@@ -8,8 +7,6 @@ import com.utp.viacosta.service.AsientoService;
 import com.utp.viacosta.service.BusService;
 import com.utp.viacosta.service.TipoAsientoService;
 import com.utp.viacosta.util.FxmlCargarUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -220,6 +217,17 @@ public class BusesControlador implements Initializable {
         Parent fxmlLoader = FxmlCargarUtil.load("/view/AsientosVista.fxml");
         Stage stage = new Stage();
         stage.setTitle("Gestión de Asientos");
+        stage.setScene(new Scene(fxmlLoader));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
+    }
+
+    //Metodo para abrir la gestion de buses a rutas
+    @FXML
+    void btnAsignacionAsiento(ActionEvent event) throws IOException {
+        Parent fxmlLoader = FxmlCargarUtil.load("/view/AsignacionRutasVista.fxml");
+        Stage stage = new Stage();
+        stage.setTitle("Asignacion de Asientos");
         stage.setScene(new Scene(fxmlLoader));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
 
     <children>
         <Pane layoutX="38.0" layoutY="74.0" prefHeight="563.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="83.0" AnchorPane.topAnchor="74.0">
@@ -78,7 +78,7 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-      <Button layoutX="450.0" layoutY="658.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="133.0" text="Gestion Tipo Asineto" />
+      <Button fx:id="btnAsignacionAsiento" layoutX="450.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnAsignacionAsiento" prefHeight="39.0" prefWidth="149.0" text="Asignacion de Asiento" />
       <Button fx:id="btnGestionAsiento" layoutX="274.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnGestionAsiento" prefHeight="39.0" prefWidth="149.0" text="Gestion de Asientos" />
     </children>
 </AnchorPane>
