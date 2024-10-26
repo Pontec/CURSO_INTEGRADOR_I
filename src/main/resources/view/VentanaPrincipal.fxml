@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="ventanaPrincipal" maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.VentanaPrincipalController">
+<BorderPane fx:id="ventanaPrincipal" maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.VentanaPrincipalController">
    <left>
       <VBox fx:id="asidePanel" prefHeight="700.0" prefWidth="212.0" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -27,7 +27,7 @@
             <Button fx:id="btn_buses" mnemonicParsing="false" onAction="#btn_buses" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="BUSES" />
             <Button fx:id="btn_rutas" mnemonicParsing="false" onAction="#btn_rutas" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="RUTAS" />
             <Button fx:id="btn_facturacion" mnemonicParsing="false" onAction="#btnFacturacion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="FACTURACION" />
-            <Button fx:id="btn_reportes" mnemonicParsing="false" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="REPORTES">
+            <Button fx:id="btn_reportes" mnemonicParsing="false" onAction="#btnReportes" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="REPORTES">
                <VBox.margin>
                   <Insets bottom="50.0" />
                </VBox.margin>
