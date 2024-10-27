@@ -2,11 +2,11 @@ package com.utp.viacosta.controller;
 
 import com.utp.viacosta.model.AsientoModel;
 import com.utp.viacosta.model.BusModel;
-import com.utp.viacosta.model.TipoAsientoModel;
+import com.utp.viacosta.model.enums.Estado;
+import com.utp.viacosta.model.enums.TipoAsiento;
 import com.utp.viacosta.service.AsientoService;
 import com.utp.viacosta.service.BusService;
 import com.utp.viacosta.service.TipoAsientoService;
-import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,12 +17,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +98,7 @@ public class BusesControlador implements Initializable {
         for (int i = 0; i < capacidadAsiento; i++) {
             AsientoModel asientoModel = new AsientoModel();
             asientoModel.setNumeroAsiento(i);
-            asientoModel.setEstado(AsientoModel.Estado.DISPONIBLE);
+            asientoModel.setEstado(Estado.DISPONIBLE);
             asientoModel.setPrecio(0);
             asientoModel.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
 
@@ -145,7 +142,7 @@ public class BusesControlador implements Initializable {
             for (int i = listaAsientos.size(); i < capacidadAsiento; i++) {
                 AsientoModel asientoModel = new AsientoModel();
                 asientoModel.setNumeroAsiento(i);
-                asientoModel.setEstado(AsientoModel.Estado.DISPONIBLE);
+                asientoModel.setEstado(Estado.DISPONIBLE);
                 asientoModel.setPrecio(0);
 
                 if(i < Integer.parseInt(txt_asiento_vip.getText())){
@@ -177,7 +174,7 @@ public class BusesControlador implements Initializable {
         txt_modelo.setText(busModel.getModelo());
 
         long vipCount = asientoService.getAsientosPorBus(busModel.getIdBus()).stream()
-                .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsientoModel.TipoAsiento.VIP))
+                .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsiento.VIP))
                 .count();
         txt_asiento_vip.setText(String.valueOf(vipCount));
         txt_asiento_econocimio.setText(String.valueOf(busModel.getCapacidadAsientos() - vipCount));
@@ -193,9 +190,6 @@ public class BusesControlador implements Initializable {
         listarBuses();
     }
 
-
-
-
     private void limpiarCampos(){
         txt_placa.setText("");
         txt_marca.setText("");
@@ -203,34 +197,6 @@ public class BusesControlador implements Initializable {
         txt_asiento_vip.setText("");
         txt_asiento_econocimio.setText("");
         txt_carga_maxima.setText("");
-    }
-
-
-
-
-
-
-
-    //Método para abrir la ventana de AsientoVista
-    @FXML
-    public void btnGestionAsiento(ActionEvent event) throws IOException {
-        Parent fxmlLoader = FxmlCargarUtil.load("/view/AsientosVista.fxml");
-        Stage stage = new Stage();
-        stage.setTitle("Gestión de Asientos");
-        stage.setScene(new Scene(fxmlLoader));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-    }
-
-    //Metodo para abrir la gestion de buses a rutas
-    @FXML
-    void btnAsignacionAsiento(ActionEvent event) throws IOException {
-        Parent fxmlLoader = FxmlCargarUtil.load("/view/AsignacionRutasVista.fxml");
-        Stage stage = new Stage();
-        stage.setTitle("Asignacion de Asientos");
-        stage.setScene(new Scene(fxmlLoader));
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
     }
 
 

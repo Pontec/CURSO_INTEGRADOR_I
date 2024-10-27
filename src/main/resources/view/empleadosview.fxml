@@ -44,7 +44,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ComboBox fx:id="cbox_rol" layoutX="23.0" layoutY="450.0" prefWidth="150.0" promptText="Selecciona un rol" />
+            <ComboBox fx:id="cboxRol" layoutX="23.0" layoutY="450.0" prefWidth="150.0" promptText="Selecciona un rol" />
             <Label layoutX="25.0" layoutY="427.0" text="Rol">
                <font>
                   <Font name="System Bold" size="12.0" />

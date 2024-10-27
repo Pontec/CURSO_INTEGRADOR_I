@@ -1,5 +1,6 @@
 package com.utp.viacosta.model;
 
+import com.utp.viacosta.model.enums.TipoAsiento;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,4 @@ public class TipoAsientoModel {
     @OneToMany(mappedBy = "tipoAsiento")
     private List<AsientoModel> asientos;
 
-    public enum TipoAsiento {
-        VIP, ECONOMICO
-    }
 }
