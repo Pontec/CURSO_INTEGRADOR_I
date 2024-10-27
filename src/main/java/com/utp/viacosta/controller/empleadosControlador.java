@@ -64,7 +64,7 @@ public class empleadosControlador implements Initializable {
     @FXML
     private TextField txt_telefono;
     @FXML
-    private ComboBox<RolModel> cbox_rol;
+    private ComboBox<RolModel> cboxRol;
     @FXML
     private PasswordField txt_contraseña;
 
@@ -103,7 +103,7 @@ public class empleadosControlador implements Initializable {
         empleado.setTelefono(txt_telefono.getText());
         empleado.setIdSede(1);
 
-        RolModel rolSeleccionado = cbox_rol.getValue();  // Obtener el rol seleccionado
+        RolModel rolSeleccionado = cboxRol.getValue();  // Obtener el rol seleccionado
         Set<RolModel> roles = new HashSet<>();  // Crear un Set de roles (o lista, dependiendo de tu modelo)
         roles.add(rolSeleccionado);  // Agregar el rol seleccionado al conjunto de roles
         empleado.setRoles(roles);  // Asignar el conjunto de roles al empleado
@@ -128,8 +128,7 @@ public class empleadosControlador implements Initializable {
     }
 
     private void cargarRoles(){
-        List<RolModel> roles = rolService.findAll();  // Aquí llamas al servicio que te trae todos los roles
-        cbox_rol.setItems(FXCollections.observableArrayList(roles));  // Llenas el ComboBox con los roles
+        cboxRol.getItems().setAll(rolService.findAll());
     }
 
     @FXML
@@ -160,7 +159,7 @@ public class empleadosControlador implements Initializable {
         empleadoSeleccionado.setPassword(txt_contraseña.getText());
         empleadoSeleccionado.setTelefono(txt_telefono.getText());
 
-        RolModel rolSeleccionado = cbox_rol.getValue();
+        RolModel rolSeleccionado = cboxRol.getValue();
         if (rolSeleccionado != null) {
             Set<RolModel> roles = new HashSet<>();
             roles.add(rolSeleccionado);  // Actualizar con el rol seleccionado
@@ -200,7 +199,7 @@ public class empleadosControlador implements Initializable {
 
             // Cargar el rol seleccionado en el ComboBox
             RolModel rol = empleadoSeleccionado.getRoles().stream().findFirst().orElse(null);
-            cbox_rol.setValue(rol);  // Seleccionar el rol en el ComboBox
+            cboxRol.setValue(rol);  // Seleccionar el rol en el ComboBox
         }
     }
 
@@ -222,7 +221,7 @@ public class empleadosControlador implements Initializable {
         if (
                 txt_dni.getText().isEmpty() || txt_nombre.getText().isEmpty() ||
                         txt_apellido.getText().isEmpty() || txt_correo.getText().isEmpty() ||
-                        txt_contraseña.getText().isEmpty() || cbox_rol.getValue() == null ){
+                        txt_contraseña.getText().isEmpty() || cboxRol.getValue() == null ){
             mostrarAlerta("Por favor, completa todos los campos.");
             return false;
         }
