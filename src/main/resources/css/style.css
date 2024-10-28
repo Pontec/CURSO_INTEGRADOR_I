@@ -99,11 +99,6 @@
     -fx-text-fill: #000000; /* Cambia el color del texto a negro */
 }
 
-
-
-
-
-
 /* General styles */
 .root {
     -fx-font-family: 'Arial';
@@ -119,13 +114,6 @@
     -fx-border-radius: 5px;
 }
 
-.button:hover {
-    -fx-background-color: #005bb5;
-}
-
-.button:pressed {
-    -fx-background-color: #004c99;
-}
 
  /*TitledPane styles */
 #panel-title {
@@ -164,6 +152,26 @@
 
 .btn-clasic {
     -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}
+
+.asiento-disponible {
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: #0066CC;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}
+
+.asiento-ocupado {
+    -fx-background-color: red;
     -fx-background-radius: 4px;
     -fx-border: none;
     -fx-text-fill: white;
