@@ -193,9 +193,6 @@ public class BusesControlador implements Initializable {
         listarBuses();
     }
 
-
-
-
     private void limpiarCampos(){
         txt_placa.setText("");
         txt_marca.setText("");
@@ -204,12 +201,6 @@ public class BusesControlador implements Initializable {
         txt_asiento_econocimio.setText("");
         txt_carga_maxima.setText("");
     }
-
-
-
-
-
-
 
     //Método para abrir la ventana de AsientoVista
     @FXML
