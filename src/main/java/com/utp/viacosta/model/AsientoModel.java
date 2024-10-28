@@ -1,5 +1,6 @@
 package com.utp.viacosta.model;
 
+import com.utp.viacosta.model.enums.Estado;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,8 +46,5 @@ public class AsientoModel {
     @OneToMany(mappedBy = "asiento")
     private List<DetalleBoletaModel> detalleBoletas;
 
-    public enum Estado {
-        DISPONIBLE,
-        OCUPADO
-    }
+
 }

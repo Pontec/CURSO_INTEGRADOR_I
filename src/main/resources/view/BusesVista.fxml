@@ -9,10 +9,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
 
     <children>
-        <Pane layoutX="38.0" layoutY="74.0" prefHeight="563.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="83.0" AnchorPane.topAnchor="74.0">
+        <Pane layoutX="38.0" layoutY="74.0" prefHeight="609.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="37.0" AnchorPane.topAnchor="74.0">
             <children>
                 <Label layoutX="27.0" layoutY="80.0" text="Placa:">
                     <font>
@@ -59,9 +59,9 @@
             <Button fx:id="btn_eliminar" layoutX="75.0" layoutY="515.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
             </children>
         </Pane>
-        <Pane layoutX="274.0" layoutY="74.0" prefHeight="563.0" prefWidth="757.0" style="-fx-border-color: CCC;">
+        <Pane layoutX="274.0" layoutY="74.0" prefHeight="609.0" prefWidth="757.0" style="-fx-border-color: CCC;">
             <children>
-                <TableView fx:id="tablaBuses" layoutX="14.0" layoutY="22.0" prefHeight="518.0" prefWidth="733.0" style="-fx-border-color: CCC;">
+                <TableView fx:id="tablaBuses" layoutX="14.0" layoutY="22.0" prefHeight="573.0" prefWidth="733.0" style="-fx-border-color: CCC;">
                     <columns>
                         <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
                         <TableColumn fx:id="columnPlaca" prefWidth="153.60000610351562" text="PLACA" />
@@ -78,7 +78,5 @@
                 <Font name="System Bold" size="20.0" />
             </font>
         </Label>
-      <Button fx:id="btnAsignacionAsiento" layoutX="450.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnAsignacionAsiento" prefHeight="39.0" prefWidth="149.0" text="Asignacion de Asiento" />
-      <Button fx:id="btnGestionAsiento" layoutX="274.0" layoutY="658.0" mnemonicParsing="false" onAction="#btnGestionAsiento" prefHeight="39.0" prefWidth="149.0" text="Gestion de Asientos" />
     </children>
 </AnchorPane>

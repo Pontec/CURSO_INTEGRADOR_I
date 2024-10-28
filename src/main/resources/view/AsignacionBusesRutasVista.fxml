@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.AsignarRutasBuses">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.AsignarRutasBuses">
 
     <children>
         <Pane layoutX="38.0" layoutY="65.0" prefHeight="623.0" prefWidth="259.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="32.0" AnchorPane.topAnchor="65.0">
@@ -21,10 +21,6 @@
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
                 <Label layoutX="21.0" layoutY="222.0" text="Fecha de salida">
-                    <font>
-                        <Font name="System Bold" size="12.0" />
-                    </font></Label>
-                <Label layoutX="22.0" layoutY="340.0" text="Fecha de llegada:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
@@ -46,18 +42,11 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ComboBox layoutX="21.0" layoutY="106.0" prefHeight="25.0" prefWidth="185.0" promptText="Seleccion la ruta" />
-            <ComboBox layoutX="21.0" layoutY="169.0" prefHeight="25.0" prefWidth="185.0" promptText="Selecciona el Bus" />
+            <ComboBox fx:id="cmbRuta" layoutX="21.0" layoutY="106.0" prefHeight="25.0" prefWidth="185.0" promptText="Seleccion la ruta" />
+            <ComboBox fx:id="cmbBus" layoutX="21.0" layoutY="169.0" prefHeight="25.0" prefWidth="185.0" promptText="Selecciona el Bus" />
             <DatePicker fx:id="fechaHoraSalida" layoutX="23.0" layoutY="239.0" prefHeight="25.0" prefWidth="185.0" />
-            <DatePicker fx:id="fechaHoraLlegada" layoutX="21.0" layoutY="357.0" prefHeight="25.0" prefWidth="185.0" />
             <TextField fx:id="txtHoraSalida" layoutX="21.0" layoutY="299.0" prefHeight="25.0" prefWidth="185.0" />
-            <TextField fx:id="txtHoraLlegada" layoutX="21.0" layoutY="418.0" prefHeight="25.0" prefWidth="185.0" />
             <Label layoutX="23.0" layoutY="282.0" text="Hora de salida">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="24.0" layoutY="401.0" text="Hora de llegada:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -66,13 +55,13 @@
         </Pane>
         <Pane layoutX="315.0" layoutY="62.0" prefHeight="623.0" prefWidth="717.0" style="-fx-border-color: CCC;">
             <children>
-                <TableView fx:id="tabla_clientes" layoutX="25.0" layoutY="63.0" prefHeight="540.0" prefWidth="519.0" stylesheets="@../css/style.css">
+                <TableView fx:id="tablaBusesRutas" layoutX="25.0" layoutY="63.0" prefHeight="540.0" prefWidth="667.0" stylesheets="@../css/style.css">
                     <columns>
                         <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                        <TableColumn fx:id="columnNombre" prefWidth="153.60000610351562" text="RUTA" />
-                        <TableColumn fx:id="columnApellido" prefWidth="125.0" text="BUS" />
-                        <TableColumn fx:id="columnDni" prefWidth="96.0" text="FECHA SALIDA" />
-                  <TableColumn fx:id="columnDni1" prefWidth="96.0" text="FECHA LLEGADA" />
+                        <TableColumn fx:id="columnRuta" prefWidth="153.60000610351562" text="RUTA" />
+                        <TableColumn fx:id="columnBus" prefWidth="125.0" text="BUS" />
+                        <TableColumn fx:id="columnFechaSalida" prefWidth="158.0" text="FECHA SALIDA" />
+                  <TableColumn fx:id="columnHoraSalida" prefWidth="188.0" text="HORA SALIDA" />
                     </columns>
                 </TableView>
             </children>

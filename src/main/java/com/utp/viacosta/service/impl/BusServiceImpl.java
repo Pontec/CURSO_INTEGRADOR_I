@@ -20,11 +20,6 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public BusModel findById(Integer id) {
-        return busRepository.findById(id).orElseThrow(() -> new RuntimeException("El bus no existe"));
-    }
-
-    @Override
     public BusModel save(BusModel bus) {
         return busRepository.save(bus);
     }

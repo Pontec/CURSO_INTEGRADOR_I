@@ -1,10 +1,7 @@
 package com.utp.viacosta.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -24,4 +21,8 @@ public class RutaModel {
     private String duracion;
     @OneToMany(mappedBy = "rutaAsignada")
     private List<AsignacionBusRutaModel> asignaciones;
+
+    public String toString() {
+        return origen + " - " + destino;
+    }
 }
