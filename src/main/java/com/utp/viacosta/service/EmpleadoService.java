@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface EmpleadoService {
     List<EmpleadoModel> findAll();
-    Optional<EmpleadoModel> findById(Integer id);
     EmpleadoModel findByCorreo(String usuario);
     EmpleadoModel save(EmpleadoModel empleado);
     void deleteById(Integer id);
+    EmpleadoModel autenticar(String correo, String password);
 
 }

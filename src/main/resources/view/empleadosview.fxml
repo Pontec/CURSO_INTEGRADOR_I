@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.empleadosControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.empleadosControlador">
    <children>
       <Pane layoutX="38.0" layoutY="74.0" prefHeight="614.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="32.0" AnchorPane.topAnchor="74.0">
          <children>
@@ -19,41 +19,40 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Label layoutX="25.0" layoutY="145.0" text="Nombre:">
+            <Label layoutX="26.0" layoutY="129.0" text="Nombre:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_dni" layoutX="25.0" layoutY="104.0" promptText="Ingresa tu dni" />
-            <TextField fx:id="txt_nombre" layoutX="24.0" layoutY="164.0" promptText="Ingresa tu nombre" />
-            <Label layoutX="26.0" layoutY="200.0" text="Apellido">
+            <TextField fx:id="txt_dni" layoutX="25.0" layoutY="97.0" promptText="Ingresa tu dni" />
+            <TextField fx:id="txt_nombre" layoutX="25.0" layoutY="148.0" promptText="Ingresa tu nombre" />
+            <Label layoutX="26.0" layoutY="179.0" text="Apellido">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_apellido" layoutX="25.0" layoutY="219.0" promptText="ingresa tu apellido" />
-            <Label layoutX="25.0" layoutY="254.0" text="Telefono">
+            <TextField fx:id="txt_apellido" layoutX="25.0" layoutY="198.0" promptText="ingresa tu apellido" />
+            <Label layoutX="26.0" layoutY="232.0" text="Telefono">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_telefono" layoutX="24.0" layoutY="273.0" promptText="ejem. 931749376" />
-            <Label layoutX="26.0" layoutY="308.0" text="Correo">
+            <TextField fx:id="txt_telefono" layoutX="25.0" layoutY="251.0" promptText="ejem. 931749376" />
+            <Label layoutX="26.0" layoutY="285.0" text="Correo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_correo" layoutX="25.0" layoutY="327.0" promptText="hola@gmail.com" />
-            <Label layoutX="25.0" layoutY="370.0" text="Constraseña">
+            <TextField fx:id="txt_correo" layoutX="25.0" layoutY="304.0" promptText="hola@gmail.com" />
+            <Label layoutX="24.0" layoutY="340.0" text="Constraseña">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ComboBox fx:id="cboxRol" layoutX="23.0" layoutY="450.0" prefWidth="150.0" promptText="Selecciona un rol" />
-            <Label layoutX="25.0" layoutY="427.0" text="Rol">
+            <ComboBox fx:id="cboxRol" layoutX="24.0" layoutY="418.0" prefWidth="150.0" promptText="Selecciona un rol" />
+            <Label layoutX="26.0" layoutY="395.0" text="Rol">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Button fx:id="btn_guardar" layoutX="69.0" layoutY="494.0" mnemonicParsing="false" onAction="#guardarEmpleados" prefHeight="25.0" prefWidth="88.0" text="Guardar" />
-            <Button fx:id="btn_actualizar" layoutX="69.0" layoutY="530.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="88.0" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="69.0" layoutY="565.0" mnemonicParsing="false" onAction="#handleEliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
-            <PasswordField fx:id="txt_contraseña" layoutX="25.0" layoutY="393.0" promptText="********" />
-            <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="104.0" text="Ingrese los datos">
+            <Button fx:id="btn_guardar" layoutX="59.0" layoutY="466.0" mnemonicParsing="false" onAction="#guardarEmpleados" prefHeight="25.0" prefWidth="108.0" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="59.0" layoutY="466.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="108.0" text="Editar" />
+            <PasswordField fx:id="txt_contraseña" layoutX="24.0" layoutY="363.0" promptText="********" />
+            <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="138.0" text="Ingrese los datos">
                <font>
                   <Font size="14.0" />
                </font>
@@ -63,19 +62,21 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button fx:id="btnLimpiar" layoutX="59.0" layoutY="500.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="25.0" prefWidth="108.0" text="Limpiar" />
          </children>
       </Pane>
-      <Pane layoutX="274.0" layoutY="74.0" prefHeight="614.0" prefWidth="757.0" style="-fx-border-color: CCC;">
+      <Pane layoutX="274.0" layoutY="74.0" prefHeight="614.0" prefWidth="774.0" style="-fx-border-color: CCC;">
          <children>
-            <TableView fx:id="tabla_empleados" layoutX="14.0" layoutY="22.0" prefHeight="561.0" prefWidth="717.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
+            <TableView fx:id="tabla_empleados" layoutX="14.0" layoutY="22.0" prefHeight="561.0" prefWidth="751.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
               <columns>
                 <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                <TableColumn fx:id="columnNombre" prefWidth="153.60000610351562" text="NOMBRE" />
-                  <TableColumn fx:id="columnApellido" prefWidth="103.0" text="APELLIDO" />
-                  <TableColumn fx:id="columnDni" prefWidth="63.0" text="DNI" />
-                  <TableColumn fx:id="columnTelefono" prefWidth="97.0" text="TELEFONO" />
-                  <TableColumn fx:id="columnCorreo" prefWidth="164.0" text="CORREO" />
-                  <TableColumn fx:id="columnRol" prefWidth="97.0" text="ROL" />
+                <TableColumn fx:id="columnNombre" prefWidth="130.0" text="NOMBRE" />
+                  <TableColumn fx:id="columnApellido" prefWidth="107.0" text="APELLIDO" />
+                  <TableColumn fx:id="columnDni" prefWidth="77.0" text="DNI" />
+                  <TableColumn fx:id="columnTelefono" prefWidth="89.0" text="TELEFONO" />
+                  <TableColumn fx:id="columnCorreo" prefWidth="128.0" text="CORREO" />
+                  <TableColumn fx:id="columnRol" minWidth="0.0" prefWidth="97.0" text="ROL" />
+                 <TableColumn fx:id="columnAcciones" text="ACCIONES" />
               </columns>
             </TableView>
          </children>

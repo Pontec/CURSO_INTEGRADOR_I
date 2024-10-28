@@ -4,7 +4,8 @@ import com.utp.viacosta.model.EmpleadoModel;
 import com.utp.viacosta.model.RolModel;
 import com.utp.viacosta.service.EmpleadoService;
 import com.utp.viacosta.service.RolService;
-import javafx.collections.FXCollections;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.HashSet;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -28,13 +28,7 @@ public class empleadosControlador implements Initializable {
     private RolService rolService;
 
     @FXML
-    private Button btn_actualizar;
-
-    @FXML
-    private Button btn_eliminar;
-
-    @FXML
-    private Button btn_guardar;
+    private Button btn_actualizar,btnLimpiar, btn_guardar;
 
     @FXML
     private TableView<EmpleadoModel> tabla_empleados;
@@ -52,17 +46,11 @@ public class empleadosControlador implements Initializable {
     private TableColumn<RolModel, String> columnRol;
     @FXML
     private TableColumn<EmpleadoModel, String> columnTelefono;
+    @FXML
+    private TableColumn<EmpleadoModel, Void> columnAcciones;
 
     @FXML
-    private TextField txt_apellido;
-    @FXML
-    private TextField txt_correo;
-    @FXML
-    private TextField txt_dni;
-    @FXML
-    private TextField txt_nombre;
-    @FXML
-    private TextField txt_telefono;
+    private TextField txt_apellido,txt_correo,txt_dni,txt_nombre,txt_telefono;
     @FXML
     private ComboBox<RolModel> cboxRol;
     @FXML
@@ -79,13 +67,13 @@ public class empleadosControlador implements Initializable {
             if (newValue != null) {
                 seleccionarActualizar();
                 btn_actualizar.setVisible(true);
-                btn_eliminar.setVisible(true);
-            }else{
-
+                btnLimpiar.setVisible(true);
+                btn_guardar.setVisible(false);
             }
         });
         btn_actualizar.setVisible(false);
-        btn_eliminar.setVisible(false);
+        btnLimpiar.setVisible(false);
+
     }
 
 
@@ -123,6 +111,27 @@ public class empleadosControlador implements Initializable {
         columnRol.setCellValueFactory(new PropertyValueFactory<>("rolNombres"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
+        // Configurar la columna de acciones
+
+        columnAcciones.setCellFactory(col -> new TableCell<EmpleadoModel, Void>() {
+            private final FontAwesomeIconView iconoEliminar = new FontAwesomeIconView(FontAwesomeIcon.TRASH_ALT);
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+
+                    setGraphic(iconoEliminar);
+                    iconoEliminar.setOnMouseClicked(event -> {
+                        EmpleadoModel empleadoModel = getTableView().getItems().get(getIndex());
+                        handleEliminar(empleadoModel);
+                    });
+
+                }
+            }
+        });
+        
         tabla_empleados.getItems().setAll(empleadoService.findAll());
 
     }
@@ -132,24 +141,20 @@ public class empleadosControlador implements Initializable {
     }
 
     @FXML
-    void handleEliminar(ActionEvent event) {
-        EmpleadoModel empleado = tabla_empleados.getSelectionModel().getSelectedItem();
-
-        if(empleado != null && mostrarConfirmacion("¿Estás seguro de eliminar el empleado?")){
-            empleadoService.deleteById(empleado.getId());
-            tabla_empleados.getItems().remove(empleado);
-        }else{
-            mostrarAlerta("Selecciona el cliente a eliminar");
-        }
+    void handleEliminar(EmpleadoModel empleado) {
+        // Lógica para eliminar al empleado
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estás seguro de que deseas eliminar este empleado?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                empleadoService.deleteById(empleado.getId());
+                listarEmpleados(); // Volver a cargar la lista de empleados
+            }
+        });
     }
 
     @FXML
     void act_actualizar(ActionEvent event) {
         EmpleadoModel empleadoSeleccionado = tabla_empleados.getSelectionModel().getSelectedItem();
-        if (empleadoSeleccionado == null) {
-            mostrarAlerta("Por favor, selecciona un empleado para actualizar.");
-            return;
-        }
 
         // Actualizar los campos del empleado seleccionado
         empleadoSeleccionado.setDni(txt_dni.getText());
@@ -165,14 +170,17 @@ public class empleadosControlador implements Initializable {
             roles.add(rolSeleccionado);  // Actualizar con el rol seleccionado
             empleadoSeleccionado.setRoles(roles);
         }
-
-        // Guardar el empleado actualizado en la base de datos
         empleadoService.save(empleadoSeleccionado);
-        listarEmpleados();  // Refrescar la tabla para mostrar los cambios
-        clear();  // Limpiar los campos de texto
+        listarEmpleados();
+        clear();
+        btnLimpiar();// Ocultar los botones de limpiar y actualizar
     }
 
     //Metodos de apoyo
+    @FXML
+    void actLimpiar(ActionEvent event) {
+        btnLimpiar();
+    }
 
     @FXML
     public void clear(){
@@ -183,8 +191,12 @@ public class empleadosControlador implements Initializable {
         txt_contraseña.setText("");
         txt_telefono.setText("");
     }
-
-
+    public void btnLimpiar(){
+        clear();
+        btn_actualizar.setVisible(false);
+        btnLimpiar.setVisible(false);
+        btn_guardar.setVisible(true);
+    }
 
     @FXML
     private void seleccionarActualizar() {
@@ -210,12 +222,6 @@ public class empleadosControlador implements Initializable {
         alert.show();
     }
 
-    //para eliminar el cliente
-    private boolean mostrarConfirmacion(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText(mensaje);
-        return alert.showAndWait().filter(response -> response == ButtonType.OK).isPresent();
-    }
 
     private boolean validarEntradas() {
         if (

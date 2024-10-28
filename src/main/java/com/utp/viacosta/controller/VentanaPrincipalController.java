@@ -4,6 +4,7 @@ import com.utp.viacosta.model.EmpleadoModel;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.springframework.stereotype.Component;
 
@@ -41,8 +43,6 @@ public class VentanaPrincipalController implements Initializable {
     @FXML
     private Button btn_clientes, btn_empleados, btn_facturacion, btn_buses, btn_asiento, btn_buses_rutas;
 
-    @FXML
-    private AnchorPane contentPanel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -131,6 +131,14 @@ public class VentanaPrincipalController implements Initializable {
     public void btnReportes(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/view/reportesview.fxml");
         ventanaPrincipal.setCenter(vista);
+    }
+
+    @FXML
+    public void btn_logout(ActionEvent actionEvent) throws IOException {
+        // Cerrar sesión
+        System.out.println("Cerrando sesión...-------------------");
+        Platform.exit();
+        System.exit(0);
     }
 
 

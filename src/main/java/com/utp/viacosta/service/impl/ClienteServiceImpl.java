@@ -25,11 +25,6 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public void eliminarCliente(Integer id) {
-        clienteRepository.deleteById(id);
-    }
-
-    @Override
     public void actualizarCliente(ClienteModel clienteModel) {
         clienteRepository.save(clienteModel);
     }
