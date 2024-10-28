@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.sql.Date;
-import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -22,9 +21,9 @@ public class DetalleBoletaModel {
     private Integer idDetalle;
     private String descripcion;
     @Column(name = "fecha_viaje")
-    private Date fechaViaje;
+    private LocalDate fechaViaje;
     @Column(name = "hora_viaje")
-    private Time horaViaje;
+    private LocalTime horaViaje;
     @Column(name = "metodo_pago")
     private String metodoPago;
     @Column(name = "precio_unitario")

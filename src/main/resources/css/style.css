@@ -50,7 +50,6 @@
     -fx-border: none;
     -fx-text-fill: #1e90ff;
     -fx-font-weight: bold;
-    -fx-pref-width: 450px;
 }
 
 .btnAside:hover {
@@ -111,6 +110,15 @@
 }
 
 
+.button {
+    -fx-background-color: #0066CC;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
 .button:hover {
     -fx-background-color: #005bb5;
 }
@@ -119,8 +127,28 @@
     -fx-background-color: #004c99;
 }
 
+ /*TitledPane styles */
+#panel-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+#panel-title > .title {
+    -fx-background-color: #e6e6e6;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+#panel-title > .content {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+
 .btn-export {
-    /*-fx-background-color: #0066CC;*/
     -fx-background-color: #217346;
     -fx-background-radius: 4px;
     -fx-border: none;
@@ -134,4 +162,12 @@
     -fx-background-color: #0066CC;
 }
 
-
+.btn-clasic {
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}

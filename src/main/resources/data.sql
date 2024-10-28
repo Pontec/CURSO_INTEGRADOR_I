@@ -42,11 +42,11 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE empleado_roles (
-                               id_empleado INT NOT NULL,
-                               id_rol INT NOT NULL,
-                               PRIMARY KEY (id_empleado, id_rol),
-                               FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado),
-                               FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
+                                id_empleado INT NOT NULL,
+                                id_rol INT NOT NULL,
+                                PRIMARY KEY (id_empleado, id_rol),
+                                FOREIGN KEY (id_empleado) REFERENCES empleados(id_empleado),
+                                FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );
 
 
@@ -70,14 +70,14 @@ CREATE TABLE tipo_asiento (
                               id_tipo_asiento INT PRIMARY KEY AUTO_INCREMENT,
                               nombre VARCHAR(255) UNIQUE NOT NULL,
                               descripcion VARCHAR(255) UNIQUE NOT NULL,
-                              cargo_adicional DECIMAL(10, 2) NOT NULL CHECK (cargo_adicional IN (0, 15))
+                              cargo_adicional DECIMAL(10, 2) NOT NULL CHECK (cargo_adicional IN (0,10,15,20,25))
 );
 
 CREATE TABLE asientos (
                           id_asiento INT PRIMARY KEY AUTO_INCREMENT,
                           id_bus INT NOT NULL,
                           numero_asiento INT NOT NULL,
-                          estado ENUM('disponible', 'ocupado', 'reservado') NOT NULL DEFAULT 'disponible',
+                          estado ENUM('DISPONIBLE', 'OCUPADO') NOT NULL DEFAULT 'DISPONIBLE',
                           id_tipo_asiento INT NOT NULL,
                           precio DECIMAL(10, 2) NOT NULL,
                           FOREIGN KEY (id_bus) REFERENCES buses(id_bus),
@@ -105,7 +105,7 @@ CREATE TABLE compras (
                          id_compra INT PRIMARY KEY AUTO_INCREMENT,
                          id_cliente INT NOT NULL,
                          id_empleado INT NOT NULL,
-                         tipo_compra ENUM('boleta', 'encomienda') NOT NULL,
+                         tipo_compra ENUM('boleta', 'factura') NOT NULL,
                          fecha DATE NOT NULL,
                          hora TIME NOT NULL,
                          FOREIGN KEY (id_cliente) REFERENCES clientes(id_cliente),
@@ -145,16 +145,76 @@ CREATE TABLE detalle_encomienda (
 
 USE viacosta;
 
--- Insertar la sede ViaCosta
-INSERT INTO sedes (nombre_sede, direccion, ruc, ciudad, departamento, pais, telefono)
-VALUES ('ViaCosta', '123 Main St', '12345678901', 'Lima', 'Lima', 'Peru', '987654321');
+-- Insert data into the 'sedes' table
+INSERT INTO sedes (nombre_sede, direccion, ruc, ciudad, departamento, pais, telefono) VALUES
+                                                                                          ('Sede Central', 'Av. Principal 123', '123456789', 'Lima', 'Lima', 'Peru', '987654321'),
+                                                                                          ('Sede Sur', 'Av. Secundaria 456', '987654321', 'Arequipa', 'Arequipa', 'Peru', '123456789');
 
--- Insertar el empleado Andree Bermúdez
-INSERT INTO empleados ( dni, nombre, apellido,correo, contraseña ,telefono,  id_sede)
-VALUES ( '12345678', 'Andree', 'Bermúdez','user', "12345" ,'987654321',  1);
+-- Insert data into the 'roles' table
+INSERT INTO roles (nombre_rol) VALUES
+                                   ('ADMINISTRADOR'),
+                                   ('VENTAS');
 
-INSERT INTO roles (nombre_rol) VALUES ('ADMINISTRADOR');
-INSERT INTO roles (nombre_rol) VALUES ('VENTAS');
+-- Insert data into the 'empleados' table
+INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede) VALUES
+                                                                                         ('Juan', 'Perez', '12345678', 'admin', '123', '987654321', 1),
+                                                                                         ('Maria', 'Lopez', '87654321', 'maria.lopez@example.com', 'password456', '123456789', 2);
 
-INSERT INTO empleado_roles (id_empleado, id_rol) VALUES (1,1);
-INSERT INTO empleado_roles (id_empleado, id_rol) VALUES (1,2);
+-- Insert data into the 'empleado_roles' table
+INSERT INTO empleado_roles (id_empleado, id_rol) VALUES
+                                                     (1, 1),
+                                                     (2, 2);
+
+-- Insert data into the 'clientes' table
+INSERT INTO clientes (nombre, apellido, dni, correo, telefono, direccion) VALUES
+                                                                              ('Carlos', 'Gomez', '11223344', 'carlos.gomez@example.com', '987654321', 'Calle Falsa 123'),
+                                                                              ('Ana', 'Martinez', '44332211', 'ana.martinez@example.com', '123456789', 'Calle Verdadera 456');
+
+-- Insert data into the 'buses' table
+INSERT INTO buses (marca, placa, modelo, capacidad_asientos, capacidad_carga) VALUES
+                                                                                  ('Volvo', 'ABC-123', 'Modelo X', 50, 1000.0),
+                                                                                  ('Mercedes', 'XYZ-789', 'Modelo Y', 60, 1200.0);
+
+-- Insert data into the 'tipo_asiento' table
+INSERT INTO tipo_asiento (nombre, descripcion, cargo_adicional) VALUES
+                                                                    ('VIP', 'Asiento VIP', 25.0),
+                                                                    ('ECONOMICO', 'Asiento Económico', 0.0);
+
+-- Insert data into the 'asientos' table
+INSERT INTO asientos (id_bus, numero_asiento, estado, precio, id_tipo_asiento) VALUES
+                                                                                   (1, 1, 'DISPONIBLE', 100.0, 1),
+                                                                                   (1, 2, 'DISPONIBLE', 100.0, 1),
+                                                                                   (1, 3, 'DISPONIBLE', 50.0, 2),
+                                                                                   (2, 1, 'DISPONIBLE', 120.0, 1),
+                                                                                   (2, 2, 'DISPONIBLE', 120.0, 1),
+                                                                                   (2, 3, 'DISPONIBLE', 60.0, 2);
+
+-- Insert data into the 'rutas' table
+INSERT INTO rutas (origen, destino, duracion) VALUES
+                                                  ('Lima', 'Arequipa', '10h'),
+                                                  ('Lima', 'Cusco', '12h');
+
+-- Insert data into the 'asignacion_buses_rutas' table
+INSERT INTO asignacion_buses_rutas (id_bus, id_ruta, fecha_salida, hora_salida) VALUES
+                                                                                    (1, 1, '2023-10-01', '08:00:00'),
+                                                                                    (2, 2, '2023-10-02', '09:00:00');
+
+-- Insert data into the 'compras' table
+INSERT INTO compras (id_cliente, id_empleado, tipo_compra, fecha, hora) VALUES
+                                                                            (1, 1, 'boleta', '2023-10-01', '10:00:00'),
+                                                                            (2, 2, 'factura', '2023-10-02', '11:00:00');
+
+-- Insert data into the 'comprobantes' table
+INSERT INTO comprobantes (tipo_comprobante, numero_comprobante, fecha_emision) VALUES
+                                                                                   ('boleta', 12345, '2023-10-01'),
+                                                                                   ('factura', 67890, '2023-10-02');
+
+-- Insert data into the 'detalle_boleta' table
+INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_unitario, subtotal, id_comprobante, id_asiento, id_compra) VALUES
+                                                                                                                                                     ('Viaje Lima-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 100.0, 100.0, 1, 1, 1),
+                                                                                                                                                     ('Viaje Lima-Cusco', '2023-10-02', '09:00:00', 'efectivo', 120.0, 120.0, 2, 4, 2);
+
+-- Insert data into the 'detalle_encomienda' table
+INSERT INTO detalle_encomienda (descripcion, peso, metodo_pago, precio_unitario, subtotal, id_bus, id_comprobante, id_compra) VALUES
+                                                                                                                                  ('Encomienda 1', 10.0, 'tarjeta', 50, 50, 1, 1, 1),
+                                                                                                                                  ('Encomienda 2', 20.0, 'efectivo', 100, 100, 2, 2, 2);

@@ -68,8 +68,6 @@ public class AsientosControlador implements Initializable {
         for (AsientoModel asiento : asientos) {
             Button asientoButton = new Button("A " + asiento.getNumeroAsiento() + "-" + asiento.getTipoAsiento().getNombre());
 
-
-
             // Configurar el color del botón según el estado del asiento
             switch (asiento.getEstado()) {
                 case DISPONIBLE:

@@ -15,6 +15,7 @@ import jakarta.persistence.criteria.Root;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,8 +68,8 @@ public class DetalleBoletaServiceImpl implements DetalleBoletaService {
                     DetalleBoletaDTO dto = new DetalleBoletaDTO();
                     dto.setCliente(tuple.get(0, String.class)); // Cliente
                     dto.setRuta(tuple.get(1, String.class)); // Ruta
-                    dto.setFechaSalida(tuple.get(2, java.sql.Date.class).toLocalDate());// Fecha de salida
-                    dto.setHoraSalida(tuple.get(3, java.sql.Time.class).toLocalTime()); // Hora de salida
+                    dto.setFechaSalida(tuple.get(2, LocalDate.class));// Fecha de salida
+                    dto.setHoraSalida(tuple.get(3, LocalTime.class)); // Hora de salida
                     dto.setAsiento(tuple.get(4, Integer.class)); // Asiento
                     dto.setResponsable(tuple.get(5, String.class)); // Responsable
                     dto.setPrecioTotal(tuple.get(6, Double.class)); // Precio total

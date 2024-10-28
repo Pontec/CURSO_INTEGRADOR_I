@@ -103,7 +103,7 @@ public class ReportesController implements Initializable {
 
     @FXML
     public void handleKeyReleasedEmployee(Event event) {
-        actualizarTabla(txtCliente.getText(), true);
+        actualizarTabla(txtEmpleado.getText(), true);
     }
 
     @FXML
