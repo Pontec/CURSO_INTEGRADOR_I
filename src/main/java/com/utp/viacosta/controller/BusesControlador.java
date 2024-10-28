@@ -3,6 +3,8 @@ package com.utp.viacosta.controller;
 import com.utp.viacosta.model.AsientoModel;
 import com.utp.viacosta.model.BusModel;
 import com.utp.viacosta.model.TipoAsientoModel;
+import com.utp.viacosta.model.enums.Estado;
+import com.utp.viacosta.model.enums.TipoAsiento;
 import com.utp.viacosta.service.AsientoService;
 import com.utp.viacosta.service.BusService;
 import com.utp.viacosta.service.TipoAsientoService;
@@ -101,7 +103,7 @@ public class BusesControlador implements Initializable {
         for (int i = 0; i < capacidadAsiento; i++) {
             AsientoModel asientoModel = new AsientoModel();
             asientoModel.setNumeroAsiento(i);
-            asientoModel.setEstado(AsientoModel.Estado.DISPONIBLE);
+            asientoModel.setEstado(Estado.DISPONIBLE);
             asientoModel.setPrecio(0);
             asientoModel.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
 
@@ -145,7 +147,7 @@ public class BusesControlador implements Initializable {
             for (int i = listaAsientos.size(); i < capacidadAsiento; i++) {
                 AsientoModel asientoModel = new AsientoModel();
                 asientoModel.setNumeroAsiento(i);
-                asientoModel.setEstado(AsientoModel.Estado.DISPONIBLE);
+                asientoModel.setEstado(Estado.DISPONIBLE);
                 asientoModel.setPrecio(0);
 
                 if(i < Integer.parseInt(txt_asiento_vip.getText())){
@@ -177,7 +179,7 @@ public class BusesControlador implements Initializable {
         txt_modelo.setText(busModel.getModelo());
 
         long vipCount = asientoService.getAsientosPorBus(busModel.getIdBus()).stream()
-                .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsientoModel.TipoAsiento.VIP))
+                .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsiento.VIP))
                 .count();
         txt_asiento_vip.setText(String.valueOf(vipCount));
         txt_asiento_econocimio.setText(String.valueOf(busModel.getCapacidadAsientos() - vipCount));
