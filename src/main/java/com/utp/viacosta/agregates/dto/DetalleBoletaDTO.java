@@ -1,4 +1,4 @@
-package com.utp.viacosta.dto;
+package com.utp.viacosta.agregates.dto;
 
 import lombok.*;
 

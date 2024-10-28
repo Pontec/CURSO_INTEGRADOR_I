@@ -1,6 +1,6 @@
 package com.utp.viacosta.util;
 
-import com.utp.viacosta.dto.DetalleBoletaDTO;
+import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;

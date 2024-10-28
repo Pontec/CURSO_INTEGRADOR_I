@@ -27,9 +27,9 @@
       </Pane>
       <AnchorPane prefHeight="500.0" prefWidth="427.0" style="-fx-background-color: #cccc;">
          <children>
-            <ImageView fitHeight="367.0" fitWidth="364.0" layoutX="32.0" layoutY="68.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="571" fitWidth="432"  pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/logo-Via-Costa.png" />
+                  <Image url="@../img/login_via_costa.png" />
                </image></ImageView>
          </children>
       </AnchorPane>

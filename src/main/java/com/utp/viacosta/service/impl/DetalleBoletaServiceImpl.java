@@ -1,6 +1,6 @@
 package com.utp.viacosta.service.impl;
 
-import com.utp.viacosta.dto.DetalleBoletaDTO;
+import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
 import com.utp.viacosta.model.DetalleBoletaModel;
 import com.utp.viacosta.service.DetalleBoletaService;
 import com.utp.viacosta.util.SpecificationReports;

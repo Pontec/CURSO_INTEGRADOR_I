@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.empleadosControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.empleadosControlador">
    <children>
       <Pane layoutX="38.0" layoutY="74.0" prefHeight="614.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="32.0" AnchorPane.topAnchor="74.0">
          <children>
@@ -44,14 +44,14 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ComboBox fx:id="cboxRol" layoutX="23.0" layoutY="450.0" prefHeight="31.0" prefWidth="186.0" promptText="Selecciona un rol" />
+            <ComboBox fx:id="cboxRol" layoutX="23.0" layoutY="450.0" prefWidth="150.0" promptText="Selecciona un rol" />
             <Label layoutX="25.0" layoutY="427.0" text="Rol">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <Button fx:id="btn_guardar" layoutX="69.0" layoutY="494.0" mnemonicParsing="false" onAction="#guardarEmpleados" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
-            <Button fx:id="btn_actualizar" layoutX="69.0" layoutY="530.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="69.0" layoutY="565.0" mnemonicParsing="false" onAction="#handleEliminar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+            <Button fx:id="btn_guardar" layoutX="69.0" layoutY="494.0" mnemonicParsing="false" onAction="#guardarEmpleados" prefHeight="25.0" prefWidth="88.0" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="69.0" layoutY="530.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="88.0" text="Actualizar" />
+            <Button fx:id="btn_eliminar" layoutX="69.0" layoutY="565.0" mnemonicParsing="false" onAction="#handleEliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
             <PasswordField fx:id="txt_contraseña" layoutX="25.0" layoutY="393.0" promptText="********" />
             <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="104.0" text="Ingrese los datos">
                <font>
