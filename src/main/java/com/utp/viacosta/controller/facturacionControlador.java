@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.springframework.stereotype.Component;
@@ -105,9 +107,17 @@ public class facturacionControlador implements Initializable {
     }
 
     private Button crearBotonAsiento(AsientoModel asiento, int numeroAsiento) {
-        // Crear el botón del asiento
-        Button botonAsiento = new Button("A " + numeroAsiento);
+        // Crear el botón del asiento con icono
+
+        Button botonAsiento = new Button(String.valueOf(numeroAsiento));
         botonAsiento.getStyleClass().add("asiento-disponible");
+        botonAsiento.setPrefSize(60, 40);
+
+        Image imagen = new Image(getClass().getResourceAsStream("/img/icon-chair.png"));
+        ImageView imageView = new ImageView(imagen);
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(20);
+        botonAsiento.setGraphic(imageView);
 
         // Acción al hacer clic en el botón
         botonAsiento.setOnAction(event -> {

@@ -47,6 +47,8 @@ public class RutasControlador implements Initializable {
     private TextField txt_duracion;
     @FXML
     private TextField txt_origen;
+    @FXML
+    private TableColumn columnDescripcion;
 
 
     @Override

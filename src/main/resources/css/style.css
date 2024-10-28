@@ -105,14 +105,14 @@
 }
 
 
-.button {
-    -fx-background-color: #0066CC;
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-padding: 10px 20px;
-    -fx-background-radius: 5px;
-    -fx-border-radius: 5px;
-}
+/*.button {*/
+/*    -fx-background-color: #0066CC;*/
+/*    -fx-text-fill: white;*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-padding: 10px 20px;*/
+/*    -fx-background-radius: 5px;*/
+/*    -fx-border-radius: 5px;*/
+/*}*/
 
 
  /*TitledPane styles */
@@ -156,8 +156,6 @@
     -fx-border: none;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-border-width: 1px;
-    -fx-border-insets: -1px;
 }
 
 .asiento-disponible {
@@ -166,8 +164,8 @@
     -fx-border: #0066CC;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-border-width: 1px;
-    -fx-border-insets: -1px;
+    -fx-padding: 0px;
+    -fx-alignment: center;
 }
 
 .asiento-ocupado {
@@ -176,6 +174,6 @@
     -fx-border: none;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-border-width: 1px;
-    -fx-border-insets: -1px;
+    -fx-padding: 0px;
+    -fx-alignment: center;
 }

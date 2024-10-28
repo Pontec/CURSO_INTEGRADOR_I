@@ -29,8 +29,6 @@ public class AsientosControlador implements Initializable {
     @FXML
     private ComboBox<BusModel> cbocBuses;
     @FXML
-    private Button btnAsientos;
-    @FXML
     private GridPane asientosGridPane;
 
 

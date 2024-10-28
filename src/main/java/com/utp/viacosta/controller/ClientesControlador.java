@@ -23,8 +23,6 @@ public class ClientesControlador implements Initializable {
     private ClienteService clienteService;
 
     @FXML
-    private Button btn_actualizar;
-    @FXML
     private Button btn_eliminar;
     @FXML
     private Button btn_guardar;
@@ -53,6 +51,8 @@ public class ClientesControlador implements Initializable {
     private TextField txt_telefono;
     @FXML
     private TextField txt_dni;
+    @FXML
+    private Button btn_actulizar;
 
 
     @Override

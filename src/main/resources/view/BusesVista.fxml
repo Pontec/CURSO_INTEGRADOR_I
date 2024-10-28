@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.BusesControlador">
 
     <children>
         <Pane layoutX="38.0" layoutY="74.0" prefHeight="609.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="37.0" AnchorPane.topAnchor="74.0">
@@ -54,9 +54,9 @@
             <TextField fx:id="txt_asiento_vip" layoutX="25.0" layoutY="271.0" promptText="ejem. 10" />
             <TextField fx:id="txt_asiento_econocimio" layoutX="25.0" layoutY="325.0" promptText="ejem. 20" />
             <TextField fx:id="txt_carga_maxima" layoutX="25.0" layoutY="393.0" promptText="ejem. 2" />
-            <Button fx:id="btn_guardar" layoutX="75.0" layoutY="434.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="25.0" prefWidth="88.0" text="Guardar" />
-            <Button fx:id="btn_actualizar" layoutX="75.0" layoutY="477.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="25.0" prefWidth="88.0" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="75.0" layoutY="515.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
+            <Button fx:id="btn_guardar" layoutX="74.0" layoutY="440.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="74.0" layoutY="483.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+            <Button fx:id="btn_eliminar" layoutX="74.0" layoutY="525.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
             </children>
         </Pane>
         <Pane layoutX="274.0" layoutY="74.0" prefHeight="609.0" prefWidth="757.0" style="-fx-border-color: CCC;">

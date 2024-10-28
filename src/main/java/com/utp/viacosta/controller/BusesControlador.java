@@ -47,8 +47,6 @@ public class BusesControlador implements Initializable {
     private Button btn_eliminar;
     @FXML
     private Button btn_guardar;
-    @FXML
-    private Button btnGestionAsiento;
 
     @FXML
     private TableColumn<BusModel, String> columnPlaca;
@@ -214,7 +212,7 @@ public class BusesControlador implements Initializable {
 
 
     //Método para abrir la ventana de AsientoVista
-    @FXML
+    @Deprecated
     public void btnGestionAsiento(ActionEvent event) throws IOException {
         Parent fxmlLoader = FxmlCargarUtil.load("/view/AsientosVista.fxml");
         Stage stage = new Stage();
@@ -225,7 +223,7 @@ public class BusesControlador implements Initializable {
     }
 
     //Metodo para abrir la gestion de buses a rutas
-    @FXML
+    @Deprecated
     void btnAsignacionAsiento(ActionEvent event) throws IOException {
         Parent fxmlLoader = FxmlCargarUtil.load("/view/AsignacionRutasVista.fxml");
         Stage stage = new Stage();
