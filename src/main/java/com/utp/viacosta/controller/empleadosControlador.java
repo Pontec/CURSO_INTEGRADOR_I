@@ -140,7 +140,7 @@ public class empleadosControlador implements Initializable {
         cboxRol.getItems().setAll(rolService.findAll());
     }
 
-    @FXML
+    @Deprecated
     void handleEliminar(EmpleadoModel empleado) {
         // Lógica para eliminar al empleado
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estás seguro de que deseas eliminar este empleado?", ButtonType.YES, ButtonType.NO);
@@ -148,6 +148,7 @@ public class empleadosControlador implements Initializable {
             if (response == ButtonType.YES) {
                 empleadoService.deleteById(empleado.getId());
                 listarEmpleados(); // Volver a cargar la lista de empleados
+                btnLimpiar();
             }
         });
     }

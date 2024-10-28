@@ -99,11 +99,6 @@
     -fx-text-fill: #000000; /* Cambia el color del texto a negro */
 }
 
-
-
-
-
-
 /* General styles */
 .root {
     -fx-font-family: 'Arial';
@@ -152,4 +147,24 @@
     -fx-font-weight: bold;
     -fx-border-width: 1px;
     -fx-border-insets: -1px;
+}
+
+.asiento-disponible {
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: #0066CC;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
+}
+
+.asiento-ocupado {
+    -fx-background-color: red;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
 }

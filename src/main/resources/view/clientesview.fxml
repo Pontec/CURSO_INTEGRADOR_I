@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.ClientesControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.ClientesControlador">
    <children>
       <Pane layoutX="38.0" layoutY="65.0" prefHeight="623.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="32.0" AnchorPane.topAnchor="65.0">
          <children>
@@ -35,9 +35,8 @@
                </font></Label>
             <TextField fx:id="txt_apellido" layoutX="23.0" layoutY="210.0" promptText="ingresa tu apellido" />
             <TextField fx:id="txt_telefono" layoutX="23.0" layoutY="264.0" promptText="ejem. 931749376" />
-            <Button fx:id="btn_guardar" layoutX="62.0" layoutY="393.0" mnemonicParsing="false" onAction="#act_save" prefHeight="25.0" prefWidth="88.0" text="Guardar" />
-            <Button fx:id="btn_actulizar" layoutX="62.0" layoutY="432.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="88.0" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="62.0" layoutY="474.0" mnemonicParsing="false" onAction="#act_eliminar" prefHeight="25.0" prefWidth="88.0" text="Eliminar" />
+            <Button fx:id="btn_guardar" layoutX="62.0" layoutY="393.0" mnemonicParsing="false" onAction="#act_save" prefHeight="25.0" prefWidth="88.0" styleClass="btn-clasic" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="62.0" layoutY="393.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="30.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
             <TextField fx:id="txt_correo" layoutX="23.0" layoutY="322.0" promptText="hola@gmail.com" />
             <TextField fx:id="txt_dni" layoutX="23.0" layoutY="106.0" promptText="Ingresa tu dni" />
             <TextField fx:id="txt_nombre" layoutX="23.0" layoutY="155.0" promptText="Ingresa tu nombre" />
@@ -51,18 +50,19 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Button fx:id="btnLimpiar" layoutX="62.0" layoutY="438.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="30.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
          </children>
       </Pane>
       <Pane layoutX="274.0" layoutY="62.0" prefHeight="623.0" prefWidth="757.0" style="-fx-border-color: CCC;">
          <children>
-            <TableView fx:id="tabla_clientes" layoutX="14.0" layoutY="29.0" prefHeight="613.0" prefWidth="717.0" stylesheets="@../css/style.css">
+            <TableView fx:id="tabla_clientes" layoutX="14.0" layoutY="29.0" prefHeight="586.0" prefWidth="717.0" stylesheets="@../css/style.css">
                <columns>
-                  <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                  <TableColumn fx:id="columnNombre" prefWidth="153.60000610351562" text="NOMBRE" />
-                  <TableColumn fx:id="columnApellido" prefWidth="125.0" text="APELLIDO" />
-                  <TableColumn fx:id="columnDni" prefWidth="96.0" text="DNI" />
+                  <TableColumn fx:id="columnId" prefWidth="34.0" text="ID" />
+                  <TableColumn fx:id="columnNombre" prefWidth="133.0" text="NOMBRE" />
+                  <TableColumn fx:id="columnApellido" prefWidth="127.0" text="APELLIDO" />
+                  <TableColumn fx:id="columnDni" prefWidth="98.0" text="DNI" />
                   <TableColumn fx:id="columnTelefono" prefWidth="88.0" text="TELEFONO" />
-                  <TableColumn fx:id="columnCorreo" prefWidth="212.0" text="CORREO" />
+                  <TableColumn fx:id="columnCorreo" prefWidth="151.0" text="CORREO" />
                </columns>
             </TableView>
          </children>
