@@ -76,7 +76,7 @@ public class VentanaPrincipalController implements Initializable {
             btn_facturacion.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_reportes.setVisible(roles.contains("ADMINISTRADOR"));
             btn_config.setVisible(roles.contains("ADMINISTRADOR"));
-            btn_logout.setVisible(true);
+            btn_logout.setVisible(roles.contains("ADMINISTRADOR"));
         }
     }
 
@@ -130,6 +130,11 @@ public class VentanaPrincipalController implements Initializable {
     @FXML
     public void btnReportes(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/view/reportesview.fxml");
+        ventanaPrincipal.setCenter(vista);
+    }
+    @FXML
+    public void btn_config(ActionEvent actionEvent) throws IOException {
+        Parent vista = FxmlCargarUtil.load("/view/SedeVista.fxml");
         ventanaPrincipal.setCenter(vista);
     }
 
@@ -201,9 +206,9 @@ public class VentanaPrincipalController implements Initializable {
             } else if (source == btn_reportes) {
                 vista = FxmlCargarUtil.load("/view/reportesview.fxml");
             }  else if (source == btn_config) {
-                //
+                vista = FxmlCargarUtil.load("/view/SedeVista.fxml");
             } else if (source == btn_logout) {
-                //
+
             }
             if (vista != null) {
                 ventanaPrincipal.setCenter(vista);
