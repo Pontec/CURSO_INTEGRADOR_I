@@ -1,6 +1,6 @@
 package com.utp.viacosta.controller;
 
-import com.utp.viacosta.dto.DetalleBoletaDTO;
+import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
 import com.utp.viacosta.service.DetalleBoletaService;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import com.utp.viacosta.util.FxmlReportes;

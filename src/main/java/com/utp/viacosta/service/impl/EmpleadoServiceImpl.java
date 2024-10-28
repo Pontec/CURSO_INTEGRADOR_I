@@ -3,6 +3,7 @@ package com.utp.viacosta.service.impl;
 import com.utp.viacosta.dao.EmpleadoRepository;
 import com.utp.viacosta.model.EmpleadoModel;
 import com.utp.viacosta.service.EmpleadoService;
+import javafx.scene.control.Alert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,6 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     }
 
     @Override
-    public Optional<EmpleadoModel> findById(Integer id) {
-        return empleadoRepository.findById(id);
-    }
-
-    @Override
     public EmpleadoModel findByCorreo(String usuario) {
         return empleadoRepository.findByCorreo(usuario);
     }
@@ -38,6 +34,14 @@ public class EmpleadoServiceImpl implements EmpleadoService {
     @Override
     public void deleteById(Integer id) {
         empleadoRepository.deleteById(id);
+    }
+
+    @Override
+    public EmpleadoModel autenticar(String correo, String password) {
+        EmpleadoModel usuario = findByCorreo(correo);
+        if (usuario != null && usuario.getPassword().equals(password)) {
+            return usuario;
+        } throw new IllegalArgumentException("Credeciales incorrectas");
     }
 
 
