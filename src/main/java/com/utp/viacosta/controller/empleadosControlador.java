@@ -112,6 +112,7 @@ public class empleadosControlador implements Initializable {
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
         // Configurar la columna de acciones
+
         columnAcciones.setCellFactory(col -> new TableCell<EmpleadoModel, Void>() {
             private final FontAwesomeIconView iconoEliminar = new FontAwesomeIconView(FontAwesomeIcon.TRASH_ALT);
             @Override
@@ -130,6 +131,7 @@ public class empleadosControlador implements Initializable {
                 }
             }
         });
+        
         tabla_empleados.getItems().setAll(empleadoService.findAll());
 
     }
