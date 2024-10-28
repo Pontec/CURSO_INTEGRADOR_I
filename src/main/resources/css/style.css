@@ -62,7 +62,7 @@
     -fx-text-fill: #ffffff;
 }
 
-/*FACTURACION*/
+/*TABLAS*/
 .table-view {
     -fx-background-color: white;
     -fx-border-color: #E6F3FF;
@@ -88,6 +88,7 @@
     -fx-background-color: white;
     -fx-border-color: transparent;
     -fx-table-cell-border-color: transparent;
+    -fx-pref-height: 30px;
 }
 
 .table-row-cell:odd {
@@ -114,7 +115,6 @@
     -fx-background-color: #0066CC;
     -fx-text-fill: white;
     -fx-font-size: 12px;
-    -fx-padding: 10px 20px;
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
 }
