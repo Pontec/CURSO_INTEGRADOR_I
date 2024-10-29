@@ -22,6 +22,10 @@ import java.util.ResourceBundle;
 
 @Component
 public class LoginController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 
     @Autowired
     private EmpleadoServiceImpl empleadoServiceImpl;
@@ -37,26 +41,17 @@ public class LoginController implements Initializable {
         Login();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-    }
-
     // Metodo que maneja el inicio de sesión
-    public void Login() throws IOException {
+    public void Login() {
         String correo = txt_correo.getText();
         String password = txt_password.getText();
-
-
-        // Buscar el usuario por correo
-        EmpleadoModel usuario = empleadoServiceImpl.findByCorreo(correo);
-
-        if (usuario != null && usuario.getPassword().equals(password)) {
-            //mostrarAlerta("Inicio de sesión exitoso", "Bienvenido " + usuario.getCorreo(), Alert.AlertType.INFORMATION);
-            // Llamar al metodo para abrir la nueva ventana
+        try {
+            EmpleadoModel usuario = empleadoServiceImpl.autenticar(correo, password);
             abrirNuevaVentana(usuario);
-
-        } else {
-            mostrarAlerta("Error de autenticación", "Correo o contraseña incorrectos", Alert.AlertType.ERROR);
+        } catch (IllegalArgumentException e) {
+            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+        } catch (IOException e) {
+            mostrarAlerta("Error", "Error al abrir la nueva ventana", Alert.AlertType.ERROR);
         }
     }
 
@@ -72,17 +67,10 @@ public class LoginController implements Initializable {
 
     // Metodo para abrir la nueva ventana o cambiar de escena
     public void abrirNuevaVentana(EmpleadoModel usuario) throws IOException {
-        // Crear un FXMLLoader para cargar el archivo FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/VentanaPrincipal.fxml"));
-
-        // Cargar el archivo FXML
         Parent root = loader.load();
-
-        // Obtener el controlador del archivo FXML cargado
         VentanaPrincipalController ventanaController = loader.getController();
         ventanaController.setEmpleadoModel(usuario); // Configura el usuario actual en el controlador
-
-        // Obtener el stage actual desde el botón o la ventana
         Stage stage = (Stage) btn_ingresar.getScene().getWindow();
 
         // Cambiar la escena

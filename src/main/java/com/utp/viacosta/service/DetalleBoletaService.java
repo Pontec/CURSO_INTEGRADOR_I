@@ -1,9 +1,8 @@
 package com.utp.viacosta.service;
 
-import com.utp.viacosta.dto.DetalleBoletaDTO;
+import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 public interface DetalleBoletaService {

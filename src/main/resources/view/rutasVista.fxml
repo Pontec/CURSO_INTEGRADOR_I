@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.RutasControlador">
+<AnchorPane prefHeight="720" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.RutasControlador">
     <children>
         <Pane layoutX="38.0" layoutY="74.0" prefHeight="595.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="51.0" AnchorPane.topAnchor="74.0">
             <children>
@@ -34,9 +34,9 @@
             <TextField fx:id="txt_destino" layoutX="32.0" layoutY="162.0" promptText="ingresa el destino" />
             <TextField fx:id="txt_origen" layoutX="33.0" layoutY="113.0" promptText="ingresa el origen" />
             <TextArea fx:id="txt_adicional" layoutX="32.0" layoutY="264.0" prefHeight="69.0" prefWidth="149.0" />
-            <Button fx:id="btn_agregar" layoutX="63.0" layoutY="376.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="25.0" prefWidth="95.0" text="Agregar" />
-            <Button fx:id="btn_eliminar" layoutX="63.0" layoutY="448.0" mnemonicParsing="false" onAction="#act_eliminar" prefHeight="25.0" prefWidth="95.0" text="Eliminar" />
-            <Button fx:id="btn_actualizar" layoutX="66.0" layoutY="409.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="95.0" text="Actualizar" />
+            <Button fx:id="btn_agregar" layoutX="63.0" layoutY="376.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" />
+            <Button fx:id="btn_eliminar" layoutX="63.0" layoutY="461.0" mnemonicParsing="false" onAction="#act_eliminar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+            <Button fx:id="btn_actualizar" layoutX="64.0" layoutY="418.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
             <Label layoutX="25.0" layoutY="17.0" style="-fx-text-fill: #0066CC;" text="Selección de Ruta">
                <font>
                   <Font name="System Bold" size="20.0" />

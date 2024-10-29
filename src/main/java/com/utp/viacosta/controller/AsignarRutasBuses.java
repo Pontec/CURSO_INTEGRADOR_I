@@ -65,21 +65,17 @@ public class AsignarRutasBuses implements Initializable {
     private TableView<AsignacionBusRutaModel> tablaBusesRutas;
 
     @FXML
-    private DatePicker fechaHoraLlegada;
-    @FXML
     private DatePicker fechaHoraSalida;
-    @FXML
-    private TextField txtHoraLlegada;
 
     @FXML
     private TextField txtHoraSalida;
 
-    @FXML
+    @Deprecated
     void actFechaHoraSalida(ActionEvent event) {
 
     }
 
-    @FXML
+    @Deprecated
     void actfechaHoraLlegada(ActionEvent event) {
 
     }

@@ -5,10 +5,7 @@ import com.utp.viacosta.service.ClienteService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,11 +20,7 @@ public class ClientesControlador implements Initializable {
     private ClienteService clienteService;
 
     @FXML
-    private Button btn_actualizar;
-    @FXML
-    private Button btn_eliminar;
-    @FXML
-    private Button btn_guardar;
+    private Button btn_actualizar,btn_guardar, btnLimpiar;
     @FXML
     private TableColumn<ClienteModel, String> columnApellido;
     @FXML
@@ -44,16 +37,7 @@ public class ClientesControlador implements Initializable {
     private TableView<ClienteModel> tabla_clientes;
 
     @FXML
-    private TextField txt_apellido;
-    @FXML
-    private TextField txt_correo;
-    @FXML
-    private TextField txt_nombre;
-    @FXML
-    private TextField txt_telefono;
-    @FXML
-    private TextField txt_dni;
-
+    private TextField txt_apellido, txt_correo, txt_nombre, txt_telefono, txt_dni;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -62,13 +46,22 @@ public class ClientesControlador implements Initializable {
         tabla_clientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 seleccionarCliente();
+                btn_guardar.setVisible(false);
+                btn_actualizar.setVisible(true);
+                btnLimpiar.setVisible(true);
             }
         });
+        btn_guardar.setVisible(true);
+        btn_actualizar.setVisible(false);
+        btnLimpiar.setVisible(false);
 
     }
 
     @FXML
     void act_save(ActionEvent event) {
+        if (!validarEntradas()) {
+            return;
+        }
 
         ClienteModel clienteModel = new ClienteModel();
         clienteModel.setNombre(txt_nombre.getText());
@@ -80,6 +73,7 @@ public class ClientesControlador implements Initializable {
         clienteService.guardarCliente(clienteModel);
         listarClientes();
         limpiar();
+        limpiarStyles();
     }
 
     private void listarClientes() {
@@ -89,19 +83,18 @@ public class ClientesControlador implements Initializable {
         columnDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
         columnCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+
+        //configurar la columna de acciones
+
+
         tabla_clientes.getItems().setAll(clienteService.listaClientes());
     }
 
     @FXML
-    void act_eliminar(ActionEvent event) {
-        ClienteModel clienteModel = tabla_clientes.getSelectionModel().getSelectedItem();
-        clienteService.eliminarCliente(clienteModel.getIdCliente());
-        listarClientes();
-        limpiar();
-    }
-
-    @FXML
     void act_actualizar(ActionEvent event) {
+        if (!validarEntradas()) {
+            return;
+        }
         ClienteModel clienteModel = tabla_clientes.getSelectionModel().getSelectedItem();
         clienteModel.setNombre(txt_nombre.getText());
         clienteModel.setApellido(txt_apellido.getText());
@@ -112,10 +105,15 @@ public class ClientesControlador implements Initializable {
         clienteService.actualizarCliente(clienteModel);
         listarClientes();
         limpiar();
+        limpiarStyles();
     }
-
-
-
+    @FXML
+    public void actLimpiar(ActionEvent event) {
+        limpiar();
+        btn_guardar.setVisible(true);
+        btn_actualizar.setVisible(false);
+        btnLimpiar.setVisible(false);
+    }
 
 
     //Metodos de apoyo
@@ -136,6 +134,73 @@ public class ClientesControlador implements Initializable {
         txt_dni.setText(clienteModel.getDni());
         txt_correo.setText(clienteModel.getCorreo());
         txt_telefono.setText(clienteModel.getTelefono());
+    }
+
+
+
+    //Metodos para validar los campos
+    private boolean validarNombre() {
+        if (txt_nombre.getText().isEmpty()) {
+            txt_nombre.setStyle("-fx-border-color: red");
+            mostrarAlerta("El nombre no puede estar vacio.");
+            return false;
+        } else {
+            txt_nombre.setStyle("-fx-border-color: green");
+        }
+        return true;
+    }
+
+    private boolean validarApellido() {
+        if (txt_apellido.getText().isEmpty()) {
+            txt_apellido.setStyle("-fx-border-color: red");
+            mostrarAlerta("El apellido no puede estar vacio.");
+            return false;
+        } else {
+            txt_apellido.setStyle("-fx-border-color: green");
+        }
+        return true;
+    }
+
+    private boolean validarDni() {
+        String dni = txt_dni.getText();
+        if (dni.isEmpty() || dni.length() != 8) {
+            txt_dni.setStyle("-fx-border-color: red");
+            mostrarAlerta("El DNI debe tener 8 digitos.");
+            return false;
+        } else {
+            txt_dni.setStyle("-fx-border-color: green");
+        }
+        return true;
+    }
+
+    private boolean validarCorreo() {
+        String correo = txt_correo.getText();
+        if ( !correo.isEmpty() && !correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            txt_correo.setStyle("-fx-border-color: red");
+            mostrarAlerta("Ingrese un correo valido");
+            return false;
+        } else {
+            txt_correo.setStyle("-fx-border-color: green");
+        }
+        return true;
+    }
+
+    private boolean validarEntradas() {
+        return validarDni() && validarNombre() && validarApellido() && validarCorreo();
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(mensaje);
+        alert.show();
+    }
+
+    private void limpiarStyles() {
+        txt_nombre.setStyle("");
+        txt_apellido.setStyle("");
+        txt_dni.setStyle("");
+        txt_correo.setStyle("");
+        txt_telefono.setStyle("");
     }
 
 }

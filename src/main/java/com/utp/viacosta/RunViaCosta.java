@@ -29,6 +29,7 @@ public class RunViaCosta extends Application{
 
 		//Cargar archivo css
 		Scene scene = new Scene(fxml.load());
+		scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
 
 		stage.setTitle("Sistema Pasajes Via Costa");
 		stage.setScene(scene);
