@@ -40,15 +40,8 @@ public class RutasControlador implements Initializable {
     private TableView<RutaModel> tabla_rutas;
 
     @FXML
-    private TextArea txt_adicional;
-    @FXML
-    private TextField txt_destino;
-    @FXML
-    private TextField txt_duracion;
-    @FXML
-    private TextField txt_origen;
-    @FXML
-    private TableColumn columnDescripcion;
+    private TextField txt_destino, txt_duracion, txt_origen;
+
 
 
     @Override
@@ -58,6 +51,13 @@ public class RutasControlador implements Initializable {
         tabla_rutas.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 seleccionarRuta();
+                btn_actualizar.setDisable(false);
+                btn_eliminar.setDisable(false);
+                btn_agregar.setDisable(true);
+            } else {
+                btn_actualizar.setDisable(true);
+                btn_eliminar.setDisable(true);
+                btn_agregar.setDisable(false);
             }
         });
 
@@ -121,6 +121,7 @@ public class RutasControlador implements Initializable {
         txt_destino.setText(ruta.getDestino());
         txt_duracion.setText(ruta.getDuracion());
     }
+
 
 
 }
