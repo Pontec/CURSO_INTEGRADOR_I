@@ -1,6 +1,7 @@
 package com.utp.viacosta.service.impl;
 
 import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
+import com.utp.viacosta.dao.DetalleBoletaRepository;
 import com.utp.viacosta.model.DetalleBoletaModel;
 import com.utp.viacosta.service.DetalleBoletaService;
 import com.utp.viacosta.util.SpecificationReports;
@@ -12,6 +13,7 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -21,6 +23,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class DetalleBoletaServiceImpl implements DetalleBoletaService {
+
+    @Autowired
+    private DetalleBoletaRepository detalleBoletaRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -46,7 +51,9 @@ public class DetalleBoletaServiceImpl implements DetalleBoletaService {
     @Override
     public List<DetalleBoletaDTO> getAllDetalleBoletasForDate(LocalDate fechaInicio, LocalDate fechaFin) {
         SpecificationReports specification = new SpecificationReports(null, null, fechaInicio, fechaFin);
+        List<DetalleBoletaModel> detalle = detalleBoletaRepository.findAll();
         return ejecutarConsulta(specification);
+
     }
 
     private List<DetalleBoletaDTO> ejecutarConsulta(SpecificationReports specification) {

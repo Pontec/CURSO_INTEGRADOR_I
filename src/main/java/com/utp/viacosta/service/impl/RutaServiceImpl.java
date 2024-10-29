@@ -7,12 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RutaServiceImpl implements RutaService {
 
     @Autowired
     private RutaRepository rutaRepository;
+
+    @Override
+    public Optional<RutaModel> buscarPorId(int idRuta){
+        return rutaRepository.findById(idRuta);
+    }
 
     @Override
     public void guardarRuta(RutaModel rutaModel) {

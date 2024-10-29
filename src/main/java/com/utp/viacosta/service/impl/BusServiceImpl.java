@@ -8,11 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BusServiceImpl implements BusService {
     @Autowired
     private BusRepository busRepository;
+
+    @Override
+    public Optional<BusModel> findById(Integer id) {
+        return busRepository.findById(id);
+    }
 
     @Override
     public List<BusModel> findAll() {

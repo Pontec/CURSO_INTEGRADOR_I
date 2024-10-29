@@ -1,7 +1,13 @@
 package com.utp.viacosta.controller;
 
 import com.utp.viacosta.model.AsientoModel;
+import com.utp.viacosta.model.AsignacionBusRutaModel;
+import com.utp.viacosta.model.RutaModel;
 import com.utp.viacosta.model.enums.Estado;
+import com.utp.viacosta.service.AsientoService;
+import com.utp.viacosta.service.AsignacionBusRutaService;
+import com.utp.viacosta.service.BusService;
+import com.utp.viacosta.service.RutaService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
@@ -32,12 +39,28 @@ public class facturacionControlador implements Initializable {
     private Button volverPanel1;
     @FXML
     private GridPane gridAsientos;
+    @Autowired
+    private AsientoService asientoService;
+    @Autowired
+    private AsignacionBusRutaService asignacionBusRutaService;
+    @FXML
+    private GridPane gridBuses;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setearAsientos(generarAsientosDisponibles(1, 1, 10.0));
+        setearBus();
     }
 
+    private void setearBus(){
+        List<AsignacionBusRutaModel> asignaciones = asignacionBusRutaService.findAll();
+        int fila = 0;
+        for (AsignacionBusRutaModel asignacion : asignaciones) {
+            Button boton = generarBotonItinerario(asignacion);
+            gridBuses.add(boton,0,fila);
+            fila++;
+        }
+    }
 
     private void setearAsientos(List<AsientoModel> asientos) {
         // Índice para recorrer la lista de asientos
@@ -153,21 +176,22 @@ public class facturacionControlador implements Initializable {
         }
     }
 
-    public List<AsientoModel> generarAsientosDisponibles(int idBus, int idTipoAsiento, double precioBase) {
-        List<AsientoModel> asientos = new ArrayList<>();
-
-        for (int i = 1; i <= 52; i++) {
-            AsientoModel asiento = new AsientoModel();
-            asiento.setIdBus(idBus);  // Asignar el ID del bus
-            asiento.setNumeroAsiento(i);  // Asignar el número de asiento (1 a 52)
-            asiento.setEstado(Estado.DISPONIBLE);  // Asignar estado DISPONIBLE
-            asiento.setPrecio(precioBase);  // Asignar el precio base
-            asiento.setIdTipoAsiento(idTipoAsiento);  // Asignar el ID del tipo de asiento
-
-            // Añadir asiento a la lista
-            asientos.add(asiento);
-        }
-
-        return asientos;
+    private Button generarBotonItinerario(AsignacionBusRutaModel asignacion){
+        List<AsientoModel> asientos = asientoService.getAsientosPorBus(asignacion.getIdBus());
+        Button botonBus = new Button();
+        botonBus.setPrefSize(Double.MAX_VALUE, 40);
+        botonBus.getStyleClass().add("boton-itinerario");
+        botonBus.setText(asignacion.getRutaAsignada().getOrigen() + " - " + asignacion.getRutaAsignada().getDestino()+"\n" + asignacion.getHoraSalida().toString());
+        Image imagen = new Image(getClass().getResourceAsStream("/img/icon-bus.png"));
+        ImageView imageView = new ImageView(imagen);
+        imageView.setFitHeight(20);
+        imageView.setFitWidth(20);
+        botonBus.setGraphic(imageView);
+        botonBus.setOnAction(event -> {
+            gridAsientos.getChildren().clear();
+            botonBus.getStyleClass().add("boton-itinerario-active");
+            setearAsientos(asientos);
+        });
+        return botonBus;
     }
 }

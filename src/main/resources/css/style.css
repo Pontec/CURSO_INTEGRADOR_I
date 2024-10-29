@@ -168,3 +168,26 @@
     -fx-padding: 0px;
     -fx-alignment: center;
 }
+
+.boton-itinerario{
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
+}
+
+.boton-itinerario-active{
+    -fx-background-color: #002559;
+
+}
+
+.boton-itinerario:hover {
+    -fx-background-color: #002559;
+}
+
+.boton-itinerario-disabled{
+    -fx-background-color: #3b3b3b;
+}
