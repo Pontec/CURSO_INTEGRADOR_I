@@ -73,7 +73,7 @@ public class SedeControlador implements Initializable {
 
 
         sedeService.guardarSede(sedeModel);
-        clear();
+        clear();git
     }
     //metodo de limpiar
     @FXML
