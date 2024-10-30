@@ -61,8 +61,6 @@ public class facturacionControlador implements Initializable {
     private AsignacionBusRutaService asignacionBusRutaService;
     @FXML
     private DatePicker dateFechaViaje;
-    @FXML
-    private Button btnMostrarViajes;
 
 
     @Override
@@ -250,7 +248,7 @@ public class facturacionControlador implements Initializable {
         }
     }
 
-    @FXML
+    @Deprecated
     public void mostrarViajes(ActionEvent actionEvent) {
         if (dateFechaViaje.getValue() != null && cmbOrigen.getValue() != null && cmbDestino.getValue() != null) {
             LocalDate fecha = dateFechaViaje.getValue();

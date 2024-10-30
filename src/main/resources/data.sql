@@ -280,3 +280,8 @@ INSERT INTO detalle_encomienda (descripcion, peso, metodo_pago, precio_unitario,
                                 id_compra)
 VALUES ('Encomienda 1', 10.0, 'tarjeta', 50, 50, 1, 1, 1),
        ('Encomienda 2', 20.0, 'efectivo', 100, 100, 2, 2, 2);
+
+-- Falta actualizar tabla empleados
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 3);
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 2);
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 1);
