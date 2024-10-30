@@ -4,8 +4,6 @@ import com.utp.viacosta.model.EmpleadoModel;
 import com.utp.viacosta.model.RolModel;
 import com.utp.viacosta.service.EmpleadoService;
 import com.utp.viacosta.service.RolService;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -111,22 +109,28 @@ public class empleadosControlador implements Initializable {
         columnRol.setCellValueFactory(new PropertyValueFactory<>("rolNombres"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
-        // Configurar la columna de acciones
+        // Configurar la columna de Estado
 
-        columnAcciones.setCellFactory(col -> new TableCell<EmpleadoModel, Void>() {
-            private final FontAwesomeIconView iconoEliminar = new FontAwesomeIconView(FontAwesomeIcon.TRASH_ALT);
+        columnAcciones.setCellFactory(col -> new TableCell<>() {
+            private final Button iconoEstado = new Button();
+            {
+               iconoEstado.setOnAction(event -> {
+                    EmpleadoModel empleado = getTableView().getItems().get(getIndex());
+                    empleado.setEstado(!empleado.isEstado());
+                    empleadoService.save(empleado);
+                    listarEmpleados();
+                });
+            }
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setGraphic(null);
                 } else {
-                    setGraphic(iconoEliminar);
-                    iconoEliminar.setOnMouseClicked(event -> {
-                        EmpleadoModel empleadoModel = getTableView().getItems().get(getIndex());
-                        handleEliminar(empleadoModel);
-                    });
-
+                    EmpleadoModel empleado = getTableView().getItems().get(getIndex());
+                    iconoEstado.setText(empleado.isEstado() ? "Deshabilitar" : "   Habilitar  ");
+                    iconoEstado.setStyle(empleado.isEstado() ? "-fx-background-color: #ef1313; -fx-text-fill: white; " : "-fx-background-color: #41dc41;-fx-text-fill: white;");
+                    setGraphic(iconoEstado);
                 }
             }
         });
@@ -135,19 +139,6 @@ public class empleadosControlador implements Initializable {
 
     private void cargarRoles(){
         cboxRol.getItems().setAll(rolService.findAll());
-    }
-
-    @Deprecated
-    void handleEliminar(EmpleadoModel empleado) {
-        // Lógica para eliminar al empleado
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estás seguro de que deseas eliminar este empleado?", ButtonType.YES, ButtonType.NO);
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.YES) {
-                empleadoService.deleteById(empleado.getId());
-                listarEmpleados(); // Volver a cargar la lista de empleados
-                btnLimpiar();
-            }
-        });
     }
 
     @FXML

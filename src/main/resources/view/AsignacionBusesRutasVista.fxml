@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.AsignarRutasBuses">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.AsignarRutasBuses">
 
     <children>
         <Pane layoutX="38.0" layoutY="65.0" prefHeight="623.0" prefWidth="259.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="32.0" AnchorPane.topAnchor="65.0">
@@ -25,7 +25,7 @@
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
                 <Button fx:id="btn_guardar" layoutX="70.0" layoutY="476.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
-                <Button fx:id="btn_actulizar" layoutX="71.0" layoutY="517.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+                <Button fx:id="btn_actulizar" layoutX="71.0" layoutY="517.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
                 <Button fx:id="btn_eliminar" layoutX="70.0" layoutY="556.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
                 <Label layoutX="23.0" layoutY="24.0" style="-fx-text-fill: #0066CC;" text="Asignacion">
                     <font>
@@ -55,13 +55,13 @@
         </Pane>
         <Pane layoutX="315.0" layoutY="65.0" prefHeight="623.0" prefWidth="717.0" style="-fx-border-color: CCC;">
             <children>
-                <TableView fx:id="tablaBusesRutas" layoutX="25.0" layoutY="63.0" prefHeight="540.0" prefWidth="667.0" stylesheets="@../css/style.css">
+                <TableView fx:id="tablaBusesRutas" layoutX="25.0" layoutY="18.0" prefHeight="585.0" prefWidth="667.0" stylesheets="@../css/style.css">
                     <columns>
-                        <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                        <TableColumn fx:id="columnRuta" prefWidth="153.60000610351562" text="RUTA" />
-                        <TableColumn fx:id="columnBus" prefWidth="125.0" text="BUS" />
-                        <TableColumn fx:id="columnFechaSalida" prefWidth="158.0" text="FECHA SALIDA" />
-                  <TableColumn fx:id="columnHoraSalida" prefWidth="188.0" text="HORA SALIDA" />
+                        <TableColumn fx:id="columnId" prefWidth="33.0" text="ID" />
+                        <TableColumn fx:id="columnRuta" prefWidth="176.0" text="RUTA" />
+                        <TableColumn fx:id="columnBus" prefWidth="147.0" text="BUS" />
+                        <TableColumn fx:id="columnFechaSalida" prefWidth="139.0" text="FECHA SALIDA" />
+                  <TableColumn fx:id="columnHoraSalida" prefWidth="161.0" text="HORA SALIDA" />
                     </columns>
                 </TableView>
             </children>

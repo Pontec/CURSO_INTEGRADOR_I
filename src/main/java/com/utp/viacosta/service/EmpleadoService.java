@@ -9,7 +9,5 @@ public interface EmpleadoService {
     List<EmpleadoModel> findAll();
     EmpleadoModel findByCorreo(String usuario);
     EmpleadoModel save(EmpleadoModel empleado);
-    void deleteById(Integer id);
     EmpleadoModel autenticar(String correo, String password);
-
 }

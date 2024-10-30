@@ -141,10 +141,21 @@ public class VentanaPrincipalController implements Initializable {
     @FXML
     public void btn_logout(ActionEvent actionEvent) throws IOException {
         // Cerrar sesión
-        System.out.println("Cerrando sesión...-------------------");
-        Platform.exit();
-        System.exit(0);
+        Parent loginView = FxmlCargarUtil.load("/view/Loginview.fxml");
+        // Obtener el escenario actual y establecer la nueva escena
+        Stage stage = (Stage) ventanaPrincipal.getScene().getWindow();
+        stage.getScene().setRoot(loginView);
     }
+
+
+
+
+
+
+
+
+
+
 
 
     @FXML
@@ -216,7 +227,6 @@ public class VentanaPrincipalController implements Initializable {
             }  else if (source == btn_config) {
                 vista = FxmlCargarUtil.load("/view/SedeVista.fxml");
             } else if (source == btn_logout) {
-
             }
             if (vista != null) {
                 ventanaPrincipal.setCenter(vista);
