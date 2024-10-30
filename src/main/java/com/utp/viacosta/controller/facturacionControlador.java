@@ -248,7 +248,7 @@ public class facturacionControlador implements Initializable {
         }
     }
 
-    @Deprecated
+    @FXML
     public void mostrarViajes(ActionEvent actionEvent) {
         if (dateFechaViaje.getValue() != null && cmbOrigen.getValue() != null && cmbDestino.getValue() != null) {
             LocalDate fecha = dateFechaViaje.getValue();
