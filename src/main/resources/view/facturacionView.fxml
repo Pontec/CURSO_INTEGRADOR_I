@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contenedorPanelFact" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controller.facturacionControlador">
+   <children>
+      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0">
+         <children>
+            <Pane layoutX="11.0" layoutY="14.0" prefHeight="130.0" prefWidth="1046.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="24.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Selección de Ruta">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="28.0" layoutY="44.0" prefHeight="17.0" prefWidth="205.0" text="Elige la ruta y fecha de viaje">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="30.0" layoutY="84.0" text="Fecha de viaje:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="dateFechaViaje" layoutX="118.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="225.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <Label layoutX="369.0" layoutY="84.0" text="Origen:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbOrigen" layoutX="427.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: F4F4F4; -fx-border-radius: 4px; -fx-border-color: #ccc;" />
+                  <Label layoutX="586.0" layoutY="84.0" text="Destino:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cmbDestino" layoutX="646.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+               </children>
+            </Pane>
+            <Button fx:id="irAPago" layoutX="859.0" layoutY="675.0" mnemonicParsing="false" onAction="#irAPago" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Continuar Venta" />
+            <Pane layoutX="14.0" layoutY="155.0" prefHeight="512.0" prefWidth="249.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Lista de buses">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="42.0" prefHeight="20.0" prefWidth="225.0" text="Selecciona los buses disponibles">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="gridBuses" layoutX="14.0" layoutY="82.0" prefHeight="412.0" prefWidth="213.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </Pane>
+            <Pane layoutX="276.0" layoutY="155.0" prefHeight="512.0" prefWidth="781.0" style="-fx-border-color: CCC;">
+               <children>
+                  <GridPane fx:id="gridAsientos" layoutX="86.0" layoutY="68.0" prefHeight="419.0" prefWidth="695.0" style="-fx-border-color: red;" stylesheets="@../css/style.css">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Lista de Asientos">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="215.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="42.0" styleClass="btn-clasic" stylesheets="@../css/style.css" />
+                  <Button layoutX="364.0" layoutY="14.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="42.0" style="-fx-background-color: red;" stylesheets="@../css/style.css" />
+                  <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="220.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../img/icon-chair.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="29.0" layoutX="369.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" smooth="false">
+                     <image>
+                        <Image url="@../img/icon-chair.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="410.0" layoutY="25.0" text="Ocupado">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="262.0" layoutY="26.0" text="Disponible">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="417.0" style="-fx-text-fill: #0066CC;" text="PISO 1">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="163.0" style="-fx-text-fill: #0066CC;" text="PISO 2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0" visible="false">
+         <children>
+            <Pane layoutX="13.0" layoutY="20.0" prefHeight="115.0" prefWidth="1040.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="29.0" layoutY="72.0" text="Fecha:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="251.0" layoutY="72.0" text="Documento:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <ComboBox layoutX="325.0" layoutY="67.0" minHeight="30.0" prefHeight="20.0" prefWidth="150.0" promptText="Boleta" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <Label layoutX="491.0" layoutY="73.0" text="N° Doc:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="538.0" layoutY="66.0" minHeight="30.0" prefHeight="30.0" prefWidth="155.0" />
+                  <Label layoutX="708.0" layoutY="74.0" text="Embarque:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="775.0" layoutY="65.0" minHeight="30.0" prefHeight="30.0" prefWidth="249.0" />
+                  <Label layoutX="26.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Datos principales">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <DatePicker layoutX="67.0" layoutY="67.0" minHeight="30.0" prefHeight="30.0" prefWidth="175.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="829.0" layoutY="146.0" prefHeight="371.0" prefWidth="225.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="15.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Asiento">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="116.0" text="Cargo Extra:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="17.0" layoutY="183.0" text="Fecha de salida:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="18.0" layoutY="250.0" text="Hora de salida:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="53.0" text="Numero de asiento:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="15.0" layoutY="76.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField layoutX="17.0" layoutY="138.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField layoutX="17.0" layoutY="205.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField layoutX="20.0" layoutY="274.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+               </children>
+            </Pane>
+            <Pane layoutX="13.0" layoutY="146.0" prefHeight="159.0" prefWidth="808.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="24.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Registro del Pasajero">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="44.0" prefHeight="17.0" prefWidth="205.0" text="Ingresa los datos del pasajero">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="25.0" layoutY="79.0" text="DNI:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="90.0" layoutY="75.0" minHeight="30.0" prefHeight="30.0" prefWidth="169.0" />
+                  <Label layoutX="273.0" layoutY="79.0" text="Nombre:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="338.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
+                  <Label layoutX="540.0" layoutY="79.0" text="Apellidos:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="605.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
+                  <Label layoutX="24.0" layoutY="120.0" text="Telefono:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="88.0" layoutY="116.0" minHeight="30.0" prefHeight="30.0" prefWidth="169.0" promptText="987654321 (Opcional)" />
+                  <Label layoutX="275.0" layoutY="117.0" text="Dirección:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="338.0" layoutY="113.0" minHeight="30.0" prefHeight="30.0" prefWidth="453.0" promptText="Dirección del pasajero (Opcional)" />
+               </children>
+            </Pane>
+            <Pane layoutX="13.0" layoutY="316.0" prefHeight="201.0" prefWidth="808.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="24.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Facturación">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="25.0" layoutY="55.0" text="Método de pago:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="427.0" layoutY="129.0" text="Total a pagar:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="425.0" layoutY="154.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
+                  <TableView layoutX="2.0" layoutY="215.0" prefHeight="115.0" prefWidth="1040.0">
+                     <columns>
+                        <TableColumn prefWidth="121.66667175292969" text="Comprobante" />
+                        <TableColumn prefWidth="170.66665649414062" text="Pasajero" />
+                        <TableColumn minWidth="0.0" prefWidth="174.66668701171875" text="Ruta" />
+                        <TableColumn minWidth="0.0" prefWidth="124.0" text="Fecha Salida" />
+                        <TableColumn minWidth="0.0" prefWidth="82.66668701171875" text="Hora" />
+                        <TableColumn minWidth="0.0" prefWidth="129.0" text="Bus" />
+                        <TableColumn minWidth="0.0" prefWidth="111.0" text="Asiento" />
+                        <TableColumn minWidth="0.0" prefWidth="131.0" text="Precio" />
+                     </columns>
+                     <stylesheets>
+                        <URL value="@../css/style.css" />
+                     </stylesheets>
+                  </TableView>
+                  <ComboBox layoutX="24.0" layoutY="82.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" promptText="Efectivo" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <Label layoutX="229.0" layoutY="58.0" text="Efectivo:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="227.0" layoutY="83.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
+                  <Label layoutX="429.0" layoutY="59.0" text="Cambio:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="427.0" layoutY="84.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
+                  <Label layoutX="26.0" layoutY="131.0" text="Subtotal:">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="24.0" layoutY="156.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" />
+                  <Label layoutX="228.0" layoutY="130.0" text="IGV (18%)">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField editable="false" layoutX="226.0" layoutY="155.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
+               </children>
+            </Pane>
+            <Button layoutX="851.0" layoutY="677.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Procesar Venta" />
+            <Button fx:id="volverPanel1" layoutX="631.0" layoutY="677.0" mnemonicParsing="false" onAction="#volverPanel" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Volver" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

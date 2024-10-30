@@ -1,0 +1,193 @@
+/*LOGIN*/
+.input-login {
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #fff;
+    -fx-border-width: 1px;
+}
+
+.input-login:focused {
+    -fx-border-color: #007bff;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 123, 255, 0.5), 5, 0, 0, 0);
+}
+
+.btn-login {
+    -fx-padding: 10px 20px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: #fff;
+    -fx-background-color: #000000;
+    -fx-border-radius: 4px;
+}
+
+.btn-login:hover {
+    -fx-background-color: #292929;
+}
+
+.btn-login:pressed {
+    -fx-background-color: #0d1623;
+}
+
+.btn-login:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 123, 255, 0.5), 10, 0, 0, 0);
+}
+
+/*PRINCIPAL*/
+#contentLogo {
+    -fx-background-color: #87ceeb;
+}
+
+#asidePanel {
+    -fx-background-color: #f0f8ff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 2, 0);
+}
+
+.btnAside {
+    -fx-background-color: #ffffff;
+    -fx-border: none;
+    -fx-text-fill: #1e90ff;
+    -fx-font-weight: bold;
+}
+
+.btnAside:hover {
+    -fx-background-color: #0277bd;
+    -fx-text-fill: #ffffff;
+}
+
+.btnAside:pressed, .btnAside:focused {
+    -fx-background-color: #0b4c85;
+    -fx-text-fill: #ffffff;
+}
+
+/*FACTURACION*/
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #E6F3FF;
+    -fx-border-width: 1;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #E6F3FF;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #E6F3FF;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #0066CC;
+    -fx-font-weight: bold;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #F8FBFF;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #547fe8; /* Cambia el color de fondo al seleccionar */
+    -fx-text-fill: #000000; /* Cambia el color del texto a negro */
+}
+
+/* General styles */
+.root {
+    -fx-font-family: 'Arial';
+}
+
+ /*TitledPane styles */
+#panel-title {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+#panel-title > .title {
+    -fx-background-color: #e6e6e6;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+#panel-title > .content {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 10px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+}
+
+
+.btn-export {
+    -fx-background-color: #217346;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}
+
+.btn-export:hover {
+    -fx-background-color: #0066CC;
+}
+
+.btn-clasic {
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-width: 1px;
+    -fx-border-insets: -1px;
+}
+
+.asiento-disponible {
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: #0066CC;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
+}
+
+.asiento-ocupado {
+    -fx-background-color: red;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
+}
+
+.boton-itinerario{
+    -fx-background-color: #0066CC;
+    -fx-background-radius: 4px;
+    -fx-border: none;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 0px;
+    -fx-alignment: center;
+}
+
+.boton-itinerario-active{
+    -fx-background-color: #002559;
+
+}
+
+.boton-itinerario:hover {
+    -fx-background-color: #002559;
+}
+
+.boton-itinerario-disabled{
+    -fx-background-color: #3b3b3b;
+}

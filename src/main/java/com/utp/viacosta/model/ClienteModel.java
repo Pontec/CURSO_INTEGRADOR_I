@@ -6,20 +6,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "usuarios")
-public class UsuarioModelo {
+@Table(name = "clientes")
+public class ClienteModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id_cliente")
+    private Integer idCliente;
     private String nombre;
+    private String apellido;
+    private String dni;
     private String correo;
-    @Column(name = "contraseña")
-    private String password;
     private String telefono;
+    private String direccion;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<CompraModel> compras;
 }
