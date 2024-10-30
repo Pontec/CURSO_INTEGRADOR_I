@@ -1,6 +1,8 @@
 package com.utp.viacosta.controller;
 
 import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
+import com.utp.viacosta.model.DetalleBoletaModel;
+import com.utp.viacosta.service.AsignacionBusRutaService;
 import com.utp.viacosta.service.DetalleBoletaService;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import com.utp.viacosta.util.FxmlReportes;
@@ -34,15 +36,16 @@ public class ReportesController implements Initializable {
     private TableView tableReporteVentas;
     @FXML
     private TextField txtCliente, txtEmpleado;
+    @FXML
+    private Button btnFiltrar;
 
     ObservableList<String> listaFiltro = FXCollections.observableArrayList("Rango de Fechas", "Cliente", "Responsable");
     List<DetalleBoletaDTO> tablaReportes;
 
     @Autowired
     private DetalleBoletaService boletaService;
-    @FXML
-    private Button btnFiltrar;
-
+    @Autowired
+    private AsignacionBusRutaService asignacionBusRutaService;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarReportes();
@@ -135,5 +138,6 @@ public class ReportesController implements Initializable {
     public void setReportes(List<DetalleBoletaDTO> table) {
         tablaReportes = table;
     }
+
 
 }

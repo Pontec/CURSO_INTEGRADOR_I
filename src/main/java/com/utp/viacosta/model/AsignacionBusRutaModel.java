@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,4 +35,7 @@ public class AsignacionBusRutaModel {
     @ManyToOne
     @JoinColumn(name = "id_ruta", insertable = false, updatable = false)
     private RutaModel rutaAsignada;
+    @OneToMany(mappedBy = "asignacionBusRuta")
+    private List<DetalleBoletaModel> detalleBoletaModel;
+
 }

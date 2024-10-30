@@ -33,6 +33,8 @@ public class DetalleBoletaModel {
     private int idComprobante;
     @Column(name = "id_asiento")
     private int idAsiento;
+    @Column(name = "id_asignacion")
+    private int idAsignacion;
     @Column(name = "id_compra")
     private int idCompra;
 
@@ -47,5 +49,9 @@ public class DetalleBoletaModel {
     @ManyToOne
     @JoinColumn(name = "id_compra", insertable = false, updatable = false)
     private CompraModel compra;
+
+    @ManyToOne
+    @JoinColumn(name = "id_asignacion", insertable = false, updatable = false)
+    private AsignacionBusRutaModel asignacionBusRuta;
 
 }

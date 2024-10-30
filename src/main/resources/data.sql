@@ -116,6 +116,7 @@ CREATE TABLE detalle_boleta (
                                 id_detalle INT PRIMARY KEY AUTO_INCREMENT,
                                 id_comprobante INT NOT NULL,
                                 id_asiento INT NOT NULL,
+                                id_asignacion INT NOT NULL,
                                 id_compra INT NOT NULL,
                                 descripcion VARCHAR(255) NOT NULL,
                                 fecha_viaje DATE NOT NULL,
@@ -125,6 +126,7 @@ CREATE TABLE detalle_boleta (
                                 subtotal DECIMAL(10, 2) NOT NULL,
                                 FOREIGN KEY (id_comprobante) REFERENCES comprobantes(id_comprobante),
                                 FOREIGN KEY (id_asiento) REFERENCES asientos(id_asiento),
+                                FOREIGN KEY (id_asignacion) REFERENCES asignacion_buses_rutas(id_asignacion),
                                 FOREIGN KEY (id_compra) REFERENCES compras(id_compra)
 );
 
@@ -210,9 +212,9 @@ INSERT INTO comprobantes (tipo_comprobante, numero_comprobante, fecha_emision) V
                                                                                    ('factura', 67890, '2023-10-02');
 
 -- Insert data into the 'detalle_boleta' table
-INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_unitario, subtotal, id_comprobante, id_asiento, id_compra) VALUES
-                                                                                                                                                     ('Viaje Lima-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 100.0, 100.0, 1, 1, 1),
-                                                                                                                                                     ('Viaje Lima-Cusco', '2023-10-02', '09:00:00', 'efectivo', 120.0, 120.0, 2, 4, 2);
+INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_unitario, subtotal, id_comprobante, id_asiento, id_compra,id_asignacion) VALUES
+                                                                                                                                                     ('Viaje Lima-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 100.0, 100.0, 1, 1, 1,1),
+                                                                                                                                                     ('Viaje Lima-Cusco', '2023-10-02', '09:00:00', 'efectivo', 120.0, 120.0, 2, 4, 2,2);
 
 -- Insert data into the 'detalle_encomienda' table
 INSERT INTO detalle_encomienda (descripcion, peso, metodo_pago, precio_unitario, subtotal, id_bus, id_comprobante, id_compra) VALUES

@@ -36,6 +36,7 @@ public class DetalleBoletaServiceImpl implements DetalleBoletaService {
         return ejecutarConsulta(specification);
     }
 
+
     @Override
     public List<DetalleBoletaDTO> getAllDetalleBoletasForClient(String nombreCliente) {
         SpecificationReports specification = new SpecificationReports(nombreCliente, null, null, null);
