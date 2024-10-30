@@ -6,6 +6,8 @@ import com.utp.viacosta.service.SedeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SedeServiceImpl implements SedeService {
 
@@ -17,5 +19,10 @@ public class SedeServiceImpl implements SedeService {
     public SedeModel guardarSede(SedeModel sedeModel) {
         return sedeRepository.save(sedeModel);
 
+    }
+
+    @Override
+    public List<SedeModel> listaSedes() {
+        return sedeRepository.findAll();
     }
 }
