@@ -144,8 +144,6 @@ public class ClientesControlador implements Initializable {
             txt_nombre.setStyle("-fx-border-color: red");
             mostrarAlerta("El nombre no puede estar vacio.");
             return false;
-        } else {
-            txt_nombre.setStyle("-fx-border-color: green");
         }
         return true;
     }
@@ -155,8 +153,6 @@ public class ClientesControlador implements Initializable {
             txt_apellido.setStyle("-fx-border-color: red");
             mostrarAlerta("El apellido no puede estar vacio.");
             return false;
-        } else {
-            txt_apellido.setStyle("-fx-border-color: green");
         }
         return true;
     }
@@ -167,8 +163,6 @@ public class ClientesControlador implements Initializable {
             txt_dni.setStyle("-fx-border-color: red");
             mostrarAlerta("El DNI debe tener 8 digitos.");
             return false;
-        } else {
-            txt_dni.setStyle("-fx-border-color: green");
         }
         return true;
     }
@@ -179,8 +173,6 @@ public class ClientesControlador implements Initializable {
             txt_correo.setStyle("-fx-border-color: red");
             mostrarAlerta("Ingrese un correo valido");
             return false;
-        } else {
-            txt_correo.setStyle("-fx-border-color: green");
         }
         return true;
     }
