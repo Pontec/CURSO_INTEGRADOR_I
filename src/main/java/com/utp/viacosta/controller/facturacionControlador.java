@@ -61,13 +61,14 @@ public class facturacionControlador implements Initializable {
     private AsignacionBusRutaService asignacionBusRutaService;
     @FXML
     private DatePicker dateFechaViaje;
+    @FXML
+    private Button btnMostrarViajes;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fechaPredefinida();
         cargarRutas();
-        setearBus();
     }
 
     private void cargarRutas(){
@@ -88,8 +89,10 @@ public class facturacionControlador implements Initializable {
         FxmlCargarUtil.cargarComboBox(rutasDestino, cmbDestino);
     }
 
-    private void setearBus(){
-        List<AsignacionBusRutaModel> asignaciones = asignacionBusRutaService.findAll();
+    private void setearBus(List<AsignacionBusRutaModel> listaItinerario){
+        gridBuses.getChildren().clear();
+        gridAsientos.getChildren().clear();
+        List<AsignacionBusRutaModel> asignaciones = listaItinerario;
         int fila = 0;
         for (AsignacionBusRutaModel asignacion : asignaciones) {
             Button boton = generarBotonItinerario(asignacion);
@@ -247,5 +250,15 @@ public class facturacionControlador implements Initializable {
         }
     }
 
+    @FXML
+    public void mostrarViajes(ActionEvent actionEvent) {
+        if (dateFechaViaje.getValue() != null && cmbOrigen.getValue() != null && cmbDestino.getValue() != null) {
+            LocalDate fecha = dateFechaViaje.getValue();
+            String origen = cmbOrigen.getValue().toString();
+            String destino = cmbDestino.getValue().toString();
+            List<AsignacionBusRutaModel> listaAsignaciones = asignacionBusRutaService.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
+            setearBus(listaAsignaciones);
+        }
+    }
 }
 

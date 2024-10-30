@@ -8,6 +8,7 @@ import com.utp.viacosta.service.AsignacionBusRutaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,5 +19,10 @@ public class AsignacionBusRutaServiceImpl implements AsignacionBusRutaService {
     @Override
     public List<AsignacionBusRutaModel> findAll() {
         return asignacionBusRutaRepository.findAll();
+    }
+
+    @Override
+    public List<AsignacionBusRutaModel> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen, String destino, LocalDate fechaSalida) {
+        return  asignacionBusRutaRepository.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fechaSalida);
     }
 }
