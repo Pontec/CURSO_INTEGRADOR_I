@@ -31,7 +31,7 @@ public class EmpleadoModel {
 
     @ManyToOne
     @JoinColumn(name = "id_sede", insertable = false, updatable = false)
-    private SedesModel sede;
+    private SedeModel sede;
 
     @ManyToMany(fetch = FetchType.EAGER) //Traera tambien la entidad relaciona
     @JoinTable(name = "empleado_roles",
