@@ -1,5 +1,8 @@
 package com.utp.viacosta.controller;
 
+import com.utp.viacosta.agregates.response.ResponseReniec;
+import com.utp.viacosta.agregates.retrofit.ReniecService;
+import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.model.ClienteModel;
 import com.utp.viacosta.service.ClienteService;
 import javafx.event.ActionEvent;
@@ -8,7 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,6 +27,10 @@ public class ClientesControlador implements Initializable {
 
     @Autowired
     private ClienteService clienteService;
+
+    //el token se encuentra en properties
+    @Value("${token.api}")
+    private String tokenApi;
 
     @FXML
     private Button btn_actualizar,btn_guardar, btnLimpiar;
@@ -193,6 +206,39 @@ public class ClientesControlador implements Initializable {
         txt_dni.setStyle("");
         txt_correo.setStyle("");
         txt_telefono.setStyle("");
+    }
+
+
+    @FXML
+    public void actBuscar(ActionEvent event) {
+        String dni = txt_dni.getText();
+        if (dni.isEmpty() || dni.length() != 8) {
+            mostrarAlerta("El DNI debe tener 8 dígitos.");
+            return;
+        }
+
+        Retrofit retrofit = ReniecCliente.getClient();
+        ReniecService reniecService = retrofit.create(ReniecService.class);
+        String token = "Bearer " + tokenApi;
+
+        Call<ResponseReniec> call = reniecService.getDatosPersona(token, dni);
+        call.enqueue(new Callback<ResponseReniec>() {
+            @Override
+            public void onResponse(Call<ResponseReniec> call, Response<ResponseReniec> response) {
+                if (response.isSuccessful()) {
+                    ResponseReniec datosPersona = response.body();
+                    txt_nombre.setText(datosPersona.getNombres());
+                    txt_apellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
+                } else {
+                    mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseReniec> call, Throwable t) {
+                mostrarAlerta("Error en la llamada: " + t.getMessage());
+            }
+        });
     }
 
 }

@@ -19,7 +19,9 @@ import org.springframework.stereotype.Controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
@@ -37,19 +39,16 @@ public class AsignarRutasBuses implements Initializable {
 
 
     @FXML
-    private Button btn_actulizar;
-
-    @FXML
-    private Button btn_eliminar;
-
-    @FXML
-    private Button btn_guardar;
+    private Button btn_actulizar, btn_eliminar, btn_guardar;
 
     @FXML
     private ComboBox<BusModel> cmbBus;
-
     @FXML
     private ComboBox<RutaModel> cmbRuta;
+    @FXML
+    private DatePicker fechaHoraSalida;
+    @FXML
+    private TextField txtHoraSalida;
 
     @FXML
     private TableColumn<AsignacionBusRutaModel, String> columnId;
@@ -63,12 +62,6 @@ public class AsignarRutasBuses implements Initializable {
     private TableColumn<AsignacionBusRutaModel, String> columnHoraSalida;
     @FXML
     private TableView<AsignacionBusRutaModel> tablaBusesRutas;
-
-    @FXML
-    private DatePicker fechaHoraSalida;
-
-    @FXML
-    private TextField txtHoraSalida;
 
     @Deprecated
     void actFechaHoraSalida(ActionEvent event) {
@@ -90,7 +83,15 @@ public class AsignarRutasBuses implements Initializable {
 
     @FXML
     void actGuardar(ActionEvent event) {
+        AsignacionBusRutaModel asignacionBusRutaModel = new AsignacionBusRutaModel();
+        asignacionBusRutaModel.setIdBus(cmbBus.getValue().getIdBus());
+        asignacionBusRutaModel.setIdRuta(cmbRuta.getValue().getIdRuta());
+        asignacionBusRutaModel.setFechaSalida(fechaHoraSalida.getValue());
+        asignacionBusRutaModel.setHoraSalida(LocalTime.parse(txtHoraSalida.getText()));
 
+        asignacionBusRutaService.save(asignacionBusRutaModel);
+        limpiarCampos();
+        listarAsignaciones();
     }
 
     //cargando los buses en el combobox
@@ -103,16 +104,46 @@ public class AsignarRutasBuses implements Initializable {
         cmbRuta.getItems().setAll(rutaService.listarRutas());
     }
 
+    //idBus, IdRuta
+    public void bus() {
+        List<AsignacionBusRutaModel> asignacionBusRutaModel = asignacionBusRutaService.findAll();
+        asignacionBusRutaModel.stream().map(AsignacionBusRutaModel::getIdBus).forEach(System.out::println);
+
+    }
+
     //llenando la tabla con los datos de la base de datos
     public void listarAsignaciones(){
         columnId.setCellValueFactory(new PropertyValueFactory<>("idAsignacion"));
-        columnRuta.setCellValueFactory(new PropertyValueFactory<>("idRuta"));
-        columnBus.setCellValueFactory(new PropertyValueFactory<>("idBus"));
+        columnRuta.setCellValueFactory(new PropertyValueFactory<>("rutaAsignada"));
+        columnBus.setCellValueFactory(new PropertyValueFactory<>("busAsignado"));
         columnFechaSalida.setCellValueFactory(new PropertyValueFactory<>("fechaSalida"));
         columnHoraSalida.setCellValueFactory(new PropertyValueFactory<>("horaSalida"));
         tablaBusesRutas.getItems().setAll(asignacionBusRutaService.findAll());
     }
 
+    //Metodo para actualizar
+    @FXML
+    public void actActualizar(ActionEvent event) {
+        AsignacionBusRutaModel asignacionBusRutaModel = tablaBusesRutas.getSelectionModel().getSelectedItem();
+        asignacionBusRutaModel.setIdBus(cmbBus.getValue().getIdBus());
+        asignacionBusRutaModel.setIdRuta(cmbRuta.getValue().getIdRuta());
+        asignacionBusRutaModel.setFechaSalida(fechaHoraSalida.getValue());
+        asignacionBusRutaModel.setHoraSalida(LocalTime.parse(txtHoraSalida.getText()));
 
+        asignacionBusRutaService.save(asignacionBusRutaModel);
+        limpiarCampos();
+        listarAsignaciones();
+    }
+
+
+    //Metodos de Apoyo
+
+    //Metodo para limipar campos
+    public void limpiarCampos(){
+        cmbBus.setValue(null);
+        cmbRuta.setValue(null);
+        fechaHoraSalida.setValue(null);
+        txtHoraSalida.clear();
+    }
 
 }

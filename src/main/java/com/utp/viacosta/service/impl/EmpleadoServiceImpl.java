@@ -31,18 +31,13 @@ public class EmpleadoServiceImpl implements EmpleadoService {
         return empleadoRepository.save(empleado);
     }
 
-    @Override
-    public void deleteById(Integer id) {
-        empleadoRepository.deleteById(id);
-    }
 
     @Override
     public EmpleadoModel autenticar(String correo, String password) {
         EmpleadoModel usuario = findByCorreo(correo);
-        if (usuario != null && usuario.getPassword().equals(password)) {
+        if (usuario != null && usuario.getPassword().equals(password) && usuario.isEstado()==true) {
             return usuario;
         } throw new IllegalArgumentException("Credeciales incorrectas");
     }
-
 
 }
