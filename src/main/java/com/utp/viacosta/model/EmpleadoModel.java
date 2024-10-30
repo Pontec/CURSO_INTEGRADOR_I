@@ -25,6 +25,7 @@ public class EmpleadoModel {
     @Column(name = "contraseña")
     private String password;
     private String telefono;
+    private boolean estado;
     @Column(name = "id_sede")
     private int idSede;
 
