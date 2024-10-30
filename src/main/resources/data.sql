@@ -176,7 +176,7 @@ VALUES ('ADMINISTRADOR'),
        ('VENTAS');
 
 -- Insert data into the 'empleados' table
-INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede)
+INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede,estado)
 VALUES ('Juan', 'Perez', '12345678', 'admin', '123', '987654321', 1),
        ('Maria', 'Lopez', '87654321', 'maria.lopez@example.com', 'password456', '123456789', 1),
        ('Andree', 'Bermudez', '45678912', 'andreebermudez@example.com', '123456', '987654321', 1);

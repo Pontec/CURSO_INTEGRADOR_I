@@ -24,7 +24,7 @@ public class RunViaCosta extends Application{
 		FxmlCargarUtil.setApplicationContext(context);
 
 		// Cargar la pantalla de login utilizando el metodo utilitario
-		var fxml = new FXMLLoader(getClass().getResource("/view/Loginview.fxml"));
+		var fxml = new FXMLLoader(getClass().getResource("/vista/LoginVista.fxml"));
 		fxml.setControllerFactory(context::getBean); // Para usar beans gestionados por Spring
 
 		//Cargar archivo css
