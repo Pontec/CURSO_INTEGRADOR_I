@@ -121,7 +121,6 @@ public class empleadosControlador implements Initializable {
                 if (empty) {
                     setGraphic(null);
                 } else {
-
                     setGraphic(iconoEliminar);
                     iconoEliminar.setOnMouseClicked(event -> {
                         EmpleadoModel empleadoModel = getTableView().getItems().get(getIndex());
@@ -131,9 +130,7 @@ public class empleadosControlador implements Initializable {
                 }
             }
         });
-        
         tabla_empleados.getItems().setAll(empleadoService.findAll());
-
     }
 
     private void cargarRoles(){
