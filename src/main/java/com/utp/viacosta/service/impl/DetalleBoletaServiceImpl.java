@@ -27,66 +27,48 @@ public class DetalleBoletaServiceImpl implements DetalleBoletaService {
     @Autowired
     private DetalleBoletaRepository detalleBoletaRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    public List<DetalleBoletaDTO> getAllDetalleBoletas() {
-        SpecificationReports specification = new SpecificationReports();
-        return ejecutarConsulta(specification);
-    }
-
-
-    @Override
-    public List<DetalleBoletaDTO> getAllDetalleBoletasForClient(String nombreCliente) {
-        SpecificationReports specification = new SpecificationReports(nombreCliente, null, null, null);
-        return ejecutarConsulta(specification);
+    public List<DetalleBoletaDTO> getAllReporteVentas() {
+        List<DetalleBoletaModel> detalle = detalleBoletaRepository.findAll();
+        return detalle.stream()
+                .map(this::mapDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<DetalleBoletaDTO> getAllDetalleBoletasForEmployee(String nombreEmpleado) {
-        SpecificationReports specification = new SpecificationReports(null, nombreEmpleado, null, null);
-        return ejecutarConsulta(specification);
+    public List<DetalleBoletaDTO> getAllDetalleBoletasForClient(String cliente) {
+        List<DetalleBoletaModel> detalle = detalleBoletaRepository.findAll();
+        return detalle.stream()
+                .filter(model -> model.getCompra().getCliente().getNombre().toLowerCase().trim().contains(cliente.toLowerCase().trim()) || model.getCompra().getCliente().getApellido().toLowerCase().trim().contains(cliente.toLowerCase().trim()))
+                .map(this::mapDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DetalleBoletaDTO> getAllDetalleBoletasForEmployee(String empleado) {
+        List<DetalleBoletaModel> detalle = detalleBoletaRepository.findAll();
+        return detalle.stream()
+                .filter(model -> model.getCompra().getEmpleado().getNombre().toLowerCase().trim().contains(empleado.toLowerCase().trim()) || model.getCompra().getEmpleado().getApellido().toLowerCase().trim().contains(empleado.toLowerCase().trim()))
+                .map(this::mapDTO).collect(Collectors.toList());
     }
 
     @Override
     public List<DetalleBoletaDTO> getAllDetalleBoletasForDate(LocalDate fechaInicio, LocalDate fechaFin) {
-        SpecificationReports specification = new SpecificationReports(null, null, fechaInicio, fechaFin);
         List<DetalleBoletaModel> detalle = detalleBoletaRepository.findAll();
-        return ejecutarConsulta(specification);
+        return detalle.stream()
+                .filter(model -> !model.getFechaViaje().isBefore(fechaInicio) && !model.getFechaViaje().isAfter(fechaFin))
+                .map(this::mapDTO).collect(Collectors.toList());
 
     }
 
-    private List<DetalleBoletaDTO> ejecutarConsulta(SpecificationReports specification) {
-        // Crear la consulta desde el EntityManager usando la especificación
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Tuple> query = criteriaBuilder.createTupleQuery();
-        Root<DetalleBoletaModel> root = query.from(DetalleBoletaModel.class);
-
-        Predicate predicate = specification.toPredicate(root, query, criteriaBuilder);
-        query.where(predicate);
-
-        // Ejecución de la consulta personalizada
-        TypedQuery<Tuple> typedQuery = entityManager.createQuery(query);
-        List<Tuple> resultados = typedQuery.getResultList();
-
-        // Mapear los resultados a DetalleBoletaDTO
-        return resultados.stream()
-                .map(tuple -> {
-                    DetalleBoletaDTO dto = new DetalleBoletaDTO();
-                    dto.setCliente(tuple.get(0, String.class)); // Cliente
-                    dto.setRuta(tuple.get(1, String.class)); // Ruta
-                    dto.setFechaSalida(tuple.get(2, LocalDate.class));// Fecha de salida
-                    dto.setHoraSalida(tuple.get(3, LocalTime.class)); // Hora de salida
-                    dto.setAsiento(tuple.get(4, Integer.class)); // Asiento
-                    dto.setResponsable(tuple.get(5, String.class)); // Responsable
-                    dto.setPrecioTotal(tuple.get(6, Double.class)); // Precio total
-                    return dto;
-                }).collect(Collectors.toList());
+    private DetalleBoletaDTO mapDTO(DetalleBoletaModel model) {
+        DetalleBoletaDTO dto = new DetalleBoletaDTO();
+        dto.setCliente(model.getCompra().getCliente().getNombre() + " " + model.getCompra().getCliente().getApellido());
+        dto.setRuta(model.getAsignacionBusRuta().getRutaAsignada().getOrigen() + " - " + model.getAsignacionBusRuta().getRutaAsignada().getDestino());
+        dto.setFechaSalida(model.getAsignacionBusRuta().getFechaSalida());
+        dto.setHoraSalida(model.getAsignacionBusRuta().getHoraSalida());
+        dto.setAsiento(model.getAsiento().getNumeroAsiento());
+        dto.setResponsable(model.getCompra().getEmpleado().getNombre() + " " + model.getCompra().getEmpleado().getApellido());
+        dto.setPrecioTotal(model.getPrecioUnitario() + model.getAsiento().getTipoAsiento().getCargoExtra());
+        return dto;
     }
 
-
-    /*
-     * La tupla obtiene los resultados sin saber que tipo hasta que lo especificamos con tuple.get(index, Class)
-     */
 }

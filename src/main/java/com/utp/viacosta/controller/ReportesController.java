@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -122,7 +123,7 @@ public class ReportesController implements Initializable {
         columAsiento.setCellValueFactory(new PropertyValueFactory<>("asiento"));
         columResponsable.setCellValueFactory(new PropertyValueFactory<>("responsable"));
         columPrecio.setCellValueFactory(new PropertyValueFactory<>("precioTotal"));
-        tableReporteVentas.getItems().setAll(boletaService.getAllDetalleBoletas());
+        tableReporteVentas.getItems().setAll(boletaService.getAllReporteVentas());
     }
 
     private void actualizarTabla(String text, boolean isEmployee) {
@@ -135,7 +136,7 @@ public class ReportesController implements Initializable {
         return tablaReportes;
     }
 
-    public void setReportes(List<DetalleBoletaDTO> table) {
+    private void setReportes(List<DetalleBoletaDTO> table) {
         tablaReportes = table;
     }
 
