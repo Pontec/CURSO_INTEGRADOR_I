@@ -13,23 +13,22 @@
     <children>
         <Pane layoutX="38.0" layoutY="74.0" prefHeight="595.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="51.0" AnchorPane.topAnchor="74.0">
             <children>
-                <Label layoutX="34.0" layoutY="96.0" text="Origen:">
+                <Label layoutX="32.0" layoutY="96.0" text="Origen:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <Label layoutX="33.0" layoutY="156.0" text="Destino">
+                <Label layoutX="32.0" layoutY="154.0" text="Destino">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <Label layoutX="34.0" layoutY="216.0" text="Duracion">
+                <Label layoutX="34.0" layoutY="211.0" text="Duracion">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <TextField fx:id="txt_duracion" layoutX="32.0" layoutY="233.0" minHeight="30.0" prefHeight="30.0" promptText="ingresa tu direccion" />
-            <TextField fx:id="txt_destino" layoutX="32.0" layoutY="173.0" minHeight="30.0" prefHeight="30.0" promptText="ingresa el destino" />
-            <TextField fx:id="txt_origen" layoutX="33.0" layoutY="113.0" minHeight="30.0" prefHeight="30.0" prefWidth="149.0" promptText="ingresa el origen" />
-            <Button fx:id="btn_agregar" layoutX="63.0" layoutY="376.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" visible="false" />
-            <Button fx:id="btn_eliminar" layoutX="63.0" layoutY="419.0" mnemonicParsing="false" onAction="#act_eliminar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+                <TextField fx:id="txt_duracion" layoutX="33.0" layoutY="228.0" minHeight="30.0" prefHeight="30.0" promptText="ingresa tu direccion" />
+            <TextField fx:id="txt_destino" layoutX="32.0" layoutY="171.0" minHeight="30.0" prefHeight="30.0" promptText="ingresa el destino" />
+            <TextField fx:id="txt_origen" layoutX="33.0" layoutY="113.0" minHeight="30.0" prefHeight="30.0" promptText="ingresa el origen" />
+            <Button fx:id="btn_agregar" layoutX="63.0" layoutY="376.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" />
             <Button fx:id="btn_actualizar" layoutX="63.0" layoutY="376.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
             <Label layoutX="25.0" layoutY="17.0" style="-fx-text-fill: #0066CC;" text="Selección de Ruta">
                <font>
@@ -41,17 +40,18 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btn_eliminar1" layoutX="63.0" layoutY="462.0" mnemonicParsing="false" onAction="#act_eliminar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
+            <Button fx:id="btnLimpiar" layoutX="61.0" layoutY="417.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="25.0" prefWidth="95.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
             </children>
         </Pane>
-        <Pane layoutX="274.0" layoutY="75.0" prefHeight="589.0" prefWidth="757.0" style="-fx-border-color: CCC;">
+        <Pane layoutX="274.0" layoutY="69.0" prefHeight="595.0" prefWidth="757.0" style="-fx-border-color: CCC;">
             <children>
-                <TableView fx:id="tabla_rutas" layoutX="14.0" layoutY="27.0" prefHeight="535.0" prefWidth="725.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
+                <TableView fx:id="tabla_rutas" layoutX="14.0" layoutY="46.0" prefHeight="549.0" prefWidth="709.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
                     <columns>
                         <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                        <TableColumn fx:id="columnOrigen" prefWidth="232.0" text="ORIGEN" />
-                        <TableColumn fx:id="columnDestino" prefWidth="252.0" text="DESTINO" />
-                        <TableColumn fx:id="columnDuracion" prefWidth="178.0" text="DURACION" />
+                        <TableColumn fx:id="columnOrigen" prefWidth="192.0" text="ORIGEN" />
+                        <TableColumn fx:id="columnDestino" prefWidth="222.0" text="DESTINO" />
+                        <TableColumn fx:id="columnDuracion" prefWidth="117.0" text="DURACION" />
+                        <TableColumn fx:id="columnAcciones" prefWidth="127.0" text="ACCIONES" />
                     </columns>
                 </TableView>
             </children>

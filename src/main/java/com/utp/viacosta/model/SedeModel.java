@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "sedes")
-public class SedesModel {
+public class SedeModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_sede")
@@ -30,5 +30,8 @@ public class SedesModel {
 
     @OneToMany(mappedBy = "sede")
     private List<EmpleadoModel> listEmpleados;
+
+
+
 
 }
