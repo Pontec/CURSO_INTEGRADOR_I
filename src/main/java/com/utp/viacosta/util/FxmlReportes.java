@@ -4,6 +4,7 @@ import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
 
 import javax.swing.filechooser.FileSystemView;
@@ -74,12 +75,18 @@ public class FxmlReportes {
                 .formato("dd/MM/yyyy")
                 .build().build(workbook);
 
+        XSSFRow filaCabecera = sheet.createRow(0);
+        XSSFCell celdaCabecera = filaCabecera.createCell(0);
+        celdaCabecera.setCellValue("REPORTE DE VENTAS - VIA COSTA");
+        celdaCabecera.setCellStyle(estiloCabecera);
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, campos.length - 1));
+
         XSSFRow fila = null;
         XSSFCell celda = null;
 
         for (int i = 0; i < ventas.size() ; i++) {
             if (i == 0){
-                fila = sheet.createRow(i);
+                fila = sheet.createRow(i+1);
                 for (int j = 0; j < campos.length; j++) {
                     celda = fila.createCell(j);
                     celda.setCellValue(campos[j].getName().toUpperCase());
@@ -89,7 +96,7 @@ public class FxmlReportes {
             DetalleBoletaDTO venta = ventas.get(i);
             List<Object> datos = venta.obtenerDatos();
 
-            fila = sheet.createRow(i+1);
+            fila = sheet.createRow(i+2);
             for (int a = 0; a < datos.size() ; a++) {
                 celda = fila.createCell(a);
                 if (datos.get(a) instanceof  String){

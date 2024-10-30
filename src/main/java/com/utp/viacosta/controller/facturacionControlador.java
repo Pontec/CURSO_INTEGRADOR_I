@@ -17,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -56,10 +59,13 @@ public class facturacionControlador implements Initializable {
     private RutaService rutaService;
     @Autowired
     private AsignacionBusRutaService asignacionBusRutaService;
+    @FXML
+    private DatePicker dateFechaViaje;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        fechaPredefinida();
         cargarRutas();
         setearBus();
     }
@@ -224,4 +230,22 @@ public class facturacionControlador implements Initializable {
         });
         return botonBus;
     }
+
+    private void fechaPredefinida(){
+        if (dateFechaViaje != null) {
+            dateFechaViaje.setValue(LocalDate.now());
+            dateFechaViaje.setDayCellFactory(picker -> new DateCell() {
+                @Override
+                public void updateItem(LocalDate date, boolean empty) {
+                    super.updateItem(date, empty);
+                    if (date.isBefore(LocalDate.now())) {
+                        setDisable(true);
+                        setStyle("-fx-background-color: #cccccc;");
+                    }
+                }
+            });
+        }
+    }
+
 }
+

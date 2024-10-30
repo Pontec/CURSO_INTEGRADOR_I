@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -51,6 +52,7 @@ public class ReportesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarReportes();
         listarFiltros();
+        configurarDatePickers();
     }
 
     @FXML
@@ -72,7 +74,7 @@ public class ReportesController implements Initializable {
         System.out.println(dateFin.getValue());
         tablaReportes = boletaService.getAllDetalleBoletasForDate(dateInicio.getValue(), dateFin.getValue());
         tableReporteVentas.getItems().setAll(tablaReportes);
-        setReportes(tablaReportes);
+        establecerReportes(tablaReportes);
     }
 
 
@@ -103,7 +105,15 @@ public class ReportesController implements Initializable {
 
     @FXML
     private void exportarExcel(ActionEvent event) {
-        new FxmlReportes().generarReportes(obtenerReportes());
+        if (!obtenerReportes().isEmpty()){
+            new FxmlReportes().generarReportes(obtenerReportes());
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No hay datos para exportar");
+            alert.showAndWait();
+        }
+
     }
 
 
@@ -126,21 +136,50 @@ public class ReportesController implements Initializable {
         columResponsable.setCellValueFactory(new PropertyValueFactory<>("responsable"));
         columPrecio.setCellValueFactory(new PropertyValueFactory<>("precioTotal"));
         tableReporteVentas.getItems().setAll(boletaService.getAllReporteVentas());
+        establecerReportes(boletaService.getAllReporteVentas());
     }
 
     private void actualizarTabla(String text, boolean isEmployee) {
         tablaReportes = isEmployee ? boletaService.getAllDetalleBoletasForEmployee(text) : boletaService.getAllDetalleBoletasForClient(text);
         tableReporteVentas.getItems().setAll(tablaReportes);
-        setReportes(tablaReportes);
+        establecerReportes(tablaReportes);
     }
 
     private List<DetalleBoletaDTO> obtenerReportes() {
         return tablaReportes;
     }
 
-    private void setReportes(List<DetalleBoletaDTO> table) {
+    private void establecerReportes(List<DetalleBoletaDTO> table) {
         tablaReportes = table;
     }
 
+    private void configurarDatePickers() {
+        dateInicio.valueProperty().addListener((observable, oldValue, newValue) -> {
+            actualizarDatePickerFin(newValue);
+        });
+        actualizarDatePickerFin(dateInicio.getValue());
+    }
 
+    private void actualizarDatePickerFin(LocalDate fechaInicio) {
+        dateFin.setDayCellFactory(picker -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (date.isBefore(fechaInicio)) {
+                    setDisable(true);
+                    setStyle("-fx-background-color: #cccccc;");
+                }
+            }
+        });
+    }
+
+
+    @FXML
+    public void limpiarReportes(ActionEvent actionEvent) {
+        txtCliente.setText("");
+        txtEmpleado.setText("");
+        dateInicio.setValue(null);
+        dateFin.setValue(null);
+        listarReportes();
+    }
 }
