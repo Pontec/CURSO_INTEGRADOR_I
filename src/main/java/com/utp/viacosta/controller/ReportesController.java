@@ -50,10 +50,11 @@ public class ReportesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarReportes();
+        listarFiltros();
     }
 
     @FXML
-    public void listarFiltros(Event event) {
+    public void listarFiltros() {
         FxmlCargarUtil.cargarComboBox(listaFiltro, cmbFiltro);
     }
 
@@ -74,8 +75,9 @@ public class ReportesController implements Initializable {
         setReportes(tablaReportes);
     }
 
+
     @FXML
-    public void mostrarCampos(ActionEvent actionEvent) {
+    public void mostrarCampos() {
         dateInicio.setVisible(false);
         dateFin.setVisible(false);
         dateInicio.setEditable(false);

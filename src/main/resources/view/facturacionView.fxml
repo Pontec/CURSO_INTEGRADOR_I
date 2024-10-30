@@ -44,13 +44,13 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox layoutX="427.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" promptText="Chimbote" style="-fx-background-color: F4F4F4; -fx-border-radius: 4px; -fx-border-color: #ccc;" />
+                  <ComboBox fx:id="cmbOrigen" layoutX="427.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: F4F4F4; -fx-border-radius: 4px; -fx-border-color: #ccc;" />
                   <Label layoutX="586.0" layoutY="84.0" text="Destino:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox layoutX="646.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" promptText="Chimbote" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <ComboBox fx:id="cmbDestino" layoutX="646.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
                </children>
             </Pane>
             <Button fx:id="irAPago" layoutX="859.0" layoutY="675.0" mnemonicParsing="false" onAction="#irAPago" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Continuar Venta" />

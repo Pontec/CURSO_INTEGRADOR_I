@@ -8,11 +8,15 @@ import com.utp.viacosta.service.AsientoService;
 import com.utp.viacosta.service.AsignacionBusRutaService;
 import com.utp.viacosta.service.BusService;
 import com.utp.viacosta.service.RutaService;
+import com.utp.viacosta.util.FxmlCargarUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -24,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 @Component
 public class facturacionControlador implements Initializable {
@@ -39,17 +44,42 @@ public class facturacionControlador implements Initializable {
     private Button volverPanel1;
     @FXML
     private GridPane gridAsientos;
+    @FXML
+    private GridPane gridBuses;
+    @FXML
+    private ComboBox cmbOrigen;
+    @FXML
+    private ComboBox cmbDestino;
     @Autowired
     private AsientoService asientoService;
     @Autowired
+    private RutaService rutaService;
+    @Autowired
     private AsignacionBusRutaService asignacionBusRutaService;
-    @FXML
-    private GridPane gridBuses;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        cargarRutas();
         setearBus();
+    }
+
+    private void cargarRutas(){
+        List<RutaModel> rutas = rutaService.listarRutas();
+        ObservableList<String> rutasOrigen = FXCollections.observableArrayList(
+                rutas.stream()
+                        .map(ruta -> ruta.getOrigen())
+                        .distinct()
+                        .collect(Collectors.toList())
+        );
+        ObservableList<String> rutasDestino = FXCollections.observableArrayList(
+                rutas.stream()
+                        .map(ruta -> ruta.getDestino())
+                        .distinct()
+                        .collect(Collectors.toList())
+        );
+        FxmlCargarUtil.cargarComboBox(rutasOrigen, cmbOrigen);
+        FxmlCargarUtil.cargarComboBox(rutasDestino, cmbDestino);
     }
 
     private void setearBus(){
