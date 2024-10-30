@@ -51,6 +51,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cmbDestino" layoutX="646.0" layoutY="80.0" minHeight="30.0" prefHeight="30.0" prefWidth="136.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <Button layoutX="818.0" layoutY="80.0" mnemonicParsing="false" onAction="#mostrarViajes" prefHeight="31.0" prefWidth="150.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Mostrar Viajes" />
                </children>
             </Pane>
             <Button fx:id="irAPago" layoutX="859.0" layoutY="675.0" mnemonicParsing="false" onAction="#irAPago" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Continuar Venta" />
@@ -84,7 +85,7 @@
             </Pane>
             <Pane layoutX="276.0" layoutY="155.0" prefHeight="512.0" prefWidth="781.0" style="-fx-border-color: CCC;">
                <children>
-                  <GridPane fx:id="gridAsientos" layoutX="86.0" layoutY="68.0" prefHeight="419.0" prefWidth="695.0" style="-fx-border-color: red;" stylesheets="@../css/style.css">
+                  <GridPane fx:id="gridAsientos" layoutX="86.0" layoutY="68.0" prefHeight="419.0" prefWidth="695.0" stylesheets="@../css/style.css">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

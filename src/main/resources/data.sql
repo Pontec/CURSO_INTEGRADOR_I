@@ -176,7 +176,7 @@ VALUES ('ADMINISTRADOR'),
        ('VENTAS');
 
 -- Insert data into the 'empleados' table
-INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede,estado)
+INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede)
 VALUES ('Juan', 'Perez', '12345678', 'admin', '123', '987654321', 1),
        ('Maria', 'Lopez', '87654321', 'maria.lopez@example.com', 'password456', '123456789', 1),
        ('Andree', 'Bermudez', '45678912', 'andreebermudez@example.com', '123456', '987654321', 1);
@@ -231,7 +231,23 @@ VALUES (1, 1, '2024-10-01', '08:00:00'),
        (3, 3, '2024-10-30', '10:00:00'),
        (4, 3, '2024-10-30', '12:00:00'),
        (5, 3, '2024-10-30', '16:00:00'),
-       (6, 3, '2024-10-30', '22:00:00');
+       (6, 3, '2024-10-30', '22:00:00'),
+       (1, 1, '2024-10-30', '15:00:00'),
+       (1, 1, '2024-10-30', '20:00:00'),
+       (1, 1, '2024-10-30', '22:00:00'),
+       (3, 3, '2024-10-30', '10:00:00'),
+       (4, 3, '2024-10-31', '12:00:00'),
+       (5, 3, '2024-10-31', '16:00:00'),
+       (6, 3, '2024-10-31', '22:00:00'),
+       (1, 1, '2024-10-31', '15:00:00'),
+       (1, 1, '2024-10-31', '20:00:00'),
+       (1, 1, '2024-10-31', '22:00:00'),
+       (4, 3, '2024-11-01', '12:00:00'),
+       (5, 3, '2024-11-01', '16:00:00'),
+       (6, 3, '2024-11-01', '22:00:00'),
+       (1, 1, '2024-11-01', '15:00:00'),
+       (1, 1, '2024-11-01', '20:00:00'),
+       (1, 1, '2024-11-01', '22:00:00');
 
 -- Insert data into the 'compras' table
 INSERT INTO compras (id_cliente, id_empleado, tipo_compra, fecha, hora)
@@ -248,19 +264,24 @@ VALUES ('boleta', 12345, '2023-10-01'),
        ('boleta', 67890, '2023-10-02'),
        ('boleta', 13579, '2024-10-30'),
        ('boleta', 24680, '2024-10-30'),
-         ('boleta', 35791, '2024-10-30');
+       ('boleta', 35791, '2024-10-30');
 
 -- Insert data into the 'detalle_boleta' table
 INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_unitario, subtotal,
                             id_comprobante, id_asiento, id_compra, id_asignacion)
 VALUES ('Viaje Chimbote-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 60.0, 60.0, 1, 1, 1, 1),
        ('Viaje Chimbote-Cusco', '2023-10-02', '09:00:00', 'efectivo', 60.0, 60.0, 2, 4, 2, 2),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '10:00:00', 'tarjeta', 50.0, 50.0, 3, 3, 3, 3),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 4, 6, 4, 4),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 5, 6, 5, 5);
+       ('Viaje Chimbote-Huaraz', '2024-10-30', '10:00:00', 'tarjeta', 50.0, 50.0, 3, 3, 3, 3),
+       ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 4, 6, 4, 4),
+       ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 5, 6, 5, 5);
 
 -- Insert data into the 'detalle_encomienda' table
 INSERT INTO detalle_encomienda (descripcion, peso, metodo_pago, precio_unitario, subtotal, id_bus, id_comprobante,
                                 id_compra)
 VALUES ('Encomienda 1', 10.0, 'tarjeta', 50, 50, 1, 1, 1),
        ('Encomienda 2', 20.0, 'efectivo', 100, 100, 2, 2, 2);
+
+-- Falta actualizar tabla empleados
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 3);
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 2);
+UPDATE `viacosta`.`empleados` SET `estado` = b'1' WHERE (`id_empleado` = 1);
