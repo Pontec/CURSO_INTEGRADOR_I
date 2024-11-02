@@ -23,35 +23,35 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_dni" layoutX="25.0" layoutY="97.0" promptText="Ingresa tu dni" />
-            <TextField fx:id="txt_nombre" layoutX="25.0" layoutY="148.0" promptText="Ingresa tu nombre" />
+            <TextField fx:id="txt_dni" layoutX="25.0" layoutY="97.0" minHeight="30.0" minWidth="188.0" onKeyReleased="#handleKeyEmpleado" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa tu dni" />
+            <TextField fx:id="txt_nombre" layoutX="25.0" layoutY="148.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="26.0" layoutY="179.0" text="Apellido">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_apellido" layoutX="25.0" layoutY="198.0" promptText="ingresa tu apellido" />
+            <TextField fx:id="txt_apellido" layoutX="25.0" layoutY="198.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="26.0" layoutY="232.0" text="Telefono">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_telefono" layoutX="25.0" layoutY="251.0" promptText="ejem. 931749376" />
+            <TextField fx:id="txt_telefono" layoutX="25.0" layoutY="251.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ejem. 931749376" />
             <Label layoutX="26.0" layoutY="285.0" text="Correo">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_correo" layoutX="25.0" layoutY="304.0" promptText="hola@gmail.com" />
+            <TextField fx:id="txt_correo" layoutX="25.0" layoutY="304.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="hola@gmail.com" />
             <Label layoutX="24.0" layoutY="340.0" text="Constraseña">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <ComboBox fx:id="cboxRol" layoutX="24.0" layoutY="418.0" prefHeight="27.0" prefWidth="188.0" promptText="Selecciona un rol" />
+            <ComboBox fx:id="cboxRol" layoutX="24.0" layoutY="418.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Selecciona un rol" />
             <Label layoutX="26.0" layoutY="395.0" text="Rol">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
             <Button fx:id="btn_guardar" layoutX="59.0" layoutY="466.0" mnemonicParsing="false" onAction="#guardarEmpleados" prefHeight="30.0" prefWidth="108.0" styleClass="btn-clasic" text="Guardar" />
             <Button fx:id="btn_actualizar" layoutX="59.0" layoutY="466.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="30.0" prefWidth="108.0" styleClass="btn-clasic" text="Editar" />
-            <PasswordField fx:id="txt_contraseña" layoutX="24.0" layoutY="363.0" promptText="********" />
+            <PasswordField fx:id="txt_contraseña" layoutX="24.0" layoutY="363.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="********" />
             <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="138.0" text="Ingrese los datos">
                <font>
                   <Font size="14.0" />

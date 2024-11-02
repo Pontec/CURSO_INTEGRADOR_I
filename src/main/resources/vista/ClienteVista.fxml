@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.ClienteControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.ClienteControlador">
    <children>
       <Pane layoutX="38.0" layoutY="62.0" prefHeight="623.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="35.0" AnchorPane.topAnchor="62.0">
          <children>
@@ -33,13 +33,13 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-            <TextField fx:id="txt_apellido" editable="false" layoutX="23.0" layoutY="210.0" prefHeight="30.0" prefWidth="191.0" promptText="ingresa tu apellido" />
-            <TextField fx:id="txt_telefono" layoutX="23.0" layoutY="264.0" prefHeight="30.0" prefWidth="191.0" promptText="ejem. 931749376" />
+            <TextField fx:id="txt_apellido" editable="false" layoutX="23.0" layoutY="210.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
+            <TextField fx:id="txt_telefono" layoutX="23.0" layoutY="264.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ejem. 931749376" />
             <Button fx:id="btn_guardar" layoutX="62.0" layoutY="393.0" mnemonicParsing="false" onAction="#act_save" prefHeight="25.0" prefWidth="88.0" styleClass="btn-clasic" text="Guardar" />
             <Button fx:id="btn_actualizar" layoutX="62.0" layoutY="393.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="30.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
-            <TextField fx:id="txt_correo" layoutX="23.0" layoutY="322.0" prefHeight="30.0" prefWidth="191.0" promptText="hola@gmail.com" />
-            <TextField fx:id="txt_dni" layoutX="23.0" layoutY="106.0" prefHeight="30.0" prefWidth="106.0" promptText="Ingresa tu dni" />
-            <TextField fx:id="txt_nombre" editable="false" layoutX="23.0" layoutY="155.0" prefHeight="30.0" prefWidth="191.0" promptText="Ingresa tu nombre" />
+            <TextField fx:id="txt_correo" layoutX="23.0" layoutY="322.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="hola@gmail.com" />
+            <TextField fx:id="txt_dni" layoutX="23.0" layoutY="106.0" minHeight="30.0" minWidth="188.0" onKeyReleased="#actBuscar" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa tu dni" />
+            <TextField fx:id="txt_nombre" editable="false" layoutX="23.0" layoutY="155.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="23.0" layoutY="24.0" style="-fx-text-fill: #0066CC;" text="Agregar Cliente">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -51,7 +51,6 @@
                </font>
             </Label>
             <Button fx:id="btnLimpiar" layoutX="62.0" layoutY="438.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="30.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
-            <Button fx:id="actBuscar" layoutX="140.0" layoutY="106.0" mnemonicParsing="false" onAction="#actBuscar" prefHeight="30.0" prefWidth="78.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Buscar" />
          </children>
       </Pane>
       <Pane layoutX="274.0" layoutY="62.0" prefHeight="623.0" prefWidth="757.0" style="-fx-border-color: CCC;">
