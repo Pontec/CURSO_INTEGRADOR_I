@@ -171,7 +171,6 @@ public class ReporteControlador implements Initializable {
         });
     }
 
-
     @FXML
     public void limpiarReportes(ActionEvent actionEvent) {
         txtCliente.setText("");

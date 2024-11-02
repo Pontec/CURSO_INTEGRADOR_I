@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -64,7 +65,6 @@ public class FacturacionControlador implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         fechaPredefinida();
         cargarRutas();
-        setearBus();
     }
 
     private void cargarRutas(){
@@ -85,8 +85,10 @@ public class FacturacionControlador implements Initializable {
         FxmlCargarUtil.cargarComboBox(rutasDestino, cmbDestino);
     }
 
-    private void setearBus(){
-        List<AsignacionBusRutaModelo> asignaciones = asignacionBusRutaService.findAll();
+    private void setearBus(List<AsignacionBusRutaModelo> listaItinerario){
+        gridBuses.getChildren().clear();
+        gridAsientos.getChildren().clear();
+        List<AsignacionBusRutaModelo> asignaciones = listaItinerario;
         int fila = 0;
         for (AsignacionBusRutaModelo asignacion : asignaciones) {
             Button boton = generarBotonItinerario(asignacion);
@@ -244,5 +246,15 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
+    @FXML
+    public void mostrarViajes(ActionEvent actionEvent) {
+        if (dateFechaViaje.getValue() != null && cmbOrigen.getValue() != null && cmbDestino.getValue() != null) {
+            LocalDate fecha = dateFechaViaje.getValue();
+            String origen = cmbOrigen.getValue().toString();
+            String destino = cmbDestino.getValue().toString();
+            List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
+            setearBus(listaAsignaciones);
+        }
+    }
 }
 

@@ -6,6 +6,7 @@ import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.modelo.ClienteModelo;
 import com.utp.viacosta.servicio.ClienteServicio;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -210,35 +211,36 @@ public class ClienteControlador implements Initializable {
 
 
     @FXML
-    public void actBuscar(ActionEvent event) {
-        String dni = txt_dni.getText();
-        if (dni.isEmpty() || dni.length() != 8) {
-            mostrarAlerta("El DNI debe tener 8 dígitos.");
+    public void actBuscar(Event event) {
+        if (txt_dni.getText().length() < 8) {
+            txt_nombre.setText("");
+            txt_apellido.setText("");
             return;
         }
 
-        Retrofit retrofit = ReniecCliente.getClient();
-        ReniecService reniecService = retrofit.create(ReniecService.class);
-        String token = "Bearer " + tokenApi;
-
-        Call<ReniecRespuesta> call = reniecService.getDatosPersona(token, dni);
-        call.enqueue(new Callback<ReniecRespuesta>() {
-            @Override
-            public void onResponse(Call<ReniecRespuesta> call, Response<ReniecRespuesta> response) {
-                if (response.isSuccessful()) {
-                    ReniecRespuesta datosPersona = response.body();
-                    txt_nombre.setText(datosPersona.getNombres());
-                    txt_apellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
-                } else {
-                    mostrarAlerta("Error en la respuesta: " + response.errorBody());
+        if (txt_dni.getText().length() == 8) {
+            Retrofit retrofit = ReniecCliente.getClient();
+            ReniecService reniecService = retrofit.create(ReniecService.class);
+            String token = "Bearer " + tokenApi;
+            Call<ReniecRespuesta> call = reniecService.getDatosPersona(token, txt_dni.getText());
+            call.enqueue(new Callback<ReniecRespuesta>() {
+                @Override
+                public void onResponse(Call<ReniecRespuesta> call, Response<ReniecRespuesta> response) {
+                    if (response.isSuccessful()) {
+                        ReniecRespuesta datosPersona = response.body();
+                        txt_nombre.setText(datosPersona.getNombres());
+                        txt_apellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
+                    } else {
+                        mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ReniecRespuesta> call, Throwable t) {
-                mostrarAlerta("Error en la llamada: " + t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<ReniecRespuesta> call, Throwable t) {
+                    mostrarAlerta("Error en la llamada: " + t.getMessage());
+                }
+            });
+        }
     }
 
 }

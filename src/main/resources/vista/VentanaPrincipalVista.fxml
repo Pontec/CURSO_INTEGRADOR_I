@@ -2,11 +2,13 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane id="ventanaPrincipal" fx:id="ventanaPrincipal" maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.VentanaPrincipalControlador">
+<BorderPane id="ventanaPrincipal" fx:id="ventanaPrincipal" maxHeight="1080.0" maxWidth="1920.0" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.VentanaPrincipalControlador">
    <left>
       <VBox fx:id="asidePanel" prefHeight="700.0" prefWidth="212.0" stylesheets="@../css/style.css" BorderPane.alignment="CENTER">
          <children>
@@ -14,6 +16,13 @@
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <children>
+                  <ImageView fitHeight="112.0" fitWidth="192.0" layoutX="10.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icon-logo.png" />
+                     </image>
+                  </ImageView>
+               </children>
             </AnchorPane>
             <Button fx:id="btn_inicio" mnemonicParsing="false" onAction="#btn_inicio" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="INICIO" />
             <Button fx:id="btn_facturacion" mnemonicParsing="false" onAction="#btnFacturacion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="FACTURACION" />
@@ -47,7 +56,7 @@
                </VBox.margin>
             </Button>
             <Button fx:id="btn_config" mnemonicParsing="false" onAction="#btn_config" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CONFIGURACION" />
-            <Button fx:id="btn_logout" mnemonicParsing="false" onAction="#btn_logout" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CERRAR SESIÓN" />
+            <Button fx:id="btn_logout" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CERRAR SESIÓN" />
          </children>
       </VBox>
    </left>
