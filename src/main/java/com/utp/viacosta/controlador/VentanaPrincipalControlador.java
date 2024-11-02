@@ -8,7 +8,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -42,6 +45,8 @@ public class VentanaPrincipalControlador implements Initializable {
     private Button btn_rutas, btn_reportes, btn_inicio, btn_config, btn_logout;
     @FXML
     private Button btn_clientes, btn_empleados, btn_facturacion, btn_buses, btn_asiento, btn_buses_rutas;
+    @FXML
+    private VBox vBox;
 
 
     @Override
@@ -140,24 +145,17 @@ public class VentanaPrincipalControlador implements Initializable {
     }
 
     @FXML
-    public void btn_logout(ActionEvent actionEvent) throws IOException {
-        // Cerrar sesión
-        Parent loginView = FxmlCargarUtil.load("/vista/LoginVista.fxml");
-        // Obtener el escenario actual y establecer la nueva escena
-        Stage stage = (Stage) ventanaPrincipal.getScene().getWindow();
-        stage.getScene().setRoot(loginView);
+    public void cerrarSesion(ActionEvent actionEvent) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de Cierre de Sesión");
+        alert.setHeaderText(null);
+        alert.setContentText("¿Está seguro de que desea cerrar sesión?");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) ventanaPrincipal.getScene().getWindow();
+            stage.close();
+        }
     }
-
-
-
-
-
-
-
-
-
-
-
 
     @FXML
     private VBox primerSubVBox;
