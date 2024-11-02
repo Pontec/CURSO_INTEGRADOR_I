@@ -148,17 +148,6 @@ public class VentanaPrincipalControlador implements Initializable {
         stage.getScene().setRoot(loginView);
     }
 
-
-
-
-
-
-
-
-
-
-
-
     @FXML
     private VBox primerSubVBox;
     @FXML
