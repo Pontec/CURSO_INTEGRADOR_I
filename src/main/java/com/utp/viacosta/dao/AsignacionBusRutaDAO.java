@@ -10,6 +10,9 @@ import java.util.List;
 @Repository
 public interface AsignacionBusRutaDAO extends JpaRepository<AsignacionBusRutaModelo, Integer> {
 
-    List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen, String destino, LocalDate fecha);
+    List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(
+            String origen,
+            String destino,
+            LocalDate fechaSalida);
 
 }

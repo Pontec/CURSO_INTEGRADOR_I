@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -255,7 +256,5 @@ public class FacturacionControlador implements Initializable {
             setearBus(listaAsignaciones);
         }
     }
-
-
 }
 
