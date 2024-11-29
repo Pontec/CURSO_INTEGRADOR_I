@@ -1,5 +1,6 @@
 package com.utp.viacosta.controlador;
 
+import com.utp.viacosta.modelo.AsientoEstadoFechaModelo;
 import com.utp.viacosta.modelo.AsientoModelo;
 import com.utp.viacosta.modelo.BusModelo;
 import com.utp.viacosta.modelo.enums.Estado;
@@ -25,6 +26,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -90,7 +93,7 @@ public class BusControlador implements Initializable {
     @FXML
     void actGuardar(ActionEvent event) {
         BusModelo busModelo = new BusModelo();
-        int capacidadAsiento =Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
+        int capacidadAsiento = Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
         busModelo.setPlaca(txt_placa.getText());
         busModelo.setMarca(txt_marca.getText());
         busModelo.setModelo(txt_modelo.getText());
@@ -99,19 +102,24 @@ public class BusControlador implements Initializable {
         List<AsientoModelo> listaAsientos = new ArrayList<>();
         for (int i = 0; i < capacidadAsiento; i++) {
             AsientoModelo asientoModelo = new AsientoModelo();
-            asientoModelo.setNumeroAsiento(i);
-            asientoModelo.setEstado(Estado.DISPONIBLE);
+            asientoModelo.setNumeroAsiento(i + 1); // Asignar el número de asiento
             asientoModelo.setPrecio(0);
             asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
+            asientoModelo.setIdBus(busModelo.getIdBus());
 
+            // Crear el estado del asiento como disponible
+            AsientoEstadoFechaModelo estadoAsiento = new AsientoEstadoFechaModelo();
+            estadoAsiento.setAsiento(asientoModelo);
+            estadoAsiento.setFecha(LocalDate.now());
+            estadoAsiento.setHora(LocalTime.now());
+            estadoAsiento.setEstado(Estado.DISPONIBLE);
+
+            asientoModelo.getEstadosFecha().add(estadoAsiento);
             listaAsientos.add(asientoModelo);
         }
         busModelo.setCapacidadAsientos(listaAsientos.size());
         busServicio.save(busModelo);
-        listaAsientos.forEach(asientoModel -> {
-            asientoModel.setIdBus(busModelo.getIdBus());
-            asientoServicio.save(asientoModel);
-        });
+        listaAsientos.forEach(asientoServicio::save);
 
         listarBuses();
         limpiarCampos();
@@ -139,20 +147,26 @@ public class BusControlador implements Initializable {
         busModelo.setCapacidadCarga(Double.parseDouble(txt_carga_maxima.getText()));
 
         List<AsientoModelo> listaAsientos = asientoServicio.getAsientosPorBus(busModelo.getIdBus());
-        int capacidadAsiento =Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
+        int capacidadAsiento = Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
         if (capacidadAsiento > listaAsientos.size()) {
             for (int i = listaAsientos.size(); i < capacidadAsiento; i++) {
                 AsientoModelo asientoModelo = new AsientoModelo();
-                asientoModelo.setNumeroAsiento(i);
-                asientoModelo.setEstado(Estado.DISPONIBLE);
+                asientoModelo.setNumeroAsiento(i + 1); // Asignar el número de asiento
                 asientoModelo.setPrecio(0);
-
-                if(i < Integer.parseInt(txt_asiento_vip.getText())){
-                    asientoModelo.setIdTipoAsiento(1);
-                }else{
-                    asientoModelo.setIdTipoAsiento(2);
-                }
+                asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
                 asientoModelo.setIdBus(busModelo.getIdBus());
+
+                // Inicializar la lista estadosFecha
+                asientoModelo.setEstadosFecha(new ArrayList<>());
+
+                // Crear el estado del asiento como disponible
+                AsientoEstadoFechaModelo estadoAsiento = new AsientoEstadoFechaModelo();
+                estadoAsiento.setAsiento(asientoModelo);
+                estadoAsiento.setFecha(LocalDate.now());
+                estadoAsiento.setHora(LocalTime.now());
+                estadoAsiento.setEstado(Estado.DISPONIBLE);
+
+                asientoModelo.getEstadosFecha().add(estadoAsiento);
                 asientoServicio.save(asientoModelo);
             }
         } else if (capacidadAsiento < listaAsientos.size()) {

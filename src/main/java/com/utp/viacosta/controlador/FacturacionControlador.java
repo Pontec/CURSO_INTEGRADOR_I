@@ -3,6 +3,7 @@ package com.utp.viacosta.controlador;
 import com.utp.viacosta.agregates.respuesta.ReniecRespuesta;
 import com.utp.viacosta.agregates.retrofit.ReniecService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
+import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.*;
 import com.utp.viacosta.modelo.enums.Estado;
 import com.utp.viacosta.servicio.*;
@@ -29,6 +30,7 @@ import retrofit2.Retrofit;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -115,6 +117,10 @@ public class FacturacionControlador implements Initializable {
     private ComboBox cmbMetodoPago;
     @FXML
     private TextField txtTipoBoleta;
+    @Autowired
+    private AsientoDAO asientoDAO;
+    @Autowired
+    private AsientoEstadoFechaServicio asientoEstadoFechaServicio;
 
 
     @Override
@@ -156,10 +162,8 @@ public class FacturacionControlador implements Initializable {
     }
 
     private void setearAsientos(List<AsientoModelo> asientos, GridPane gridAsientos, int cantAsientos, AsignacionBusRutaModelo asignacion) {
-        if (asientos == null || asientos.isEmpty()) {
-            System.out.println("No hay asientos");
-            return;
-        }
+        LocalDate fechaViaje = asignacion.getFechaSalida();
+        LocalTime horaViaje = asignacion.getHoraSalida();
 
         int index = 0;
         int totalColumnas = 9;
@@ -168,7 +172,15 @@ public class FacturacionControlador implements Initializable {
             for (int fila = 0; fila <= totalFilas; fila++) {
                 if(index >= cantAsientos) return;
                 if(fila == 2) continue;
-                Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1, asignacion);
+
+                AsientoModelo asientoActual = asientos.get(index);
+
+                boolean estaOcupado = asientoEstadoFechaServicio.estaAsientoOcupado(
+                        asientoActual.getIdAsiento(),
+                        fechaViaje,
+                        horaViaje
+                );
+                Button botonAsiento = crearBotonAsiento(asientoActual, index + 1, asignacion, estaOcupado);
                 gridAsientos.add(botonAsiento, col, fila);
                 GridPane.setMargin(botonAsiento, new Insets(3));
                 index++;
@@ -176,7 +188,7 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento, AsignacionBusRutaModelo asignacion) {
+    private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento, AsignacionBusRutaModelo asignacion, boolean estaOcupado) {
         // Crear el botón del asiento con icono
         Button botonAsiento = new Button(String.valueOf(numeroAsiento));
         botonAsiento.setPrefSize(60, 40);
@@ -194,7 +206,7 @@ public class FacturacionControlador implements Initializable {
         botonAsiento.setUserData(asignacion);
 
         // Verificar el estado del asiento
-        if (asiento.getEstado() == Estado.OCUPADO) {
+        if (estaOcupado) {
             botonAsiento.getStyleClass().add("asiento-ocupado");
             botonAsiento.setDisable(true);
         } else {
@@ -382,7 +394,8 @@ public class FacturacionControlador implements Initializable {
         ClienteModelo cliente = clienteServicio.guardarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), txtTelefono.getText(), txtDireccion.getText());
         CompraModelo compra = compraServicio.saveCompra(cliente.getIdCliente(), 1);
         ComprobanteModelo comprobante = comprobanteServicio.guardarComprobante("Boleta", numeroDoc.getText(), dateFechaBoleto.getValue());
-        AsientoModelo asiento = asientoServicio.updateEstadoAsiento(idAsiento,Estado.OCUPADO);
+        AsientoModelo asiento = asientoDAO.findById(idAsiento).orElseThrow();
+        asientoEstadoFechaServicio.marcarAsientoOcupado(asiento,asignacionAux.getFechaSalida(),asignacionAux.getHoraSalida(),asignacionAux);
         DetalleBoletaModelo detalleBoleta = detalleBoletaServicio.save("Boleto de viaje",asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), "Efectivo", Double.parseDouble(txtTotal.getText()), comprobante.getIdComprobante(), asiento.getNumeroAsiento(), 1, compra.getIdCompra());
     }
 }

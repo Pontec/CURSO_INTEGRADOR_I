@@ -38,5 +38,7 @@ public class AsignacionBusRutaModelo {
     private RutaModelo rutaAsignada;
     @OneToMany(mappedBy = "asignacionBusRuta")
     private List<DetalleBoletaModelo> detalleBoletaModelo;
+    @OneToMany(mappedBy = "asignacionBusRuta")
+    private List<AsientoEstadoFechaModelo> estadosFecha;
 
 }
