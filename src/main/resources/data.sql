@@ -252,12 +252,12 @@ VALUES
 
 
 -- Insert data into the 'compras' table
-INSERT INTO compras (id_cliente, id_empleado, tipo_compra, fecha, hora)
-VALUES (1, 2, 'boleta', '2023-10-01', '10:00:00'),
-       (2, 2, 'boleta', '2023-10-02', '11:00:00'),
-       (3, 2, 'boleta', '2024-10-30', '12:00:00'),
-       (4, 2, 'boleta', '2024-10-30', '16:00:00'),
-       (5, 2, 'boleta', '2024-10-30', '16:00:00');
+INSERT INTO compras (id_cliente, id_empleado)
+VALUES (1, 2, ),
+       (2, 2, ),
+           (3, 2),
+       (4, 2),
+       (5, 2);
 
 
 -- Insert data into the 'comprobantes' table
@@ -269,13 +269,13 @@ VALUES ('boleta', 12345, '2023-10-01'),
          ('boleta', 35791, '2024-10-30');
 
 -- Insert data into the 'detalle_boleta' table
-INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_unitario, subtotal,
+INSERT INTO detalle_boleta (descripcion, fecha_viaje, hora_viaje, metodo_pago, precio_total,
                             id_comprobante, id_asiento, id_compra, id_asignacion)
-VALUES ('Viaje Chimbote-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 60.0, 60.0, 1, 1, 1, 1),
-       ('Viaje Chimbote-Cusco', '2023-10-02', '09:00:00', 'efectivo', 60.0, 60.0, 2, 4, 2, 2),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '10:00:00', 'tarjeta', 50.0, 50.0, 3, 3, 3, 3),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 4, 6, 4, 4),
-         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0, 60.0, 5, 6, 5, 5);
+VALUES ('Viaje Chimbote-Arequipa', '2023-10-01', '08:00:00', 'tarjeta', 60.0, 1, 1, 1, 1),
+       ('Viaje Chimbote-Cusco', '2023-10-02', '09:00:00', 'efectivo', 60.0,  2, 4, 2, 2),
+         ('Viaje Chimbote-Huaraz', '2024-10-30', '10:00:00', 'tarjeta', 50.0,  3, 3, 3, 3),
+         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0,  4, 6, 4, 4),
+         ('Viaje Chimbote-Huaraz', '2024-10-30', '16:00:00', 'efectivo', 60.0,  5, 6, 5, 5);
 
 -- Insert data into the 'detalle_encomienda' table
 INSERT INTO detalle_encomienda (descripcion, peso, metodo_pago, precio_unitario, subtotal, id_bus, id_comprobante,

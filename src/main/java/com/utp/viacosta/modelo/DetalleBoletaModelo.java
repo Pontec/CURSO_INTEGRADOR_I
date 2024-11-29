@@ -1,10 +1,8 @@
 package com.utp.viacosta.modelo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,6 +10,7 @@ import java.time.LocalTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "detalle_boleta")
 public class DetalleBoletaModelo {
@@ -26,9 +25,8 @@ public class DetalleBoletaModelo {
     private LocalTime horaViaje;
     @Column(name = "metodo_pago")
     private String metodoPago;
-    @Column(name = "precio_unitario")
-    private double precioUnitario;
-    private double subtotal;
+    @Column(name = "precio_total")
+    private double precioTotal;
     @Column(name = "id_comprobante")
     private int idComprobante;
     @Column(name = "id_asiento")

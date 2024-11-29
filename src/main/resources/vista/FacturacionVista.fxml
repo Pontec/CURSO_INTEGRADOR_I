@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="contenedorPanelFact" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.FacturacionControlador">
    <children>
-      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0">
+      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0" visible="false">
          <children>
             <Pane layoutX="11.0" layoutY="14.0" prefHeight="130.0" prefWidth="1046.0" style="-fx-border-color: CCC;">
                <children>
@@ -166,7 +166,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0" visible="false">
+      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0">
          <children>
             <Pane layoutX="13.0" layoutY="20.0" prefHeight="115.0" prefWidth="1040.0" style="-fx-border-color: CCC;">
                <children>
@@ -180,7 +180,6 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <ComboBox layoutX="325.0" layoutY="67.0" minHeight="30.0" prefHeight="20.0" prefWidth="150.0" promptText="Boleta" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
                   <Label layoutX="491.0" layoutY="73.0" text="N° Doc:">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -199,6 +198,7 @@
                      </font>
                   </Label>
                   <DatePicker fx:id="dateFechaBoleto" editable="false" layoutX="67.0" layoutY="67.0" minHeight="30.0" prefHeight="30.0" prefWidth="175.0" />
+                  <TextField fx:id="txtTipoBoleta" editable="false" layoutX="325.0" layoutY="67.0" minHeight="30.0" prefHeight="30.0" prefWidth="152.0" />
                </children>
             </Pane>
             <Pane layoutX="829.0" layoutY="146.0" prefHeight="371.0" prefWidth="225.0" style="-fx-border-color: CCC;">
@@ -311,7 +311,7 @@
                         <URL value="@../css/style.css" />
                      </stylesheets>
                   </TableView>
-                  <ComboBox layoutX="24.0" layoutY="82.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" promptText="Efectivo" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
+                  <ComboBox fx:id="cmbMetodoPago" layoutX="24.0" layoutY="82.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
                   <Label layoutX="229.0" layoutY="58.0" text="Efectivo:">
                      <font>
                         <Font name="System Bold" size="12.0" />
@@ -338,7 +338,7 @@
                   <TextField fx:id="txtIGV" editable="false" layoutX="226.0" layoutY="155.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
                </children>
             </Pane>
-            <Button layoutX="851.0" layoutY="677.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Procesar Venta" />
+            <Button layoutX="851.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#procesarVenta" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Procesar Venta" />
             <Button fx:id="volverPanel1" layoutX="631.0" layoutY="677.0" mnemonicParsing="false" onAction="#volverPanel" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Volver" />
          </children>
       </AnchorPane>

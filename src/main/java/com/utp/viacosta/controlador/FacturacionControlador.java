@@ -3,13 +3,9 @@ package com.utp.viacosta.controlador;
 import com.utp.viacosta.agregates.respuesta.ReniecRespuesta;
 import com.utp.viacosta.agregates.retrofit.ReniecService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
-import com.utp.viacosta.modelo.AsientoModelo;
-import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
-import com.utp.viacosta.modelo.RutaModelo;
-import com.utp.viacosta.servicio.AsientoServicio;
-import com.utp.viacosta.servicio.AsignacionBusRutaServicio;
-import com.utp.viacosta.servicio.ComprobanteServicio;
-import com.utp.viacosta.servicio.RutaServicio;
+import com.utp.viacosta.modelo.*;
+import com.utp.viacosta.modelo.enums.Estado;
+import com.utp.viacosta.servicio.*;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,18 +64,6 @@ public class FacturacionControlador implements Initializable {
     private TextField embarque;
     @FXML
     private TextField numeroDoc;
-    @Autowired
-    private AsientoServicio asientoServicio;
-    @Autowired
-    private RutaServicio rutaServicio;
-    @Autowired
-    private AsignacionBusRutaServicio asignacionBusRutaService;
-    @Autowired
-    private ComprobanteServicio comprobanteServicio;
-    @Value("${token.api}")
-    private String tokenApi;
-
-    private List<Button> botonesAsientos = new ArrayList<>();
     @FXML
     private TextField txtDireccion;
     @FXML
@@ -108,6 +92,30 @@ public class FacturacionControlador implements Initializable {
     private TextField txtTotal;
     @FXML
     private TextField txtCambio;
+    @Autowired
+    private AsientoServicio asientoServicio;
+    @Autowired
+    private RutaServicio rutaServicio;
+    @Autowired
+    private AsignacionBusRutaServicio asignacionBusRutaService;
+    @Autowired
+    private ComprobanteServicio comprobanteServicio;
+    @Autowired
+    private ClienteServicio clienteServicio;
+    @Autowired
+    private DetalleBoletaServicio detalleBoletaServicio;
+    @Autowired
+    private CompraServicio compraServicio;
+    @Value("${token.api}")
+    private String tokenApi;
+    private List<Button> botonesAsientos = new ArrayList<>();
+    int idAsiento = 0;
+    AsignacionBusRutaModelo asignacionAux = new AsignacionBusRutaModelo();
+    @FXML
+    private ComboBox cmbMetodoPago;
+    @FXML
+    private TextField txtTipoBoleta;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -171,7 +179,6 @@ public class FacturacionControlador implements Initializable {
     private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento, AsignacionBusRutaModelo asignacion) {
         // Crear el botón del asiento con icono
         Button botonAsiento = new Button(String.valueOf(numeroAsiento));
-        botonAsiento.getStyleClass().add("asiento-disponible");
         botonAsiento.setPrefSize(60, 40);
 
         Image imagen = new Image(getClass().getResourceAsStream("/img/icon-chair.png"));
@@ -186,31 +193,40 @@ public class FacturacionControlador implements Initializable {
         // Almacenar la asignación en el botón
         botonAsiento.setUserData(asignacion);
 
-        botonAsiento.setOnAction(event -> {
-            if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
-                // Cambiar el estado de todos los botones a disponible
-                for (Button btn : botonesAsientos) {
-                    btn.getStyleClass().remove("asiento-ocupado");
-                    btn.getStyleClass().add("asiento-disponible");
+        // Verificar el estado del asiento
+        if (asiento.getEstado() == Estado.OCUPADO) {
+            botonAsiento.getStyleClass().add("asiento-ocupado");
+            botonAsiento.setDisable(true);
+        } else {
+            botonAsiento.getStyleClass().add("asiento-disponible");
+            botonAsiento.setOnAction(event -> {
+                if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
+                    // Cambiar el estado de todos los botones a disponible
+                    for (Button btn : botonesAsientos) {
+                        btn.getStyleClass().remove("asiento-ocupado");
+                        btn.getStyleClass().add("asiento-disponible");
+                    }
+                    // Cambiar el estado del botón seleccionado a ocupado
+                    botonAsiento.getStyleClass().remove("asiento-disponible");
+                    botonAsiento.getStyleClass().add("asiento-ocupado");
+
+                    // Capturar la información de la asignación
+                    AsignacionBusRutaModelo asignacionSeleccionada = (AsignacionBusRutaModelo) botonAsiento.getUserData();
+                    txtNumAsiento.setText(String.valueOf(numeroAsiento));
+                    txtCargoExtra.setText(String.valueOf(asiento.getPrecio()));
+                    txtFechaSalida.setText(asignacionSeleccionada.getFechaSalida().toString());
+                    txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
+                    idAsiento = asiento.getIdAsiento();
+                    asignacionAux = asignacionSeleccionada;
+                    setearDatosPago(asiento.getPrecio());
+
+                } else {
+                    // Cambiar el estado del botón seleccionado a disponible
+                    botonAsiento.getStyleClass().remove("asiento-ocupado");
+                    botonAsiento.getStyleClass().add("asiento-disponible");
                 }
-                // Cambiar el estado del botón seleccionado a ocupado
-                botonAsiento.getStyleClass().remove("asiento-disponible");
-                botonAsiento.getStyleClass().add("asiento-ocupado");
-
-                // Capturar la información de la asignación
-                AsignacionBusRutaModelo asignacionSeleccionada = (AsignacionBusRutaModelo) botonAsiento.getUserData();
-                txtNumAsiento.setText(String.valueOf(numeroAsiento));
-                txtCargoExtra.setText(String.valueOf(asiento.getPrecio()));
-                txtFechaSalida.setText(asignacionSeleccionada.getFechaSalida().toString());
-                txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
-                setearDatosPago(asiento.getPrecio());
-
-            } else {
-                // Cambiar el estado del botón seleccionado a disponible
-                botonAsiento.getStyleClass().remove("asiento-ocupado");
-                botonAsiento.getStyleClass().add("asiento-disponible");
-            }
-        });
+            });
+        }
 
         return botonAsiento;
     }
@@ -286,10 +302,17 @@ public class FacturacionControlador implements Initializable {
     }
 
     private void datosViajePredefinidos(){
+        txtTipoBoleta.setText("Boleta");
         int numeroDocumento = comprobanteServicio.countByTipoComprobante("Boleta") + 1;
         dateFechaBoleto.setValue(LocalDate.now());
         embarque.setText("Terminal Terrestre de Chimbote");
-        numeroDoc.setText("B001 - "+numeroDocumento);
+        numeroDoc.setText("B001 - "+ numeroDocumento);
+        cargarMetodosPago();
+    }
+
+    public void cargarMetodosPago(){
+        ObservableList<String> metodosPago = FXCollections.observableArrayList("Efectivo", "Tarjeta de crédito");
+        FxmlCargarUtil.cargarComboBox(metodosPago, cmbMetodoPago);
     }
 
     @FXML
@@ -352,6 +375,15 @@ public class FacturacionControlador implements Initializable {
         double efectivo = Double.parseDouble(txtEfectivo.getText());
         double total = Double.parseDouble(txtTotal.getText());
         txtCambio.setText(String.valueOf(efectivo - total));
+    }
+
+    @FXML
+    public void procesarVenta(Event event) {
+        ClienteModelo cliente = clienteServicio.guardarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), txtTelefono.getText(), txtDireccion.getText());
+        CompraModelo compra = compraServicio.saveCompra(cliente.getIdCliente(), 1);
+        ComprobanteModelo comprobante = comprobanteServicio.guardarComprobante("Boleta", numeroDoc.getText(), dateFechaBoleto.getValue());
+        AsientoModelo asiento = asientoServicio.updateEstadoAsiento(idAsiento,Estado.OCUPADO);
+        DetalleBoletaModelo detalleBoleta = detalleBoletaServicio.save("Boleto de viaje",asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), "Efectivo", Double.parseDouble(txtTotal.getText()), comprobante.getIdComprobante(), asiento.getNumeroAsiento(), 1, compra.getIdCompra());
     }
 }
 

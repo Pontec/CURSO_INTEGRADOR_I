@@ -15,8 +15,16 @@ public class ClienteServicioImpl implements ClienteServicio {
     private ClienteDAO clienteDAO;
 
     @Override
-    public void guardarCliente(ClienteModelo clienteModelo) {
-        clienteDAO.save(clienteModelo);
+    public ClienteModelo guardarCliente(String nombre, String apellido, String dni, String telefono, String direccion) {
+        ClienteModelo cliente = ClienteModelo.builder()
+                .nombre(nombre)
+                .apellido(apellido)
+                .dni(dni)
+                .telefono(telefono)
+                .direccion(direccion)
+                .build();
+        clienteDAO.save(cliente);
+        return cliente;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +17,22 @@ public class DetalleBoletaServicioImpl implements DetalleBoletaServicio {
 
     @Autowired
     private DetalleBoletaDAO detalleBoletaDAO;
+
+    @Override
+    public DetalleBoletaModelo save(String descripcion, LocalDate fechaViaje, LocalTime horaViaje, String metodoPago, Double precioTotal, Integer idComprobante, Integer idAsiento, Integer idAsignacion, Integer idCompra) {
+        DetalleBoletaModelo detalle = DetalleBoletaModelo.builder()
+                .descripcion(descripcion)
+                .fechaViaje(fechaViaje)
+                .horaViaje(horaViaje)
+                .metodoPago(metodoPago)
+                .precioTotal(precioTotal)
+                .idComprobante(idComprobante)
+                .idAsiento(idAsiento)
+                .idAsignacion(idAsignacion)
+                .idCompra(idCompra)
+                .build();
+        return detalleBoletaDAO.save(detalle);
+    }
 
     @Override
     public List<DetalleBoletaDTO> getAllReporteVentas() {
@@ -57,7 +74,7 @@ public class DetalleBoletaServicioImpl implements DetalleBoletaServicio {
         dto.setHoraSalida(model.getAsignacionBusRuta().getHoraSalida());
         dto.setAsiento(model.getAsiento().getNumeroAsiento());
         dto.setResponsable(model.getCompra().getEmpleado().getNombre() + " " + model.getCompra().getEmpleado().getApellido());
-        dto.setPrecioTotal(model.getPrecioUnitario() + model.getAsiento().getTipoAsiento().getCargoExtra());
+        dto.setPrecioTotal(model.getPrecioTotal());
         return dto;
     }
 
