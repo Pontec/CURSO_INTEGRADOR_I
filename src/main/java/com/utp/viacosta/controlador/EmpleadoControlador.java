@@ -1,16 +1,25 @@
 package com.utp.viacosta.controlador;
 
+import com.utp.viacosta.agregates.respuesta.ReniecRespuesta;
+import com.utp.viacosta.agregates.retrofit.ReniecService;
+import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.modelo.EmpleadoModelo;
 import com.utp.viacosta.modelo.RolModelo;
 import com.utp.viacosta.servicio.EmpleadoServicio;
 import com.utp.viacosta.servicio.RolServicio;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import java.net.URL;
 import java.util.HashSet;
@@ -24,6 +33,8 @@ public class EmpleadoControlador implements Initializable {
     private EmpleadoServicio empleadoServicio;
     @Autowired
     private RolServicio rolServicio;
+    @Value("${token.api}")
+    private String tokenApi;
 
     @FXML
     private Button btn_actualizar,btnLimpiar, btn_guardar;
@@ -114,7 +125,7 @@ public class EmpleadoControlador implements Initializable {
         columnAcciones.setCellFactory(col -> new TableCell<>() {
             private final Button iconoEstado = new Button();
             {
-               iconoEstado.setOnAction(event -> {
+                iconoEstado.setOnAction(event -> {
                     EmpleadoModelo empleado = getTableView().getItems().get(getIndex());
                     empleado.setEstado(!empleado.isEstado());
                     empleadoServicio.save(empleado);
@@ -129,7 +140,7 @@ public class EmpleadoControlador implements Initializable {
                 } else {
                     EmpleadoModelo empleado = getTableView().getItems().get(getIndex());
                     iconoEstado.setText(empleado.isEstado() ? "Deshabilitar" : "   Habilitar  ");
-                    iconoEstado.setStyle(empleado.isEstado() ? "-fx-background-color: #ef1313; -fx-text-fill: white; " : "-fx-background-color: #41dc41;-fx-text-fill: white;");
+                    iconoEstado.setStyle(empleado.isEstado() ? "-fx-background-color: #1a44ff; -fx-text-fill: white; " : "-fx-background-color: #ff0000;-fx-text-fill: white;");
                     setGraphic(iconoEstado);
                 }
             }
@@ -236,4 +247,36 @@ public class EmpleadoControlador implements Initializable {
         return true;
     }
 
+    @FXML
+    public void handleKeyEmpleado(Event event) {
+        if (txt_dni.getText().length() < 8) {
+            txt_nombre.setText("");
+            txt_apellido.setText("");
+            return;
+        }
+
+        if (txt_dni.getText().length() == 8) {
+            Retrofit retrofit = ReniecCliente.getClient();
+            ReniecService reniecService = retrofit.create(ReniecService.class);
+            String token = "Bearer " + tokenApi;
+            Call<ReniecRespuesta> call = reniecService.getDatosPersona(token, txt_dni.getText());
+            call.enqueue(new Callback<ReniecRespuesta>() {
+                @Override
+                public void onResponse(Call<ReniecRespuesta> call, Response<ReniecRespuesta> response) {
+                    if (response.isSuccessful()) {
+                        ReniecRespuesta datosPersona = response.body();
+                        txt_nombre.setText(datosPersona.getNombres());
+                        txt_apellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
+                    } else {
+                        mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ReniecRespuesta> call, Throwable t) {
+                    mostrarAlerta("Error en la llamada: " + t.getMessage());
+                }
+            });
+        }
+    }
 }

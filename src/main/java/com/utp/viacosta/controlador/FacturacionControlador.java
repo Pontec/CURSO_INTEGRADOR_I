@@ -1,5 +1,8 @@
 package com.utp.viacosta.controlador;
 
+import com.utp.viacosta.agregates.respuesta.ReniecRespuesta;
+import com.utp.viacosta.agregates.retrofit.ReniecService;
+import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.modelo.AsientoModelo;
 import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
 import com.utp.viacosta.modelo.RutaModelo;
@@ -11,6 +14,7 @@ import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -20,7 +24,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -67,8 +76,38 @@ public class FacturacionControlador implements Initializable {
     private AsignacionBusRutaServicio asignacionBusRutaService;
     @Autowired
     private ComprobanteServicio comprobanteServicio;
+    @Value("${token.api}")
+    private String tokenApi;
 
     private List<Button> botonesAsientos = new ArrayList<>();
+    @FXML
+    private TextField txtDireccion;
+    @FXML
+    private TextField txtCargoExtra;
+    @FXML
+    private TextField txtHoraSalida;
+    @FXML
+    private TextField txtFechaSalida;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtNumAsiento;
+    @FXML
+    private TextField txtTelefono;
+    @FXML
+    private TextField txtApellido;
+    @FXML
+    private TextField txtDni;
+    @FXML
+    private TextField txtEfectivo;
+    @FXML
+    private TextField txtSubtotal;
+    @FXML
+    private TextField txtIGV;
+    @FXML
+    private TextField txtTotal;
+    @FXML
+    private TextField txtCambio;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -108,10 +147,10 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private void setearAsientos(List<AsientoModelo> asientos,  GridPane gridAsientos, int cantAsientos) {
+    private void setearAsientos(List<AsientoModelo> asientos, GridPane gridAsientos, int cantAsientos, AsignacionBusRutaModelo asignacion) {
         if (asientos == null || asientos.isEmpty()) {
             System.out.println("No hay asientos");
-            return; // Salir si la lista es nula o está vacía
+            return;
         }
 
         int index = 0;
@@ -121,7 +160,7 @@ public class FacturacionControlador implements Initializable {
             for (int fila = 0; fila <= totalFilas; fila++) {
                 if(index >= cantAsientos) return;
                 if(fila == 2) continue;
-                Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
+                Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1, asignacion);
                 gridAsientos.add(botonAsiento, col, fila);
                 GridPane.setMargin(botonAsiento, new Insets(3));
                 index++;
@@ -129,7 +168,7 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento) {
+    private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento, AsignacionBusRutaModelo asignacion) {
         // Crear el botón del asiento con icono
         Button botonAsiento = new Button(String.valueOf(numeroAsiento));
         botonAsiento.getStyleClass().add("asiento-disponible");
@@ -144,6 +183,9 @@ public class FacturacionControlador implements Initializable {
         // Añadir el botón a la lista de botones
         botonesAsientos.add(botonAsiento);
 
+        // Almacenar la asignación en el botón
+        botonAsiento.setUserData(asignacion);
+
         botonAsiento.setOnAction(event -> {
             if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
                 // Cambiar el estado de todos los botones a disponible
@@ -154,6 +196,15 @@ public class FacturacionControlador implements Initializable {
                 // Cambiar el estado del botón seleccionado a ocupado
                 botonAsiento.getStyleClass().remove("asiento-disponible");
                 botonAsiento.getStyleClass().add("asiento-ocupado");
+
+                // Capturar la información de la asignación
+                AsignacionBusRutaModelo asignacionSeleccionada = (AsignacionBusRutaModelo) botonAsiento.getUserData();
+                txtNumAsiento.setText(String.valueOf(numeroAsiento));
+                txtCargoExtra.setText(String.valueOf(asiento.getPrecio()));
+                txtFechaSalida.setText(asignacionSeleccionada.getFechaSalida().toString());
+                txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
+                setearDatosPago(asiento.getPrecio());
+
             } else {
                 // Cambiar el estado del botón seleccionado a disponible
                 botonAsiento.getStyleClass().remove("asiento-ocupado");
@@ -162,6 +213,13 @@ public class FacturacionControlador implements Initializable {
         });
 
         return botonAsiento;
+    }
+
+    private void setearDatosPago(double precio){
+        precio = 50;
+        txtSubtotal.setText(String.format("%.2f", precio / 1.18));
+        txtIGV.setText(String.format("%.2f", precio - (precio / 1.18)));
+        txtTotal.setText(String.format("%.2f", precio));
     }
 
     @FXML
@@ -205,8 +263,8 @@ public class FacturacionControlador implements Initializable {
             gridPrimerPiso.getChildren().clear();
             gridSegundoPiso.getChildren().clear();
             botonesAsientos.clear();
-            setearAsientos(asientos,gridPrimerPiso,asignacion.getBusAsignado().getPrimerPiso());
-            setearAsientos(asientos,gridSegundoPiso,asignacion.getBusAsignado().getSegundoPiso());
+            setearAsientos(asientos, gridPrimerPiso, asignacion.getBusAsignado().getPrimerPiso(), asignacion);
+            setearAsientos(asientos, gridSegundoPiso, asignacion.getBusAsignado().getSegundoPiso(), asignacion);
         });
         return botonBus;
     }
@@ -243,6 +301,57 @@ public class FacturacionControlador implements Initializable {
             List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
             setearBus(listaAsignaciones);
         }
+    }
+
+    @FXML
+    public void datosClienteReniec(Event event) {
+        if (txtDni.getText().length() < 8) {
+            txtNombre.setText("");
+            txtApellido.setText("");
+            return;
+        }
+
+        if (txtDni.getText().length() == 8) {
+            Retrofit retrofit = ReniecCliente.getClient();
+            ReniecService reniecService = retrofit.create(ReniecService.class);
+            String token = "Bearer " + tokenApi;
+            Call<ReniecRespuesta> call = reniecService.getDatosPersona(token, txtDni.getText());
+            call.enqueue(new Callback<ReniecRespuesta>() {
+                @Override
+                public void onResponse(Call<ReniecRespuesta> call, Response<ReniecRespuesta> response) {
+                    if (response.isSuccessful()) {
+                        ReniecRespuesta datosPersona = response.body();
+                        txtNombre.setText(datosPersona.getNombres());
+                        txtApellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
+                    } else {
+                        mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ReniecRespuesta> call, Throwable t) {
+                    mostrarAlerta("Error en la llamada: " + t.getMessage());
+                }
+            });
+        }
+
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(mensaje);
+        alert.show();
+    }
+
+    @FXML
+    public void calcularCambio(ActionEvent actionEvent) {
+        if (Double.parseDouble(txtEfectivo.getText()) < Double.parseDouble(txtTotal.getText())) {
+            mostrarAlerta("El efectivo no puede ser menor al total");
+            return;
+        }
+        double efectivo = Double.parseDouble(txtEfectivo.getText());
+        double total = Double.parseDouble(txtTotal.getText());
+        txtCambio.setText(String.valueOf(efectivo - total));
     }
 }
 

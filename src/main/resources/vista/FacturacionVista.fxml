@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="contenedorPanelFact" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.FacturacionControlador">
    <children>
-      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0" visible="false">
+      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0">
          <children>
             <Pane layoutX="11.0" layoutY="14.0" prefHeight="130.0" prefWidth="1046.0" style="-fx-border-color: CCC;">
                <children>
@@ -166,7 +166,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0">
+      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0" visible="false">
          <children>
             <Pane layoutX="13.0" layoutY="20.0" prefHeight="115.0" prefWidth="1040.0" style="-fx-border-color: CCC;">
                <children>
@@ -228,10 +228,10 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="15.0" layoutY="76.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
-                  <TextField editable="false" layoutX="17.0" layoutY="138.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
-                  <TextField editable="false" layoutX="17.0" layoutY="205.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
-                  <TextField editable="false" layoutX="20.0" layoutY="274.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField fx:id="txtNumAsiento" editable="false" layoutX="15.0" layoutY="76.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField fx:id="txtCargoExtra" editable="false" layoutX="17.0" layoutY="138.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField fx:id="txtFechaSalida" editable="false" layoutX="17.0" layoutY="205.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
+                  <TextField fx:id="txtHoraSalida" editable="false" layoutX="20.0" layoutY="274.0" minHeight="30.0" prefHeight="30.0" prefWidth="196.0" />
                </children>
             </Pane>
             <Pane layoutX="13.0" layoutY="146.0" prefHeight="159.0" prefWidth="808.0" style="-fx-border-color: CCC;">
@@ -251,31 +251,31 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="90.0" layoutY="75.0" minHeight="30.0" prefHeight="30.0" prefWidth="169.0" />
+                  <TextField fx:id="txtDni" layoutX="90.0" layoutY="75.0" minHeight="30.0" onKeyReleased="#datosClienteReniec" prefHeight="30.0" prefWidth="169.0" />
                   <Label layoutX="273.0" layoutY="79.0" text="Nombre:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="338.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
+                  <TextField fx:id="txtNombre" editable="false" layoutX="338.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
                   <Label layoutX="540.0" layoutY="79.0" text="Apellidos:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="605.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
+                  <TextField fx:id="txtApellido" editable="false" layoutX="605.0" layoutY="75.0" maxWidth="186.0" minHeight="30.0" minWidth="186.0" prefHeight="30.0" prefWidth="186.0" />
                   <Label layoutX="24.0" layoutY="120.0" text="Telefono:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="88.0" layoutY="116.0" minHeight="30.0" prefHeight="30.0" prefWidth="169.0" promptText="987654321 (Opcional)" />
+                  <TextField fx:id="txtTelefono" layoutX="88.0" layoutY="116.0" minHeight="30.0" prefHeight="30.0" prefWidth="169.0" promptText="987654321 (Opcional)" />
                   <Label layoutX="275.0" layoutY="117.0" text="Dirección:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="338.0" layoutY="113.0" minHeight="30.0" prefHeight="30.0" prefWidth="453.0" promptText="Dirección del pasajero (Opcional)" />
+                  <TextField fx:id="txtDireccion" layoutX="338.0" layoutY="113.0" minHeight="30.0" prefHeight="30.0" prefWidth="453.0" promptText="Dirección del pasajero (Opcional)" />
                </children>
             </Pane>
             <Pane layoutX="13.0" layoutY="316.0" prefHeight="201.0" prefWidth="808.0" style="-fx-border-color: CCC;">
@@ -295,7 +295,7 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="425.0" layoutY="154.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
+                  <TextField fx:id="txtTotal" editable="false" layoutX="425.0" layoutY="154.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
                   <TableView layoutX="2.0" layoutY="215.0" prefHeight="115.0" prefWidth="1040.0">
                      <columns>
                         <TableColumn prefWidth="121.66667175292969" text="Comprobante" />
@@ -317,25 +317,25 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="227.0" layoutY="83.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
+                  <TextField fx:id="txtEfectivo" layoutX="227.0" layoutY="83.0" minHeight="30.0" onAction="#calcularCambio" prefHeight="30.0" prefWidth="180.0" />
                   <Label layoutX="429.0" layoutY="59.0" text="Cambio:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="427.0" layoutY="84.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
+                  <TextField fx:id="txtCambio" editable="false" layoutX="427.0" layoutY="84.0" minHeight="30.0" prefHeight="30.0" prefWidth="167.0" />
                   <Label layoutX="26.0" layoutY="131.0" text="Subtotal:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="24.0" layoutY="156.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" />
+                  <TextField fx:id="txtSubtotal" editable="false" layoutX="24.0" layoutY="156.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" />
                   <Label layoutX="228.0" layoutY="130.0" text="IGV (18%)">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField editable="false" layoutX="226.0" layoutY="155.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
+                  <TextField fx:id="txtIGV" editable="false" layoutX="226.0" layoutY="155.0" minHeight="30.0" prefHeight="30.0" prefWidth="180.0" />
                </children>
             </Pane>
             <Button layoutX="851.0" layoutY="677.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Procesar Venta" />
