@@ -22,6 +22,11 @@ public class BusModelo {
     private String marca;
     private String placa;
     private String modelo;
+    //Andree: Agregue niveles de piso
+    @Column(name = "primer_piso")
+    private int primerPiso;
+    @Column(name = "segundo_piso")
+    private int segundoPiso;
     @Column(name = "capacidad_asientos")
     private int capacidadAsientos;
     @Column(name = "capacidad_carga")

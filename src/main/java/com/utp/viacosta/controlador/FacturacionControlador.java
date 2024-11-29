@@ -5,6 +5,7 @@ import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
 import com.utp.viacosta.modelo.RutaModelo;
 import com.utp.viacosta.servicio.AsientoServicio;
 import com.utp.viacosta.servicio.AsignacionBusRutaServicio;
+import com.utp.viacosta.servicio.ComprobanteServicio;
 import com.utp.viacosta.servicio.RutaServicio;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.collections.FXCollections;
@@ -13,10 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DateCell;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -44,25 +42,37 @@ public class FacturacionControlador implements Initializable {
     @FXML
     private Button volverPanel1;
     @FXML
-    private GridPane gridAsientos;
-    @FXML
     private GridPane gridBuses;
     @FXML
     private ComboBox cmbOrigen;
     @FXML
     private ComboBox cmbDestino;
+    @FXML
+    private DatePicker dateFechaViaje;
+    @FXML
+    private GridPane gridPrimerPiso;
+    @FXML
+    private GridPane gridSegundoPiso;
+    @FXML
+    private DatePicker dateFechaBoleto;
+    @FXML
+    private TextField embarque;
+    @FXML
+    private TextField numeroDoc;
     @Autowired
     private AsientoServicio asientoServicio;
     @Autowired
     private RutaServicio rutaServicio;
     @Autowired
     private AsignacionBusRutaServicio asignacionBusRutaService;
-    @FXML
-    private DatePicker dateFechaViaje;
+    @Autowired
+    private ComprobanteServicio comprobanteServicio;
 
+    private List<Button> botonesAsientos = new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        datosViajePredefinidos();
         fechaPredefinida();
         cargarRutas();
     }
@@ -87,7 +97,8 @@ public class FacturacionControlador implements Initializable {
 
     private void setearBus(List<AsignacionBusRutaModelo> listaItinerario){
         gridBuses.getChildren().clear();
-        gridAsientos.getChildren().clear();
+        gridPrimerPiso.getChildren().clear();
+        gridSegundoPiso.getChildren().clear();
         List<AsignacionBusRutaModelo> asignaciones = listaItinerario;
         int fila = 0;
         for (AsignacionBusRutaModelo asignacion : asignaciones) {
@@ -97,76 +108,29 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private void setearAsientos(List<AsientoModelo> asientos) {
-        // Índice para recorrer la lista de asientos
+    private void setearAsientos(List<AsientoModelo> asientos,  GridPane gridAsientos, int cantAsientos) {
+        if (asientos == null || asientos.isEmpty()) {
+            System.out.println("No hay asientos");
+            return; // Salir si la lista es nula o está vacía
+        }
+
         int index = 0;
-
-        // Llenar la primera fila (9 primeros asientos)
-        for (int col = 0; col < 9; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 0);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // Llenar la segunda fila (9 siguientes asientos)
-        for (int col = 0; col < 9; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 1);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // La tercera fila está vacía, no hacemos nada
-
-        // Llenar la cuarta fila (9 siguientes asientos)
-        for (int col = 0; col < 9; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 3);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // Llenar la quinta fila (9 siguientes asientos)
-        for (int col = 0; col < 9; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 4);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // La sexta fila está vacía, no hacemos nada
-
-        // Llenar la séptima fila (5 primeros asientos)
-        for (int col = 0; col < 5; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 6);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // Llenar la octava fila (5 primeros asientos)
-        for (int col = 0; col < 5; col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 7);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
-        }
-
-        // La novena fila está vacía, no hacemos nada
-
-        // Llenar la décima fila con los asientos restantes
-        for (int col = 0; col < 9 && index < asientos.size(); col++) {
-            Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
-            gridAsientos.add(botonAsiento, col, 9);
-            GridPane.setMargin(botonAsiento, new Insets(3));
-            index++;
+        int totalColumnas = 9;
+        int totalFilas = 4;
+        for (int col = 0; col < totalColumnas ; col++) {
+            for (int fila = 0; fila <= totalFilas; fila++) {
+                if(index >= cantAsientos) return;
+                if(fila == 2) continue;
+                Button botonAsiento = crearBotonAsiento(asientos.get(index), index + 1);
+                gridAsientos.add(botonAsiento, col, fila);
+                GridPane.setMargin(botonAsiento, new Insets(3));
+                index++;
+            }
         }
     }
 
     private Button crearBotonAsiento(AsientoModelo asiento, int numeroAsiento) {
         // Crear el botón del asiento con icono
-
         Button botonAsiento = new Button(String.valueOf(numeroAsiento));
         botonAsiento.getStyleClass().add("asiento-disponible");
         botonAsiento.setPrefSize(60, 40);
@@ -177,12 +141,21 @@ public class FacturacionControlador implements Initializable {
         imageView.setFitWidth(20);
         botonAsiento.setGraphic(imageView);
 
-        // Acción al hacer clic en el botón
+        // Añadir el botón a la lista de botones
+        botonesAsientos.add(botonAsiento);
+
         botonAsiento.setOnAction(event -> {
             if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
+                // Cambiar el estado de todos los botones a disponible
+                for (Button btn : botonesAsientos) {
+                    btn.getStyleClass().remove("asiento-ocupado");
+                    btn.getStyleClass().add("asiento-disponible");
+                }
+                // Cambiar el estado del botón seleccionado a ocupado
                 botonAsiento.getStyleClass().remove("asiento-disponible");
                 botonAsiento.getStyleClass().add("asiento-ocupado");
             } else {
+                // Cambiar el estado del botón seleccionado a disponible
                 botonAsiento.getStyleClass().remove("asiento-ocupado");
                 botonAsiento.getStyleClass().add("asiento-disponible");
             }
@@ -223,15 +196,23 @@ public class FacturacionControlador implements Initializable {
         imageView.setFitWidth(20);
         botonBus.setGraphic(imageView);
         botonBus.setOnAction(event -> {
-            gridAsientos.getChildren().clear();
+            gridBuses.getChildren().forEach(node -> {
+                if (node instanceof Button) {
+                    node.getStyleClass().remove("boton-itinerario-active");
+                }
+            });
             botonBus.getStyleClass().add("boton-itinerario-active");
-            setearAsientos(asientos);
+            gridPrimerPiso.getChildren().clear();
+            gridSegundoPiso.getChildren().clear();
+            botonesAsientos.clear();
+            setearAsientos(asientos,gridPrimerPiso,asignacion.getBusAsignado().getPrimerPiso());
+            setearAsientos(asientos,gridSegundoPiso,asignacion.getBusAsignado().getSegundoPiso());
         });
         return botonBus;
     }
 
     private void fechaPredefinida(){
-        if (dateFechaViaje != null) {
+        if (dateFechaViaje != null && dateFechaBoleto != null) {
             dateFechaViaje.setValue(LocalDate.now());
             dateFechaViaje.setDayCellFactory(picker -> new DateCell() {
                 @Override
@@ -244,6 +225,13 @@ public class FacturacionControlador implements Initializable {
                 }
             });
         }
+    }
+
+    private void datosViajePredefinidos(){
+        int numeroDocumento = comprobanteServicio.countByTipoComprobante("Boleta") + 1;
+        dateFechaBoleto.setValue(LocalDate.now());
+        embarque.setText("Terminal Terrestre de Chimbote");
+        numeroDoc.setText("B001 - "+numeroDocumento);
     }
 
     @FXML

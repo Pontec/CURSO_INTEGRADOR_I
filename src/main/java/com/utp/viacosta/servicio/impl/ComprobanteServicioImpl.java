@@ -11,4 +11,8 @@ public class ComprobanteServicioImpl implements ComprobanteServicio {
     @Autowired
     private ComprobanteDAO comprobanteDAO;
 
+    @Override
+    public int countByTipoComprobante(String tipoComprobante) {
+        return comprobanteDAO.countByTipoComprobante(tipoComprobante);
+    }
 }

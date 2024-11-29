@@ -177,9 +177,9 @@ VALUES ('ADMINISTRADOR'),
 
 -- Insert data into the 'empleados' table
 INSERT INTO empleados (nombre, apellido, dni, correo, contraseña, telefono, id_sede,estado)
-VALUES ('Juan', 'Perez', '12345678', 'admin', '123', '987654321', 1),
-       ('Maria', 'Lopez', '87654321', 'maria.lopez@example.com', 'password456', '123456789', 1),
-       ('Andree', 'Bermudez', '45678912', 'andreebermudez@example.com', '123456', '987654321', 1);
+VALUES ('Juan', 'Perez', '12345678', 'admin', '123', '987654321',1, 1),
+       ('Maria', 'Lopez', '87654321', 'maria.lopez@example.com', 'password456', '123456789', 1,1),
+       ('Andree', 'Bermudez', '45678912', 'andreebermudez@example.com', '123456', '987654321',1, 1);
 
 -- Insert data into the 'empleado_roles' table
 INSERT INTO empleado_roles (id_empleado, id_rol)
@@ -195,13 +195,13 @@ VALUES ('Carlos', 'Gomez', '11223344', 'carlos.gomez@example.com', '987654321', 
        ('Luis', 'Garcia', '33445566', 'luis.garcia@example.com', '123456789', 'Calle Verdadera 456');
 
 -- Insert data into the 'buses' table
-INSERT INTO buses (marca, placa, modelo, capacidad_asientos, capacidad_carga)
-VALUES ('Volvo', 'ABC-123', 'Modelo X', 52, 1000.0),
-       ('Mercedes', 'XYZ-789', 'Modelo Y', 52, 1200.0),
-       ('Scania', 'DEF-456', 'Modelo Z', 52, 1500.0),
-       ('Volvo', 'GHI-789', 'Modelo W', 52, 1000.0),
-       ('Mercedes', 'JKL-012', 'Modelo V', 52, 1200.0),
-       ('Scania', 'MNO-345', 'Modelo U', 52, 1500.0);
+INSERT INTO buses (marca, placa, modelo, capacidad_asientos, capacidad_carga, primer_piso, segundo_piso)
+VALUES ('Volvo', 'ABC-123', 'Modelo X', 52, 1000.0,12,30),
+       ('Mercedes', 'XYZ-789', 'Modelo Y', 52, 1200.0,12,30),
+       ('Scania', 'DEF-456', 'Modelo Z', 52, 1500.0,12,30),
+       ('Volvo', 'GHI-789', 'Modelo W', 52, 1000.0,12,30),
+       ('Mercedes', 'JKL-012', 'Modelo V', 52, 1200.0,12,30),
+       ('Scania', 'MNO-345', 'Modelo U', 52, 1500.0,12,30);
 
 -- Insert data into the 'tipo_asiento' table
 INSERT INTO tipo_asiento (nombre, descripcion, cargo_adicional)
@@ -226,28 +226,30 @@ VALUES ('Chimbote', 'Lima', '10h'),
 
 -- Insert data into the 'asignacion_buses_rutas' table
 INSERT INTO asignacion_buses_rutas (id_bus, id_ruta, fecha_salida, hora_salida)
-VALUES (1, 1, '2024-10-01', '08:00:00'),
-       (2, 2, '2024-10-02', '09:00:00'),
-       (3, 3, '2024-10-30', '10:00:00'),
-       (4, 3, '2024-10-30', '12:00:00'),
-       (5, 3, '2024-10-30', '16:00:00'),
-       (6, 3, '2024-10-30', '22:00:00'),
-       (1, 1, '2024-10-30', '15:00:00'),
-       (1, 1, '2024-10-30', '20:00:00'),
-       (1, 1, '2024-10-30', '22:00:00'),
-       (3, 3, '2024-10-30', '10:00:00'),
-       (4, 3, '2024-10-31', '12:00:00'),
-       (5, 3, '2024-10-31', '16:00:00'),
-       (6, 3, '2024-10-31', '22:00:00'),
-       (1, 1, '2024-10-31', '15:00:00'),
-       (1, 1, '2024-10-31', '20:00:00'),
-       (1, 1, '2024-10-31', '22:00:00'),
-       (4, 3, '2024-11-01', '12:00:00'),
-       (5, 3, '2024-11-01', '16:00:00'),
-       (6, 3, '2024-11-01', '22:00:00'),
-       (1, 1, '2024-11-01', '15:00:00'),
-       (1, 1, '2024-11-01', '20:00:00'),
-       (1, 1, '2024-11-01', '22:00:00');
+VALUES
+    (1, 1, '2024-11-28', '08:00:00'),
+    (2, 2, '2024-11-28', '09:00:00'),
+    (3, 3, '2024-11-28', '10:00:00'),
+    (4, 3, '2024-11-28', '12:00:00'),
+    (5, 3, '2024-11-28', '16:00:00'),
+    (6, 3, '2024-11-28', '22:00:00'),
+    (1, 1, '2024-11-28', '15:00:00'),
+    (1, 1, '2024-11-28', '20:00:00'),
+    (1, 1, '2024-11-28', '22:00:00'),
+    (3, 3, '2024-11-28', '10:00:00'),
+    (4, 3, '2024-11-29', '12:00:00'),
+    (5, 3, '2024-11-29', '16:00:00'),
+    (6, 3, '2024-11-29', '22:00:00'),
+    (1, 1, '2024-11-29', '15:00:00'),
+    (1, 1, '2024-11-29', '20:00:00'),
+    (1, 1, '2024-11-29', '22:00:00'),
+    (4, 3, '2024-11-30', '12:00:00'),
+    (5, 3, '2024-11-30', '16:00:00'),
+    (6, 3, '2024-11-30', '22:00:00'),
+    (1, 1, '2024-11-30', '15:00:00'),
+    (1, 1, '2024-11-30', '20:00:00'),
+    (1, 1, '2024-11-30', '22:00:00');
+
 
 -- Insert data into the 'compras' table
 INSERT INTO compras (id_cliente, id_empleado, tipo_compra, fecha, hora)
