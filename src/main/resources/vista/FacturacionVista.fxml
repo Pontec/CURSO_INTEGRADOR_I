@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="contenedorPanelFact" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.FacturacionControlador">
    <children>
-      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0" visible="false">
+      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0">
          <children>
             <Pane layoutX="11.0" layoutY="14.0" prefHeight="130.0" prefWidth="1046.0" style="-fx-border-color: CCC;">
                <children>
@@ -166,7 +166,7 @@
             </Pane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0">
+      <AnchorPane fx:id="panelProcesarPago" layoutY="-1.0" prefHeight="720.0" prefWidth="1068.0" visible="false">
          <children>
             <Pane layoutX="13.0" layoutY="20.0" prefHeight="115.0" prefWidth="1040.0" style="-fx-border-color: CCC;">
                <children>
@@ -312,13 +312,13 @@
                      </stylesheets>
                   </TableView>
                   <ComboBox fx:id="cmbMetodoPago" layoutX="24.0" layoutY="82.0" minHeight="30.0" prefHeight="30.0" prefWidth="187.0" style="-fx-border-radius: 4px; -fx-background-color: F4F4F4; -fx-border-color: #ccc;" />
-                  <Label layoutX="229.0" layoutY="58.0" text="Efectivo:">
+                  <Label fx:id="lblEfectivo" layoutX="229.0" layoutY="58.0" text="Efectivo:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
                   <TextField fx:id="txtEfectivo" layoutX="227.0" layoutY="83.0" minHeight="30.0" onAction="#calcularCambio" prefHeight="30.0" prefWidth="180.0" />
-                  <Label layoutX="429.0" layoutY="59.0" text="Cambio:">
+                  <Label fx:id="lblCambio" layoutX="429.0" layoutY="59.0" text="Cambio:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>

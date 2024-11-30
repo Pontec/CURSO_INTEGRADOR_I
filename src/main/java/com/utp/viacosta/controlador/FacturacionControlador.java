@@ -7,7 +7,9 @@ import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.*;
 import com.utp.viacosta.modelo.enums.Estado;
 import com.utp.viacosta.servicio.*;
+import com.utp.viacosta.util.AuthLogin;
 import com.utp.viacosta.util.FxmlCargarUtil;
+import com.utp.viacosta.util.GenerarBoleto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -112,6 +114,7 @@ public class FacturacionControlador implements Initializable {
     private String tokenApi;
     private List<Button> botonesAsientos = new ArrayList<>();
     int idAsiento = 0;
+    boolean isButtonSelected = false;
     AsignacionBusRutaModelo asignacionAux = new AsignacionBusRutaModelo();
     @FXML
     private ComboBox cmbMetodoPago;
@@ -121,6 +124,10 @@ public class FacturacionControlador implements Initializable {
     private AsientoDAO asientoDAO;
     @Autowired
     private AsientoEstadoFechaServicio asientoEstadoFechaServicio;
+    @FXML
+    private Label lblEfectivo;
+    @FXML
+    private Label lblCambio;
 
 
     @Override
@@ -128,27 +135,27 @@ public class FacturacionControlador implements Initializable {
         datosViajePredefinidos();
         fechaPredefinida();
         cargarRutas();
+        configurarMetodoPago();
     }
 
-    private void cargarRutas(){
+    private void cargarRutas() {
         List<RutaModelo> rutas = rutaServicio.listarRutas();
-        ObservableList<String> rutasOrigen = FXCollections.observableArrayList(
-                rutas.stream()
-                        .map(ruta -> ruta.getOrigen())
-                        .distinct()
-                        .collect(Collectors.toList())
-        );
+        String sedeActiva = AuthLogin.getEmpleadoActivo().getSede().getCiudad();
+        rutaServicio.existsByOrigen(sedeActiva);
+        cmbOrigen.setValue(sedeActiva);
+        cmbOrigen.setDisable(true);
+        cmbOrigen.getStyleClass().add("combo-box-disabled");
+
         ObservableList<String> rutasDestino = FXCollections.observableArrayList(
                 rutas.stream()
                         .map(ruta -> ruta.getDestino())
                         .distinct()
                         .collect(Collectors.toList())
         );
-        FxmlCargarUtil.cargarComboBox(rutasOrigen, cmbOrigen);
         FxmlCargarUtil.cargarComboBox(rutasDestino, cmbDestino);
     }
 
-    private void setearBus(List<AsignacionBusRutaModelo> listaItinerario){
+    private void setearBus(List<AsignacionBusRutaModelo> listaItinerario) {
         gridBuses.getChildren().clear();
         gridPrimerPiso.getChildren().clear();
         gridSegundoPiso.getChildren().clear();
@@ -156,7 +163,7 @@ public class FacturacionControlador implements Initializable {
         int fila = 0;
         for (AsignacionBusRutaModelo asignacion : asignaciones) {
             Button boton = generarBotonItinerario(asignacion);
-            gridBuses.add(boton,0,fila);
+            gridBuses.add(boton, 0, fila);
             fila++;
         }
     }
@@ -168,10 +175,10 @@ public class FacturacionControlador implements Initializable {
         int index = 0;
         int totalColumnas = 9;
         int totalFilas = 4;
-        for (int col = 0; col < totalColumnas ; col++) {
+        for (int col = 0; col < totalColumnas; col++) {
             for (int fila = 0; fila <= totalFilas; fila++) {
-                if(index >= cantAsientos) return;
-                if(fila == 2) continue;
+                if (index >= cantAsientos) return;
+                if (fila == 2) continue;
 
                 AsientoModelo asientoActual = asientos.get(index);
 
@@ -230,6 +237,7 @@ public class FacturacionControlador implements Initializable {
                     txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
                     idAsiento = asiento.getIdAsiento();
                     asignacionAux = asignacionSeleccionada;
+                    isButtonSelected = true;
                     setearDatosPago(asiento.getPrecio());
 
                 } else {
@@ -243,7 +251,7 @@ public class FacturacionControlador implements Initializable {
         return botonAsiento;
     }
 
-    private void setearDatosPago(double precio){
+    private void setearDatosPago(double precio) {
         precio = 50;
         txtSubtotal.setText(String.format("%.2f", precio / 1.18));
         txtIGV.setText(String.format("%.2f", precio - (precio / 1.18)));
@@ -252,7 +260,11 @@ public class FacturacionControlador implements Initializable {
 
     @FXML
     public void irAPago(ActionEvent actionEvent) {
-        isPanelPrimary(false);
+        if(isButtonSelected){
+            isPanelPrimary(false);
+        } else {
+            mostrarAlerta("Seleccione un asiento porfavor");
+        }
     }
 
     @FXML
@@ -270,18 +282,19 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private Button generarBotonItinerario(AsignacionBusRutaModelo asignacion){
+    private Button generarBotonItinerario(AsignacionBusRutaModelo asignacion) {
         List<AsientoModelo> asientos = asientoServicio.getAsientosPorBus(asignacion.getIdBus());
         Button botonBus = new Button();
         botonBus.setPrefSize(Double.MAX_VALUE, 40);
         botonBus.getStyleClass().add("boton-itinerario");
-        botonBus.setText(asignacion.getRutaAsignada().getOrigen() + " - " + asignacion.getRutaAsignada().getDestino()+"\n" + asignacion.getHoraSalida().toString());
+        botonBus.setText(asignacion.getRutaAsignada().getOrigen() + " - " + asignacion.getRutaAsignada().getDestino() + "\n" + asignacion.getHoraSalida().toString());
         Image imagen = new Image(getClass().getResourceAsStream("/img/icon-bus.png"));
         ImageView imageView = new ImageView(imagen);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
         botonBus.setGraphic(imageView);
         botonBus.setOnAction(event -> {
+            isButtonSelected = false;
             gridBuses.getChildren().forEach(node -> {
                 if (node instanceof Button) {
                     node.getStyleClass().remove("boton-itinerario-active");
@@ -297,7 +310,7 @@ public class FacturacionControlador implements Initializable {
         return botonBus;
     }
 
-    private void fechaPredefinida(){
+    private void fechaPredefinida() {
         if (dateFechaViaje != null && dateFechaBoleto != null) {
             dateFechaViaje.setValue(LocalDate.now());
             dateFechaViaje.setDayCellFactory(picker -> new DateCell() {
@@ -313,16 +326,16 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private void datosViajePredefinidos(){
+    private void datosViajePredefinidos() {
         txtTipoBoleta.setText("Boleta");
         int numeroDocumento = comprobanteServicio.countByTipoComprobante("Boleta") + 1;
         dateFechaBoleto.setValue(LocalDate.now());
-        embarque.setText("Terminal Terrestre de Chimbote");
-        numeroDoc.setText("B001 - "+ numeroDocumento);
+        embarque.setText(AuthLogin.getEmpleadoActivo().getSede().getDireccion());
+        numeroDoc.setText("B001 - " + numeroDocumento);
         cargarMetodosPago();
     }
 
-    public void cargarMetodosPago(){
+    public void cargarMetodosPago() {
         ObservableList<String> metodosPago = FXCollections.observableArrayList("Efectivo", "Tarjeta de crédito");
         FxmlCargarUtil.cargarComboBox(metodosPago, cmbMetodoPago);
     }
@@ -330,6 +343,11 @@ public class FacturacionControlador implements Initializable {
     @FXML
     public void mostrarViajes(ActionEvent actionEvent) {
         if (dateFechaViaje.getValue() != null && cmbOrigen.getValue() != null && cmbDestino.getValue() != null) {
+            if (cmbOrigen.getValue().toString().toLowerCase().equals(cmbDestino.getValue().toString().toLowerCase())) {
+                mostrarAlerta("El origen y destino no pueden ser iguales");
+                return;
+            }
+            isButtonSelected = false;
             LocalDate fecha = dateFechaViaje.getValue();
             String origen = cmbOrigen.getValue().toString();
             String destino = cmbDestino.getValue().toString();
@@ -373,9 +391,27 @@ public class FacturacionControlador implements Initializable {
     }
 
     private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setContentText(mensaje);
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensaje);
         alert.show();
+    }
+
+    private void mostrarMensajeExito() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Venta realizada");
+        alert.setHeaderText(null);
+        alert.setContentText("Venta realizada con éxito");
+        alert.showAndWait();
+    }
+
+    private void configurarMetodoPago() {
+        cmbMetodoPago.setOnAction(event -> {
+            String metodoPago = (String) cmbMetodoPago.getValue();
+            boolean esEfectivo = "Efectivo".equals(metodoPago);
+            txtEfectivo.setVisible(esEfectivo);
+            lblEfectivo.setVisible(esEfectivo);
+            txtCambio.setVisible(esEfectivo);
+            lblCambio.setVisible(esEfectivo);
+        });
     }
 
     @FXML
@@ -389,14 +425,41 @@ public class FacturacionControlador implements Initializable {
         txtCambio.setText(String.valueOf(efectivo - total));
     }
 
+    private boolean validarDatosUsuario() {
+        if (txtNombre.getText().isEmpty()) {
+            mostrarAlerta("El nombre no puede estar vacío");
+            return false;
+        }
+        if (txtApellido.getText().isEmpty()) {
+            mostrarAlerta("El apellido no puede estar vacío");
+            return false;
+        }
+        if (txtDni.getText().isEmpty() || txtDni.getText().length() != 8) {
+            mostrarAlerta("El DNI debe tener 8 dígitos");
+            return false;
+        }
+        if (cmbMetodoPago.getValue() == null) {
+            mostrarAlerta("Debe seleccionar un método de pago");
+            return false;
+        }
+        return true;
+    }
+
     @FXML
     public void procesarVenta(Event event) {
+        if (!validarDatosUsuario()) {
+            return;
+        }
         ClienteModelo cliente = clienteServicio.guardarCliente(txtNombre.getText(), txtApellido.getText(), txtDni.getText(), txtTelefono.getText(), txtDireccion.getText());
-        CompraModelo compra = compraServicio.saveCompra(cliente.getIdCliente(), 1);
+        EmpleadoModelo empleado = AuthLogin.getEmpleadoActivo();
+        CompraModelo compra = compraServicio.saveCompra(cliente.getIdCliente(), empleado.getId());
         ComprobanteModelo comprobante = comprobanteServicio.guardarComprobante("Boleta", numeroDoc.getText(), dateFechaBoleto.getValue());
+        AsignacionBusRutaModelo asignacionBusRuta = asignacionAux;
         AsientoModelo asiento = asientoDAO.findById(idAsiento).orElseThrow();
-        asientoEstadoFechaServicio.marcarAsientoOcupado(asiento,asignacionAux.getFechaSalida(),asignacionAux.getHoraSalida(),asignacionAux);
-        DetalleBoletaModelo detalleBoleta = detalleBoletaServicio.save("Boleto de viaje",asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), "Efectivo", Double.parseDouble(txtTotal.getText()), comprobante.getIdComprobante(), asiento.getNumeroAsiento(), 1, compra.getIdCompra());
+        asientoEstadoFechaServicio.marcarAsientoOcupado(asiento, asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), asignacionAux);
+        DetalleBoletaModelo detalleBoleta = detalleBoletaServicio.save("Boleto de viaje", asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), cmbMetodoPago.getValue().toString(), Double.parseDouble(txtTotal.getText()), comprobante.getIdComprobante(), asiento.getIdAsiento(), asignacionBusRuta.getIdAsignacion(), compra.getIdCompra());
+        GenerarBoleto.generarBoleto(cliente,empleado,comprobante,asignacionBusRuta,asiento,detalleBoleta);
+        mostrarMensajeExito();
     }
 }
 

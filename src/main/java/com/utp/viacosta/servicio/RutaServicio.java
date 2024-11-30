@@ -13,4 +13,5 @@ public interface RutaServicio {
     List<RutaModelo> listarRutas();
     void eliminarRuta(int idRuta);
     void actualizarRuta(RutaModelo ruta);
+    boolean existsByOrigen(String origen);
 }

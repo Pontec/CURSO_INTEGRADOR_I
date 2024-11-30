@@ -11,7 +11,6 @@ public class CompraServicioImpl implements CompraServicio {
     @Autowired
     private CompraDAO compraDAO;
 
-
     @Override
     public CompraModelo saveCompra(int idCliente, int idEmpleado) {
         CompraModelo compra = new CompraModelo();

@@ -1,6 +1,7 @@
 package com.utp.viacosta.controlador;
 import com.utp.viacosta.modelo.EmpleadoModelo;
 import com.utp.viacosta.servicio.impl.EmpleadoServicioImpl;
+import com.utp.viacosta.util.AuthLogin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -46,6 +47,7 @@ public class LoginControlador implements Initializable {
         String password = txt_password.getText();
         try {
             EmpleadoModelo usuario = empleadoServiceImpl.autenticar(correo, password);
+            AuthLogin.setEmpleadoActivo(usuario);
             abrirNuevaVentana(usuario);
         } catch (IllegalArgumentException e) {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
