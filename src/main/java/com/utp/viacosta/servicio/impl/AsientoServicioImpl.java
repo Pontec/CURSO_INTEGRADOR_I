@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AsientoServicioImpl implements AsientoServicio {
@@ -32,4 +33,27 @@ public class AsientoServicioImpl implements AsientoServicio {
     public void deleteById(Integer id) {
         asientoDAO.deleteById(id);
     }
+
+    @Override
+    public void actualizarAsiento(AsientoModelo  asiento) {
+        AsientoModelo asientoExistente = asientoDAO.findByIdAsiento(asiento.getIdAsiento());
+
+        if (asientoExistente != null) {
+            // Si existe, actualizamos sus datos
+            asientoExistente.setTipoAsiento(asiento.getTipoAsiento());
+            asientoExistente.setPrecio(asiento.getPrecio());
+
+            // Guardamos el asiento actualizado en la base de datos
+            asientoDAO.save(asientoExistente);
+        } else {
+            throw new RuntimeException("El asiento con el ID " + asiento.getIdAsiento() + " no existe.");
+        }
+    }
+
+    @Override
+    public AsientoModelo getAsientoPorId(Integer id) {
+        Optional<AsientoModelo> asiento = asientoDAO.findById(id);
+        return asiento.orElse(null);
+    }
+
 }
