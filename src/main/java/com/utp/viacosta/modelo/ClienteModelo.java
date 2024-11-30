@@ -1,10 +1,7 @@
 package com.utp.viacosta.modelo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "clientes")
 public class ClienteModelo {
@@ -22,8 +20,8 @@ public class ClienteModelo {
     private String nombre;
     private String apellido;
     private String dni;
-    private String correo;
     private String telefono;
+    private String correo;
     private String direccion;
 
     @OneToMany(mappedBy = "cliente")

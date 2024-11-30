@@ -50,5 +50,10 @@ public class RutaServicioImpl implements RutaServicio {
         }
     }
 
+    @Override
+    public boolean existsByOrigen(String origen) {
+        return rutaDAO.existsByOrigen(origen);
+    }
+
 
 }

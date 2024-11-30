@@ -91,7 +91,6 @@ public class SedeControlador implements Initializable {
     void btnActualizar(ActionEvent event) {
         SedeModelo sedeModelo = new SedeModelo();
         sedeModelo.setNombreSedes(confNombre.getText());
-        sedeModelo.setRuc(confRuc.getText());
         sedeModelo.setDireccion(confDireccion.getText());
         sedeModelo.setTelefono(confTelefono.getText());
         sedeModelo.setDepartamento(confDepartamento.getText());

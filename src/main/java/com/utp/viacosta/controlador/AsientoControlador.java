@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -27,6 +29,8 @@ public class AsientoControlador implements Initializable {
     private AsientoServicio asientoServicio;
     @Autowired
     private BusServicio busServicio;
+    @Autowired
+    private AsientoEstadoFechaServicio asientoEstadoFechaServicio;
 
     @FXML
     private ComboBox<BusModelo> cbocBuses;
@@ -53,10 +57,9 @@ public class AsientoControlador implements Initializable {
             BusModelo busSeleccionado = cbocBuses.getValue();
             cargarAsientosPorBus(busSeleccionado);
         });
-        btnActualizar.setOnAction(event -> guardarCambios());
     }
 
-    private  void cargarBuses(){
+    private void cargarBuses() {
         List<BusModelo> buses = busServicio.findAll();
         cbocBuses.setItems(FXCollections.observableArrayList(buses));
     }
