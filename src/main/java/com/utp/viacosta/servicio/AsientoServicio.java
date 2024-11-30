@@ -10,4 +10,6 @@ public interface AsientoServicio {
     AsientoModelo save(AsientoModelo asiento);
     List<AsientoModelo> getAsientosPorBus(int idBus);
     void deleteById(Integer id);
+    void actualizarAsiento(AsientoModelo  asiento);
+    AsientoModelo getAsientoPorId(Integer id);
 }

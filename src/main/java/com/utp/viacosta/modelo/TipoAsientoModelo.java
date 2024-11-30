@@ -2,10 +2,8 @@ package com.utp.viacosta.modelo;
 
 import com.utp.viacosta.modelo.enums.TipoAsiento;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -31,5 +29,11 @@ public class TipoAsientoModelo {
 
     @OneToMany(mappedBy = "tipoAsiento")
     private List<AsientoModelo> asientos;
+
+    @Override
+    public String toString() {
+        return ""+ nombre;
+    }
+
 
 }

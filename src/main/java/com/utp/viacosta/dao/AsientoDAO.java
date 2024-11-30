@@ -11,5 +11,6 @@ import java.util.List;
 public interface AsientoDAO extends JpaRepository<AsientoModelo, Integer> {
     //obtener todos los asientos de un bus en particular
     List<AsientoModelo> findByIdBus(int idBus);
+    AsientoModelo findByIdAsiento(int idAsiento);
 
 }
