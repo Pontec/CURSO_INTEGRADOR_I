@@ -86,6 +86,7 @@
             <Pane layoutX="276.0" layoutY="155.0" prefHeight="512.0" prefWidth="781.0" style="-fx-border-color: CCC;">
                <children>
                   <GridPane fx:id="gridSegundoPiso" layoutX="96.0" layoutY="68.0" prefHeight="201.0" prefWidth="685.0" style="-fx-border-color: red;" stylesheets="@../css/style.css">
+
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
