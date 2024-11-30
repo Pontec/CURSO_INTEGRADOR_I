@@ -191,3 +191,7 @@
 .boton-itinerario-disabled{
     -fx-background-color: #3b3b3b;
 }
+
+.combo-box-disabled {
+    -fx-opacity: 1.0;
+}

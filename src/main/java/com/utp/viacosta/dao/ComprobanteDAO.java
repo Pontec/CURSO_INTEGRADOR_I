@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ComprobanteDAO extends JpaRepository<ComprobanteModelo, Integer> {
+    int countByTipoComprobante(String tipoComprobante);
 }

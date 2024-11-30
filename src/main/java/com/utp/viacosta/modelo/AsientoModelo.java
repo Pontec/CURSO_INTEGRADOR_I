@@ -27,9 +27,6 @@ public class AsientoModelo {
     @Column(name = "numero_asiento")
     private int numeroAsiento;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Estado estado;
     private double precio;
 
     @Column(name = "id_tipo_asiento")
@@ -45,6 +42,9 @@ public class AsientoModelo {
 
     @OneToMany(mappedBy = "asiento")
     private List<DetalleBoletaModelo> detalleBoletas;
+
+    @OneToMany(mappedBy = "asiento")
+    private List<AsientoEstadoFechaModelo> estadosFecha;
 
 
 }

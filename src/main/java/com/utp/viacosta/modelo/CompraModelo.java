@@ -25,9 +25,6 @@ public class CompraModelo {
     private int idCliente;
     @Column(name = "id_empleado")
     private int idEmpleado;
-    private String tipoCompra;
-    private LocalDate fecha;
-    private LocalTime hora;
 
     @OneToMany(mappedBy = "compra")
     private List<DetalleBoletaModelo> detalleBoletas;

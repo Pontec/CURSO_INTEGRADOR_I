@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RutaDAO extends JpaRepository<RutaModelo, Integer> {
-
+    boolean existsByOrigen(String origen);
 }

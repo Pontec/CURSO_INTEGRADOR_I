@@ -125,7 +125,7 @@ public class EmpleadoControlador implements Initializable {
         columnAcciones.setCellFactory(col -> new TableCell<>() {
             private final Button iconoEstado = new Button();
             {
-               iconoEstado.setOnAction(event -> {
+                iconoEstado.setOnAction(event -> {
                     EmpleadoModelo empleado = getTableView().getItems().get(getIndex());
                     empleado.setEstado(!empleado.isEstado());
                     empleadoServicio.save(empleado);

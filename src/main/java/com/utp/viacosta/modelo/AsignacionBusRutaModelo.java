@@ -29,6 +29,7 @@ public class AsignacionBusRutaModelo {
     private LocalDate fechaSalida;
     @Column(name = "hora_salida")
     private LocalTime horaSalida;
+    private Double precio;
     @ManyToOne
     @JoinColumn(name = "id_bus", insertable = false, updatable = false)
     private BusModelo busAsignado;
@@ -37,5 +38,7 @@ public class AsignacionBusRutaModelo {
     private RutaModelo rutaAsignada;
     @OneToMany(mappedBy = "asignacionBusRuta")
     private List<DetalleBoletaModelo> detalleBoletaModelo;
+    @OneToMany(mappedBy = "asignacionBusRuta")
+    private List<AsientoEstadoFechaModelo> estadosFecha;
 
 }
