@@ -220,11 +220,6 @@ public class FacturacionControlador implements Initializable {
             botonAsiento.getStyleClass().add("asiento-disponible");
             botonAsiento.setOnAction(event -> {
                 if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
-                    // Cambiar el estado de todos los botones a disponible
-                    for (Button btn : botonesAsientos) {
-                        btn.getStyleClass().remove("asiento-ocupado");
-                        btn.getStyleClass().add("asiento-disponible");
-                    }
                     // Cambiar el estado del botón seleccionado a ocupado
                     botonAsiento.getStyleClass().remove("asiento-disponible");
                     botonAsiento.getStyleClass().add("asiento-ocupado");
@@ -244,6 +239,7 @@ public class FacturacionControlador implements Initializable {
                     // Cambiar el estado del botón seleccionado a disponible
                     botonAsiento.getStyleClass().remove("asiento-ocupado");
                     botonAsiento.getStyleClass().add("asiento-disponible");
+                    isButtonSelected = false;
                 }
             });
         }
