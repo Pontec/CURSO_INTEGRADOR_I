@@ -56,7 +56,7 @@
                </VBox.margin>
             </Button>
             <Button fx:id="btn_config" mnemonicParsing="false" onAction="#btn_config" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CONFIGURACION" />
-            <Button fx:id="btn_logout" mnemonicParsing="false" onAction="#cerrarSesion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CERRAR SESIÓN" />
+            <Button fx:id="btn_logout" mnemonicParsing="false" onMouseClicked="#cerrarSesion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CERRAR SESIÓN" />
          </children>
       </VBox>
    </left>
