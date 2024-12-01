@@ -75,7 +75,7 @@ public class VentanaPrincipalControlador implements Initializable {
             btn_clientes.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_empleados.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses.setVisible(roles.contains("ADMINISTRADOR"));
-            btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));
+            //btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses_rutas.setVisible(roles.contains("ADMINISTRADOR"));
             btn_rutas.setVisible(roles.contains("ADMINISTRADOR"));
             menuBuses.setVisible(roles.contains("ADMINISTRADOR"));

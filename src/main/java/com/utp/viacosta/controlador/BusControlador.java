@@ -97,15 +97,20 @@ public class BusControlador implements Initializable {
         busModelo.setPlaca(txt_placa.getText());
         busModelo.setMarca(txt_marca.getText());
         busModelo.setModelo(txt_modelo.getText());
-        busModelo.setCapacidadCarga(Double.parseDouble(txt_carga_maxima.getText()));
 
+        busModelo.setCapacidadAsientos(capacidadAsiento);
+        busModelo.setPrimerPiso(Integer.parseInt(txt_asiento_econocimio.getText()));
+        busModelo.setSegundoPiso(Integer.parseInt(txt_asiento_vip.getText()));
+
+        busModelo.setCapacidadCarga(Double.parseDouble(txt_carga_maxima.getText()));
+        BusModelo busGuardar = busServicio.save(busModelo);
         List<AsientoModelo> listaAsientos = new ArrayList<>();
         for (int i = 0; i < capacidadAsiento; i++) {
             AsientoModelo asientoModelo = new AsientoModelo();
             asientoModelo.setNumeroAsiento(i + 1); // Asignar el número de asiento
             asientoModelo.setPrecio(0);
             asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
-            asientoModelo.setIdBus(busModelo.getIdBus());
+            asientoModelo.setIdBus(busGuardar.getIdBus());
 
             // Crear el estado del asiento como disponible
             AsientoEstadoFechaModelo estadoAsiento = new AsientoEstadoFechaModelo();
@@ -114,11 +119,11 @@ public class BusControlador implements Initializable {
             estadoAsiento.setHora(LocalTime.now());
             estadoAsiento.setEstado(Estado.DISPONIBLE);
 
-            asientoModelo.getEstadosFecha().add(estadoAsiento);
+            //asientoModelo.getEstadosFecha().add(estadoAsiento);
             listaAsientos.add(asientoModelo);
         }
-        busModelo.setCapacidadAsientos(listaAsientos.size());
-        busServicio.save(busModelo);
+        //busModelo.setCapacidadAsientos(listaAsientos.size());
+
         listaAsientos.forEach(asientoServicio::save);
 
         listarBuses();

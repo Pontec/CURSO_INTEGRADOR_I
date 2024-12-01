@@ -3,6 +3,7 @@ package com.utp.viacosta.controlador;
 import com.utp.viacosta.modelo.AsientoModelo;
 import com.utp.viacosta.modelo.BusModelo;
 import com.utp.viacosta.modelo.TipoAsientoModelo;
+import com.utp.viacosta.servicio.AsientoEstadoFechaServicio;
 import com.utp.viacosta.servicio.AsientoServicio;
 import com.utp.viacosta.servicio.BusServicio;
 import javafx.collections.FXCollections;
@@ -176,34 +177,34 @@ public class AsientoControlador implements Initializable {
     @FXML
     private void guardarCambios() {
         // Verificamos si hay un asiento seleccionado
-        AsientoModelo asientoSeleccionado = obtenerAsientoSeleccionado();
-        if (asientoSeleccionado != null) {
-            try {
-                // Obtener el nuevo tipo de asiento desde el ComboBox o TextField
-                String tipoAsientoStr = txtTipoAsiento.getText().trim().toUpperCase();
-                TipoAsientoModelo tipoAsiento = obtenerTipoAsiento(tipoAsientoStr);
-
-                // Obtener el nuevo precio del asiento desde el TextField
-                double precio = Double.parseDouble(txtPrecioAsiento.getText().trim());
-
-                // Actualizamos el asiento con los nuevos datos
-                asientoSeleccionado.setTipoAsiento(tipoAsiento);
-                asientoSeleccionado.setPrecio(precio);
-
-                // Guardamos los cambios usando el servicio
-                asientoServicio.actualizarAsiento(asientoSeleccionado);
-
-                // Mostrar mensaje de éxito
-                mostrarMensajeExito("Asiento actualizado correctamente.");
-
-            } catch (NumberFormatException e) {
-                mostrarMensajeError("El precio debe ser un valor numérico.");
-            } catch (Exception e) {
-                mostrarMensajeError("Error al actualizar el asiento: " + e.getMessage());
-            }
-        } else {
-            mostrarMensajeError("Seleccione un asiento para actualizar.");
-        }
+//        AsientoModelo asientoSeleccionado = obtenerAsientoSeleccionado();
+//        if (asientoSeleccionado != null) {
+//            try {
+//                // Obtener el nuevo tipo de asiento desde el ComboBox o TextField
+//                String tipoAsientoStr = txtTipoAsiento.getText().trim().toUpperCase();
+//                TipoAsientoModelo tipoAsiento = obtenerTipoAsiento(tipoAsientoStr);
+//
+//                // Obtener el nuevo precio del asiento desde el TextField
+//                double precio = Double.parseDouble(txtPrecioAsiento.getText().trim());
+//
+//                // Actualizamos el asiento con los nuevos datos
+//                asientoSeleccionado.setTipoAsiento(tipoAsiento);
+//                asientoSeleccionado.setPrecio(precio);
+//
+//                // Guardamos los cambios usando el servicio
+//                asientoServicio.actualizarAsiento(asientoSeleccionado);
+//
+//                // Mostrar mensaje de éxito
+//                mostrarMensajeExito("Asiento actualizado correctamente.");
+//
+//            } catch (NumberFormatException e) {
+//                mostrarMensajeError("El precio debe ser un valor numérico.");
+//            } catch (Exception e) {
+//                mostrarMensajeError("Error al actualizar el asiento: " + e.getMessage());
+//            }
+//        } else {
+//            mostrarMensajeError("Seleccione un asiento para actualizar.");
+//        }
     }
 
     private void mostrarMensajeExito(String mensaje) {
