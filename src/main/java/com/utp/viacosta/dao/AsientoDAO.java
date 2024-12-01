@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface AsientoDAO extends JpaRepository<AsientoModelo, Integer> {
     List<AsientoModelo> findByIdBus(int idBus);
+    AsientoModelo findByIdAsiento(int idAsiento);
+
 }

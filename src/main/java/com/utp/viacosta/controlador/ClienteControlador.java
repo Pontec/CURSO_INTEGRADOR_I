@@ -84,7 +84,7 @@ public class ClienteControlador implements Initializable {
         clienteModelo.setTelefono(txt_telefono.getText());
         clienteModelo.setDireccion("Direccion de prueba");
 
-//        clienteServicio.guardarCliente(clienteModelo);
+        clienteServicio.save(clienteModelo);
         listarClientes();
         limpiar();
         limpiarStyles();

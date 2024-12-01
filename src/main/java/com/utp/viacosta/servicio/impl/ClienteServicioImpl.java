@@ -36,4 +36,9 @@ public class ClienteServicioImpl implements ClienteServicio {
     public void actualizarCliente(ClienteModelo clienteModelo) {
         clienteDAO.save(clienteModelo);
     }
+
+    @Override
+    public ClienteModelo save(ClienteModelo clienteModelo) {
+        return clienteDAO.save(clienteModelo);
+    }
 }

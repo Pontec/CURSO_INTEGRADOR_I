@@ -5,6 +5,7 @@ import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -75,7 +76,7 @@ public class VentanaPrincipalControlador implements Initializable {
             btn_clientes.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_empleados.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses.setVisible(roles.contains("ADMINISTRADOR"));
-            btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));
+            //btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses_rutas.setVisible(roles.contains("ADMINISTRADOR"));
             btn_rutas.setVisible(roles.contains("ADMINISTRADOR"));
             menuBuses.setVisible(roles.contains("ADMINISTRADOR"));
@@ -145,15 +146,22 @@ public class VentanaPrincipalControlador implements Initializable {
     }
 
     @FXML
-    public void cerrarSesion(ActionEvent actionEvent) throws IOException {
+    public void cerrarSesion(Event actionEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmación de Cierre de Sesión");
         alert.setHeaderText(null);
         alert.setContentText("¿Está seguro de que desea cerrar sesión?");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
+            // Cerrar ventana actual
             Stage stage = (Stage) ventanaPrincipal.getScene().getWindow();
             stage.close();
+
+            // Abrir ventana de login
+            Parent loginView = FxmlCargarUtil.load("/vista/LoginVista.fxml");
+            Stage loginStage = new Stage();
+            loginStage.setScene(new Scene(loginView));
+            loginStage.show();
         }
     }
 

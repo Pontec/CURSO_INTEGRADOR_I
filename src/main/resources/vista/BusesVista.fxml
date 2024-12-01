@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.BusControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.BusControlador">
 
     <children>
         <Pane layoutX="38.0" layoutY="74.0" prefHeight="609.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="37.0" AnchorPane.topAnchor="74.0">
@@ -26,11 +26,11 @@
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="254.0" text="Asientos Vip">
+                <Label layoutX="25.0" layoutY="254.0" text="Segundo Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="308.0" text="Asiento Economicos">
+                <Label layoutX="26.0" layoutY="308.0" text="Primer Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>

@@ -14,4 +14,6 @@ public interface AsientoServicio {
     List<AsientoModelo> getAsientosPorBus(int idBus);
     void deleteById(Integer id);
     List<AsientoModelo> obtenerAsientosDisponibles(Integer idBus,LocalDate fecha,LocalTime hora);
+    void actualizarAsiento(AsientoModelo  asiento);
+    AsientoModelo getAsientoPorId(Integer id);
 }

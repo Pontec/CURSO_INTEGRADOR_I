@@ -9,4 +9,5 @@ public interface ClienteServicio {
     ClienteModelo guardarCliente(String nombre, String apellido, String dni, String telefono, String direccion);
     List<ClienteModelo> listaClientes();
     void actualizarCliente(ClienteModelo clienteModelo);
+    ClienteModelo save(ClienteModelo clienteModelo);
 }
