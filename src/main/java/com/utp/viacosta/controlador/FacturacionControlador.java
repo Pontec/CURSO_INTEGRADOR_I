@@ -199,7 +199,6 @@ public class FacturacionControlador implements Initializable {
         // Crear el botón del asiento con icono
         Button botonAsiento = new Button(String.valueOf(numeroAsiento));
         botonAsiento.setPrefSize(60, 40);
-
         Image imagen = new Image(getClass().getResourceAsStream("/img/icon-chair.png"));
         ImageView imageView = new ImageView(imagen);
         imageView.setFitHeight(20);
@@ -219,6 +218,15 @@ public class FacturacionControlador implements Initializable {
         } else {
             botonAsiento.getStyleClass().add("asiento-disponible");
             botonAsiento.setOnAction(event -> {
+                // Cambiar el estado de todos los botones a disponible, excepto los deshabilitados
+                for (Button btn : botonesAsientos) {
+                    if (!btn.isDisabled()) {
+                        btn.getStyleClass().remove("asiento-ocupado");
+                        btn.getStyleClass().add("asiento-disponible");
+                    }
+                }
+
+                // Toggle del estado del botón actual
                 if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
                     // Cambiar el estado del botón seleccionado a ocupado
                     botonAsiento.getStyleClass().remove("asiento-disponible");
@@ -230,20 +238,29 @@ public class FacturacionControlador implements Initializable {
                     txtCargoExtra.setText(String.valueOf(asiento.getPrecio()));
                     txtFechaSalida.setText(asignacionSeleccionada.getFechaSalida().toString());
                     txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
+
                     idAsiento = asiento.getIdAsiento();
                     asignacionAux = asignacionSeleccionada;
                     isButtonSelected = true;
                     setearDatosPago(asiento.getPrecio());
-
                 } else {
                     // Cambiar el estado del botón seleccionado a disponible
                     botonAsiento.getStyleClass().remove("asiento-ocupado");
                     botonAsiento.getStyleClass().add("asiento-disponible");
+
+                    // Limpiar los campos y restablecer las variables
+                    txtNumAsiento.clear();
+                    txtCargoExtra.clear();
+                    txtFechaSalida.clear();
+                    txtHoraSalida.clear();
+
+                    idAsiento = 0;
+                    asignacionAux = null;
                     isButtonSelected = false;
+                    setearDatosPago(0); // O el valor por defecto que necesites
                 }
             });
         }
-
         return botonAsiento;
     }
 
