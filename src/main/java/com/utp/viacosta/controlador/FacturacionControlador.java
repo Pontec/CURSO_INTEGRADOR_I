@@ -168,16 +168,16 @@ public class FacturacionControlador implements Initializable {
         }
     }
 
-    private void setearAsientos(List<AsientoModelo> asientos, GridPane gridAsientos, int cantAsientos, AsignacionBusRutaModelo asignacion) {
+    private void setearAsientos(List<AsientoModelo> asientos, GridPane gridAsientos, int cantAsientos, AsignacionBusRutaModelo asignacion, int inicio) {
         LocalDate fechaViaje = asignacion.getFechaSalida();
         LocalTime horaViaje = asignacion.getHoraSalida();
 
-        int index = 0;
+        int index = inicio;
         int totalColumnas = 9;
         int totalFilas = 4;
         for (int col = 0; col < totalColumnas; col++) {
             for (int fila = 0; fila <= totalFilas; fila++) {
-                if (index >= cantAsientos) return;
+                if (index >= cantAsientos + inicio) return;
                 if (fila == 2) continue;
 
                 AsientoModelo asientoActual = asientos.get(index);
@@ -220,11 +220,6 @@ public class FacturacionControlador implements Initializable {
             botonAsiento.getStyleClass().add("asiento-disponible");
             botonAsiento.setOnAction(event -> {
                 if (botonAsiento.getStyleClass().contains("asiento-disponible")) {
-                    // Cambiar el estado de todos los botones a disponible
-                    for (Button btn : botonesAsientos) {
-                        btn.getStyleClass().remove("asiento-ocupado");
-                        btn.getStyleClass().add("asiento-disponible");
-                    }
                     // Cambiar el estado del botón seleccionado a ocupado
                     botonAsiento.getStyleClass().remove("asiento-disponible");
                     botonAsiento.getStyleClass().add("asiento-ocupado");
@@ -244,6 +239,7 @@ public class FacturacionControlador implements Initializable {
                     // Cambiar el estado del botón seleccionado a disponible
                     botonAsiento.getStyleClass().remove("asiento-ocupado");
                     botonAsiento.getStyleClass().add("asiento-disponible");
+                    isButtonSelected = false;
                 }
             });
         }
@@ -304,8 +300,9 @@ public class FacturacionControlador implements Initializable {
             gridPrimerPiso.getChildren().clear();
             gridSegundoPiso.getChildren().clear();
             botonesAsientos.clear();
-            setearAsientos(asientos, gridPrimerPiso, asignacion.getBusAsignado().getPrimerPiso(), asignacion);
-            setearAsientos(asientos, gridSegundoPiso, asignacion.getBusAsignado().getSegundoPiso(), asignacion);
+            int primerPisoAsientos = asignacion.getBusAsignado().getPrimerPiso();
+            setearAsientos(asientos, gridPrimerPiso, primerPisoAsientos, asignacion, 0);
+            setearAsientos(asientos, gridSegundoPiso, asignacion.getBusAsignado().getSegundoPiso(), asignacion, primerPisoAsientos);
         });
         return botonBus;
     }
@@ -460,6 +457,8 @@ public class FacturacionControlador implements Initializable {
         DetalleBoletaModelo detalleBoleta = detalleBoletaServicio.save("Boleto de viaje", asignacionAux.getFechaSalida(), asignacionAux.getHoraSalida(), cmbMetodoPago.getValue().toString(), Double.parseDouble(txtTotal.getText()), comprobante.getIdComprobante(), asiento.getIdAsiento(), asignacionBusRuta.getIdAsignacion(), compra.getIdCompra());
         GenerarBoleto.generarBoleto(cliente,empleado,comprobante,asignacionBusRuta,asiento,detalleBoleta);
         mostrarMensajeExito();
+        isPanelPrimary(true);
+        mostrarViajes(null);
     }
 }
 
