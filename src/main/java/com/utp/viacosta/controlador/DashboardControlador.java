@@ -1,15 +1,16 @@
 package com.utp.viacosta.controlador;
 
-import com.utp.viacosta.servicio.BusServicio;
-import com.utp.viacosta.servicio.ClienteServicio;
-import com.utp.viacosta.servicio.EmpleadoServicio;
-import com.utp.viacosta.servicio.RutaServicio;
+import com.utp.viacosta.agregates.dto.DetalleBoletaDTO;
+import com.utp.viacosta.servicio.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,12 +50,29 @@ public class DashboardControlador implements Initializable {
     private Pane paneRutas;
     @FXML
     private Pane paneClientes;
+    @FXML
+    private TableColumn columnRuta;
+    @FXML
+    private TableColumn columnTotal;
+    @FXML
+    private TableColumn columnFecha;
+    @FXML
+    private TableView tablaUltimasVentas;
+    @FXML
+    private TableColumn columnHora;
+    @FXML
+    private TableColumn columnName;
+    @Autowired
+    private DetalleBoletaServicio boletaService;
+
+    List<DetalleBoletaDTO> tablaReportes;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarDatos();
         cargarRutasMasSolicitadas();
+        listarReportes();
     }
 
     public void cargarDatos() {
@@ -86,6 +104,33 @@ public class DashboardControlador implements Initializable {
             }
             rutasSolicitadas.setData(pieChartData);
         }
+    }
+
+
+    private List<DetalleBoletaDTO> obtenerReportes() {
+        return tablaReportes;
+    }
+    private void establecerReportes(List<DetalleBoletaDTO> table) {
+        tablaReportes = table;
+    }
+    private void listarReportes() {
+        columnName.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+        columnRuta.setCellValueFactory(new PropertyValueFactory<>("ruta"));
+        columnFecha.setCellValueFactory(new PropertyValueFactory<>("fechaSalida"));
+        columnHora.setCellValueFactory(new PropertyValueFactory<>("horaSalida"));
+        columnTotal.setCellValueFactory(new PropertyValueFactory<>("precioTotal"));
+        tablaUltimasVentas.getItems().setAll(boletaService.getAllReporteVentas());
+        List<DetalleBoletaDTO> todasLasVentas = boletaService.getAllReporteVentas();
+        todasLasVentas.sort((v1, v2) -> {
+            int fechaComparacion = v2.getFechaSalida().compareTo(v1.getFechaSalida());
+            if (fechaComparacion == 0) {
+                return v2.getHoraSalida().compareTo(v1.getHoraSalida());
+            }
+            return fechaComparacion;
+        });
+        List<DetalleBoletaDTO> primerasDiezVentas = todasLasVentas.size() > 10 ? todasLasVentas.subList(0, 10) : todasLasVentas;
+        tablaUltimasVentas.getItems().setAll(primerasDiezVentas);
+        establecerReportes(primerasDiezVentas);
     }
 
 

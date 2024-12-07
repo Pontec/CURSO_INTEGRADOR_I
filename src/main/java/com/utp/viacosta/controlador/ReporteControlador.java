@@ -44,8 +44,7 @@ public class ReporteControlador implements Initializable {
 
     @Autowired
     private DetalleBoletaServicio boletaService;
-    @Autowired
-    private AsignacionBusRutaServicio asignacionBusRutaService;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarReportes();
