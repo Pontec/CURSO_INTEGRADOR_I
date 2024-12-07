@@ -3,8 +3,6 @@ package com.utp.viacosta.modelo;
 import com.utp.viacosta.modelo.enums.TipoAsiento;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 
 @Getter
@@ -32,8 +30,7 @@ public class TipoAsientoModelo {
 
     @Override
     public String toString() {
-        return ""+ nombre;
+        return "" + nombre;
     }
-
 
 }

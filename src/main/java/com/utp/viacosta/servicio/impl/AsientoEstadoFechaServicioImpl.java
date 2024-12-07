@@ -1,6 +1,5 @@
 package com.utp.viacosta.servicio.impl;
 
-import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.dao.AsientoEstadoFechaDAO;
 import com.utp.viacosta.modelo.AsientoEstadoFechaModelo;
 import com.utp.viacosta.modelo.AsientoModelo;
@@ -18,7 +17,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AsientoEstadoFechaServicioImpl implements AsientoEstadoFechaServicio {
     private final AsientoEstadoFechaDAO asientoEstadoFechaDAO;
-    private final AsientoDAO asientoDAO;
 
     @Override
     @Transactional

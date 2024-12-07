@@ -2,7 +2,6 @@ package com.utp.viacosta.servicio.impl;
 
 import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.AsientoModelo;
-import com.utp.viacosta.modelo.enums.Estado;
 import com.utp.viacosta.servicio.AsientoEstadoFechaServicio;
 import com.utp.viacosta.servicio.AsientoServicio;
 import org.springframework.beans.factory.annotation.Autowired;

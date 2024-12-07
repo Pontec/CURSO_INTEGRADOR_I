@@ -17,10 +17,11 @@ public class FxmlCargarUtil {
         springContext = context;
     }
 
-    // Metodo utilitario para cargar un archivo FXML y aplicar inyección de dependencias
+    // Metodo utilitario para cargar un archivo FXML y aplicar inyección de
+    // dependencias
     public static Parent load(String fxmlPath) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(FxmlCargarUtil.class.getResource(fxmlPath));
-        fxmlLoader.setControllerFactory(springContext::getBean);  // Inyección de dependencias con Spring
+        fxmlLoader.setControllerFactory(springContext::getBean); // Inyección de dependencias con Spring
         return fxmlLoader.load();
     }
 
@@ -34,7 +35,9 @@ public class FxmlCargarUtil {
         cmb.setItems(listaCmb);
         if (!listaCmb.isEmpty()) {
             cmb.getSelectionModel().select(0);
+            cmb.requestFocus();
+            cmb.fireEvent(new javafx.event.ActionEvent());
         }
     }
 
-    }
+}

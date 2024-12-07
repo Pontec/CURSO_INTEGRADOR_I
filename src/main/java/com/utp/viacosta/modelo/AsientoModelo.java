@@ -1,6 +1,5 @@
 package com.utp.viacosta.modelo;
 
-import com.utp.viacosta.modelo.enums.Estado;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

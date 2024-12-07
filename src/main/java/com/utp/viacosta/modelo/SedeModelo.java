@@ -26,15 +26,12 @@ public class SedeModelo {
     private String departamento;
     private String pais;
     private String telefono;
-
+    
     @OneToMany(mappedBy = "sede")
     private List<EmpleadoModelo> listEmpleados;
 
     @ManyToOne
     @JoinColumn(name = "id_empresa")
     private EmpresaModelo empresa;
-
-
-
 
 }

@@ -13,7 +13,6 @@ import com.itextpdf.layout.properties.TextAlignment;
 import lombok.RequiredArgsConstructor;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
@@ -154,7 +153,7 @@ public class GenerarBoleto {
             System.out.println("Ticket generado exitosamente: " + filePath);
         } catch (FileNotFoundException e) {
             System.out.println("Error al crear el archivo PDF: " + e.getMessage());
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Error al escribir en el archivo PDF: " + e.getMessage());
         }
     }

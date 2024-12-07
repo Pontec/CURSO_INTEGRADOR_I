@@ -3,11 +3,9 @@ package com.utp.viacosta.servicio;
 import com.utp.viacosta.modelo.AsientoEstadoFechaModelo;
 import com.utp.viacosta.modelo.AsientoModelo;
 import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
-import com.utp.viacosta.modelo.enums.Estado;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Optional;
 
 public interface AsientoEstadoFechaServicio {
 

@@ -5,7 +5,6 @@ import com.utp.viacosta.agregates.retrofit.ReniecService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.*;
-import com.utp.viacosta.modelo.enums.Estado;
 import com.utp.viacosta.servicio.*;
 import com.utp.viacosta.util.AuthLogin;
 import com.utp.viacosta.util.FxmlCargarUtil;
@@ -71,8 +70,6 @@ public class FacturacionControlador implements Initializable {
     @FXML
     private TextField txtDireccion;
     @FXML
-    private TextField txtCargoExtra;
-    @FXML
     private TextField txtHoraSalida;
     @FXML
     private TextField txtFechaSalida;
@@ -117,9 +114,7 @@ public class FacturacionControlador implements Initializable {
     boolean isButtonSelected = false;
     AsignacionBusRutaModelo asignacionAux = new AsignacionBusRutaModelo();
     @FXML
-    private ComboBox cmbMetodoPago;
-    @FXML
-    private TextField txtTipoBoleta;
+    private ComboBox<String> cmbMetodoPago;
     @Autowired
     private AsientoDAO asientoDAO;
     @Autowired
@@ -128,6 +123,18 @@ public class FacturacionControlador implements Initializable {
     private Label lblEfectivo;
     @FXML
     private Label lblCambio;
+    @FXML
+    private TextField txtRutaDest;
+    @FXML
+    private TextField txtRutaOrigen;
+    @FXML
+    private ComboBox cmbTipoDoc;
+    @FXML
+    private TextField txtRazonSocial;
+    @FXML
+    private TextField txtRUC;
+    @FXML
+    private TextField txtPlacaBus;
 
 
     @Override
@@ -135,7 +142,6 @@ public class FacturacionControlador implements Initializable {
         datosViajePredefinidos();
         fechaPredefinida();
         cargarRutas();
-        configurarMetodoPago();
     }
 
     private void cargarRutas() {
@@ -234,30 +240,38 @@ public class FacturacionControlador implements Initializable {
 
                     // Capturar la información de la asignación
                     AsignacionBusRutaModelo asignacionSeleccionada = (AsignacionBusRutaModelo) botonAsiento.getUserData();
-                    txtNumAsiento.setText(String.valueOf(numeroAsiento));
-                    txtCargoExtra.setText(String.valueOf(asiento.getPrecio()));
+                    txtRutaOrigen.setText(asignacionSeleccionada.getRutaAsignada().getOrigen());
+                    txtRutaDest.setText(asignacionSeleccionada.getRutaAsignada().getDestino());
                     txtFechaSalida.setText(asignacionSeleccionada.getFechaSalida().toString());
                     txtHoraSalida.setText(asignacionSeleccionada.getHoraSalida().toString());
+                    txtNumAsiento.setText(String.valueOf(numeroAsiento));
+                    txtPlacaBus.setText(asignacionSeleccionada.getBusAsignado().getPlaca());
 
                     idAsiento = asiento.getIdAsiento();
                     asignacionAux = asignacionSeleccionada;
                     isButtonSelected = true;
-                    setearDatosPago(asiento.getPrecio());
+                    setearDatosPago(asignacionSeleccionada.getPrecio());
                 } else {
                     // Cambiar el estado del botón seleccionado a disponible
                     botonAsiento.getStyleClass().remove("asiento-ocupado");
                     botonAsiento.getStyleClass().add("asiento-disponible");
 
                     // Limpiar los campos y restablecer las variables
-                    txtNumAsiento.clear();
-                    txtCargoExtra.clear();
+                    txtRutaOrigen.clear();
+                    txtRutaDest.clear();
                     txtFechaSalida.clear();
                     txtHoraSalida.clear();
+                    txtNumAsiento.clear();
+                    txtPlacaBus.clear();
+                    txtDni.clear();
+                    txtTelefono.clear();
+                    txtDireccion.clear();
+                    txtRUC.clear();
 
                     idAsiento = 0;
                     asignacionAux = null;
                     isButtonSelected = false;
-                    setearDatosPago(0); // O el valor por defecto que necesites
+                    setearDatosPago(0);
                 }
             });
         }
@@ -265,7 +279,6 @@ public class FacturacionControlador implements Initializable {
     }
 
     private void setearDatosPago(double precio) {
-        precio = 50;
         txtSubtotal.setText(String.format("%.2f", precio / 1.18));
         txtIGV.setText(String.format("%.2f", precio - (precio / 1.18)));
         txtTotal.setText(String.format("%.2f", precio));
@@ -341,17 +354,22 @@ public class FacturacionControlador implements Initializable {
     }
 
     private void datosViajePredefinidos() {
-        txtTipoBoleta.setText("Boleta");
-        int numeroDocumento = comprobanteServicio.countByTipoComprobante("Boleta") + 1;
+        cargarTiposDeDocumentos();
         dateFechaBoleto.setValue(LocalDate.now());
         embarque.setText(AuthLogin.getEmpleadoActivo().getSede().getDireccion());
-        numeroDoc.setText("B001 - " + numeroDocumento);
         cargarMetodosPago();
+    }
+
+    public void cargarTiposDeDocumentos(){
+        ObservableList<String> tiposDocumentos = FXCollections.observableArrayList("Boleta", "Factura");
+        FxmlCargarUtil.cargarComboBox(tiposDocumentos, cmbTipoDoc);
+        configurarTiposDoc();
     }
 
     public void cargarMetodosPago() {
         ObservableList<String> metodosPago = FXCollections.observableArrayList("Efectivo", "Tarjeta de crédito");
         FxmlCargarUtil.cargarComboBox(metodosPago, cmbMetodoPago);
+        configurarMetodoPago();
     }
 
     @FXML
@@ -427,6 +445,21 @@ public class FacturacionControlador implements Initializable {
             lblCambio.setVisible(esEfectivo);
         });
     }
+
+public void configurarTiposDoc() {
+    cmbTipoDoc.setOnAction(event -> {
+        String tipoDoc = (String) cmbTipoDoc.getValue();
+        boolean esFactura = "Factura".equals(tipoDoc);
+        txtRazonSocial.setDisable(!esFactura);
+        txtRUC.setDisable(!esFactura);
+        txtRUC.setPromptText(esFactura ? "Ingrese el RUC" : "");
+        int cant = comprobanteServicio.countByTipoComprobante(tipoDoc);
+        numeroDoc.setText((esFactura ? "EB01 - " : "B001 - ") + (cant + 1));
+        if (!esFactura) {
+            txtRUC.clear();
+        }
+    });
+}
 
     @FXML
     public void calcularCambio(ActionEvent actionEvent) {

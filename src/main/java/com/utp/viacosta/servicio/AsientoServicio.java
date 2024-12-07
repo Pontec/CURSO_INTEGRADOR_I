@@ -1,8 +1,5 @@
 package com.utp.viacosta.servicio;
-
-
 import com.utp.viacosta.modelo.AsientoModelo;
-import com.utp.viacosta.modelo.enums.Estado;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

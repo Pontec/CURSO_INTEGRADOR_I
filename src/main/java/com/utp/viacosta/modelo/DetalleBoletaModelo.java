@@ -45,7 +45,7 @@ public class DetalleBoletaModelo {
     @JoinColumn(name = "id_asiento" , insertable = false, updatable = false)
     private AsientoModelo asiento;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_compra", insertable = false, updatable = false)
     private CompraModelo compra;
 
