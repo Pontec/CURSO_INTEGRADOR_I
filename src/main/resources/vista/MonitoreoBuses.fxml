@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="contenedorPanelFact" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.MonitoreoBusesControlador">
+   <children>
+      <AnchorPane fx:id="panelBusRuta" prefHeight="720.0" prefWidth="1068.0">
+         <children>
+            <Pane layoutX="14.0" layoutY="14.0" prefHeight="692.0" prefWidth="1046.0">
+               <children>
+                  <Label layoutX="5.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Monitoreo de Buses">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="9.0" layoutY="44.0" prefHeight="17.0" prefWidth="205.0" text="Realiza seguimiento de los buses">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Pane fx:id="panelPlanillaPasajeros" layoutX="258.0" layoutY="90.0" prefHeight="590.0" prefWidth="781.0" style="-fx-border-color: CCC;">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Planilla de Pasajeros">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="629.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Poner en Marcha" />
+                        <Button layoutX="629.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#fnExportarExcel" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: green;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Exportar en Excel" />
+                        <TableView layoutX="14.0" layoutY="54.0" prefHeight="481.0" prefWidth="753.0" stylesheets="@../css/style.css">
+                          <columns>
+                            <TableColumn prefWidth="125.0" text="Nombre" />
+                            <TableColumn prefWidth="103.0" text="Apellidos" />
+                              <TableColumn prefWidth="76.0" text="DNI" />
+                              <TableColumn prefWidth="59.0" text="Asiento" />
+                              <TableColumn prefWidth="93.0" text="Bus" />
+                              <TableColumn prefWidth="122.0" text="Ruta" />
+                              <TableColumn prefWidth="169.0" text="Vendedor" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane fx:id="panelSeguimiento" layoutX="258.0" layoutY="90.0" prefHeight="590.0" prefWidth="781.0" style="-fx-border-color: CCC;" visible="false">
+                     <children>
+                        <Label layoutX="21.0" layoutY="15.0" style="-fx-text-fill: #0066CC;" text="Seguimiento de Buses">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="625.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Finalizar Viaje" />
+                        <Button layoutX="473.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: red;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Cancelar Marcha" />
+                        <ImageView fitHeight="447.0" fitWidth="742.0" layoutX="21.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/mapa-buses.PNG" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="21.0" layoutY="52.0" prefHeight="20.0" prefWidth="314.0" text="Sigue en tiempo real el recorrido de los buses">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Button layoutX="258.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnBusesEstacionados" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: #0066CC; -fx-font-size: 13; -fx-font-weight: bold; -fx-border-radius: 0; -fx-text-fill: white; -fx-background-radius: 0;" text="Buses estacionados" />
+                  <Button layoutX="411.0" layoutY="21.0" mnemonicParsing="false" onMouseClicked="#btnBusesEnMarcha" prefHeight="32.0" prefWidth="153.0" style="-fx-background-color: red; -fx-font-size: 13; -fx-font-weight: bold; -fx-border-radius: 0; -fx-text-fill: white; -fx-background-radius: 0;" text="Buses en marcha" />
+               </children>
+            </Pane>
+            <Pane layoutX="18.0" layoutY="104.0" prefHeight="590.0" prefWidth="249.0" style="-fx-border-color: CCC;">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Lista de buses">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="42.0" prefHeight="20.0" prefWidth="225.0" text="Selecciona un bus">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <GridPane fx:id="gridBuses" layoutX="14.0" layoutY="82.0" prefHeight="481.0" prefWidth="213.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

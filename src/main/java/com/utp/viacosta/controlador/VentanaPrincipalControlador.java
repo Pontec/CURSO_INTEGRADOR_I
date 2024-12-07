@@ -48,6 +48,8 @@ public class VentanaPrincipalControlador implements Initializable {
     private Button btn_clientes, btn_empleados, btn_facturacion, btn_buses, btn_asiento, btn_buses_rutas;
     @FXML
     private VBox vBox;
+    @FXML
+    private Button btn_monitoreo;
 
 
     @Override
@@ -74,6 +76,7 @@ public class VentanaPrincipalControlador implements Initializable {
                     .collect(Collectors.toSet());
             btn_inicio.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_clientes.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
+            btn_monitoreo.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_empleados.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses.setVisible(roles.contains("ADMINISTRADOR"));
             //btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));
@@ -121,7 +124,9 @@ public class VentanaPrincipalControlador implements Initializable {
     public void btn_asiento(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/vista/AsientoVista.fxml");
         ventanaPrincipal.setCenter(vista);
-    }@FXML
+    }
+
+    @FXML
 
     public void btn_buses_rutas(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/vista/AsignacionBusesRutasVista.fxml");
@@ -139,10 +144,21 @@ public class VentanaPrincipalControlador implements Initializable {
         Parent vista = FxmlCargarUtil.load("/vista/ReportesVista.fxml");
         ventanaPrincipal.setCenter(vista);
     }
+
     @FXML
     public void btn_config(ActionEvent actionEvent) throws IOException {
         Parent vista = FxmlCargarUtil.load("/vista/SedeVista.fxml");
         ventanaPrincipal.setCenter(vista);
+    }
+
+    @FXML
+    public void btn_monitoreo(ActionEvent actionEvent) {
+        try {
+            Parent vista = FxmlCargarUtil.load("/vista/MonitoreoBuses.fxml");
+            ventanaPrincipal.setCenter(vista);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -230,9 +246,12 @@ public class VentanaPrincipalControlador implements Initializable {
                 vista = FxmlCargarUtil.load("/vista/FacturacionVista.fxml");
             } else if (source == btn_reportes) {
                 vista = FxmlCargarUtil.load("/vista/ReportesVista.fxml");
-            }  else if (source == btn_config) {
+            } else if (source == btn_config) {
                 vista = FxmlCargarUtil.load("/vista/SedeVista.fxml");
+            } else if (source == btn_monitoreo) {
+                vista = FxmlCargarUtil.load("/vista/MonitoreoBuses.fxml");
             } else if (source == btn_logout) {
+                cerrarSesion(event);
             }
             if (vista != null) {
                 ventanaPrincipal.setCenter(vista);
@@ -242,9 +261,10 @@ public class VentanaPrincipalControlador implements Initializable {
         }
     }
 
-    public void manejarBoton(){
+    public void manejarBoton() {
         btn_inicio.setOnAction(this::handleButtonAction);
         btn_clientes.setOnAction(this::handleButtonAction);
+        btn_monitoreo.setOnAction(this::handleButtonAction);
         btn_empleados.setOnAction(this::handleButtonAction);
         btn_rutas.setOnAction(this::handleButtonAction);
         btn_facturacion.setOnAction(this::handleButtonAction);
