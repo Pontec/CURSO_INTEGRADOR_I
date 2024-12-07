@@ -10,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -39,6 +41,14 @@ public class DashboardControlador implements Initializable {
 
     @FXML
     private PieChart rutasSolicitadas;
+    @FXML
+    private Pane paneBuses;
+    @FXML
+    private Pane paneEmpleados;
+    @FXML
+    private Pane paneRutas;
+    @FXML
+    private Pane paneClientes;
 
 
     @Override
@@ -61,17 +71,21 @@ public class DashboardControlador implements Initializable {
         num_rutas.setText(rutas.toString());
     }
 
+
     private void cargarRutasMasSolicitadas() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Huaraz", 13),
-                new PieChart.Data("Chimbote", 25),
-                new PieChart.Data("Casma", 10),
-                new PieChart.Data("Pariacoto", 22));
+        List<Object[]> rutasMasVendidas = rutaServicio.obtenerRutasMasVendidas();
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
 
-        PieChart pieChart = new PieChart(pieChartData);
-        pieChart.setTitle("Lugares más solicitados");
-
-        rutasSolicitadas.setData(pieChartData);
+        if (rutasMasVendidas.isEmpty()) {
+            rutasSolicitadas.setTitle("No hay datos de ventas disponibles");
+        } else {
+            for (Object[] ruta : rutasMasVendidas) {
+                String origen = (String) ruta[0];
+                Long ventas = (Long) ruta[1];
+                pieChartData.add(new PieChart.Data(origen, ventas));
+            }
+            rutasSolicitadas.setData(pieChartData);
+        }
     }
 
 

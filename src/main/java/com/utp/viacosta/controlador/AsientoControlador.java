@@ -50,6 +50,7 @@ public class AsientoControlador implements Initializable {
             BusModelo busSeleccionado = cbocBuses.getValue();
             cargarAsientosPorBus(busSeleccionado);
         });
+
     }
 
     private void cargarBuses() {

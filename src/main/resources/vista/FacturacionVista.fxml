@@ -291,13 +291,13 @@
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtRUC" layoutX="106.0" layoutY="177.0" minHeight="30.0" onKeyReleased="#datosClienteReniec" prefHeight="30.0" prefWidth="169.0" />
+                  <TextField fx:id="txtRUC" disable="true" layoutX="106.0" layoutY="177.0" minHeight="30.0" onKeyReleased="#datosClienteReniec" prefHeight="30.0" prefWidth="169.0" />
                   <Label layoutX="24.0" layoutY="234.0" text="Razon Social:">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="txtRazonSocial" layoutX="107.0" layoutY="228.0" minHeight="30.0" onKeyReleased="#datosClienteReniec" prefHeight="30.0" prefWidth="685.0" />
+                  <TextField fx:id="txtRazonSocial" disable="true" layoutX="107.0" layoutY="228.0" minHeight="30.0" onKeyReleased="#datosClienteReniec" prefHeight="30.0" prefWidth="685.0" />
                </children>
             </Pane>
             <Pane layoutX="13.0" layoutY="435.0" prefHeight="207.0" prefWidth="808.0" style="-fx-border-color: CCC;">

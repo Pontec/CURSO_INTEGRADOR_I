@@ -355,6 +355,7 @@ public class FacturacionControlador implements Initializable {
 
     private void datosViajePredefinidos() {
         cargarTiposDeDocumentos();
+        setearNumeroDoc(false);
         dateFechaBoleto.setValue(LocalDate.now());
         embarque.setText(AuthLogin.getEmpleadoActivo().getSede().getDireccion());
         cargarMetodosPago();
@@ -453,12 +454,16 @@ public void configurarTiposDoc() {
         txtRazonSocial.setDisable(!esFactura);
         txtRUC.setDisable(!esFactura);
         txtRUC.setPromptText(esFactura ? "Ingrese el RUC" : "");
-        int cant = comprobanteServicio.countByTipoComprobante(tipoDoc);
-        numeroDoc.setText((esFactura ? "EB01 - " : "B001 - ") + (cant + 1));
+        setearNumeroDoc(esFactura);
         if (!esFactura) {
             txtRUC.clear();
         }
     });
+}
+
+private void setearNumeroDoc(boolean esFactura) {
+    int cant = comprobanteServicio.countByTipoComprobante(esFactura ? "Factura" : "Boleta");
+    numeroDoc.setText((esFactura ? "EB01 - " : "B001 - ") + (cant + 1));
 }
 
     @FXML

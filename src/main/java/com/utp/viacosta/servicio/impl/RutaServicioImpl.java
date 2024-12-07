@@ -55,5 +55,10 @@ public class RutaServicioImpl implements RutaServicio {
         return rutaDAO.existsByOrigen(origen);
     }
 
+    @Override
+    public List<Object[]> obtenerRutasMasVendidas() {
+        return rutaDAO.findTopRutas();
+    }
+
 
 }
