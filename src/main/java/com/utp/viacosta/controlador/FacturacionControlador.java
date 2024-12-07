@@ -1,7 +1,9 @@
 package com.utp.viacosta.controlador;
 
 import com.utp.viacosta.agregates.respuesta.ReniecRespuesta;
+import com.utp.viacosta.agregates.respuesta.SunatRespuesta;
 import com.utp.viacosta.agregates.retrofit.ReniecService;
+import com.utp.viacosta.agregates.retrofit.SunatService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.*;
@@ -386,6 +388,38 @@ public class FacturacionControlador implements Initializable {
             String destino = cmbDestino.getValue().toString();
             List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
             setearBus(listaAsignaciones);
+        }
+    }
+
+    @FXML void datosClienteSunat(Event event) {
+        if (txtRUC.getText().length() < 11) {
+            txtRazonSocial.setText("");
+            txtDireccion.setText("");
+            return;
+        }
+
+        if (txtRUC.getText().length() == 11) {
+            Retrofit retrofit = ReniecCliente.getClient();
+            SunatService sunatService = retrofit.create(SunatService.class);
+            String token = "Beearer " + tokenApi;
+            Call<SunatRespuesta> call = sunatService.getDatosEmpresa(token, txtRUC.getText());
+            call.enqueue(new Callback<SunatRespuesta>() {
+                @Override
+                public void onResponse(Call<SunatRespuesta> call, Response<SunatRespuesta> response) {
+                    if (response.isSuccessful()) {
+                        SunatRespuesta datosEmpresa = response.body();
+                        txtRazonSocial.setText(datosEmpresa.getRazonSocial());
+                        txtDireccion.setText(datosEmpresa.getDireccion());
+                    } else {
+                        mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SunatRespuesta> call, Throwable t) {
+                    mostrarAlerta("Error en la llamada: " + t.getMessage());
+                }
+            });
         }
     }
 

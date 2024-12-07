@@ -9,4 +9,5 @@ import retrofit2.http.Query;
 public interface ReniecService {
     @GET("/v2/reniec/dni")
     Call<ReniecRespuesta> getDatosPersona(@Header("Authorization") String toquen, @Query("numero") String numero);
+
 }
