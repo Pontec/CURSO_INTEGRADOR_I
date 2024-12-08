@@ -146,12 +146,18 @@ public class FacturacionControlador implements Initializable {
 
     private void cargarRutas() {
         List<RutaModelo> rutas = rutaServicio.listarRutas();
-        String sedeActiva = AuthLogin.getEmpleadoActivo().getSede().getCiudad();
-        rutaServicio.existsByOrigen(sedeActiva);
-        cmbOrigen.setValue(sedeActiva);
-        cmbOrigen.setDisable(true);
-        cmbOrigen.getStyleClass().add("combo-box-disabled");
-
+//        String sedeActiva = AuthLogin.getEmpleadoActivo().getSede().getCiudad();
+//        rutaServicio.existsByOrigen(sedeActiva);
+//        cmbOrigen.setValue(sedeActiva);
+//        cmbOrigen.setDisable(true);
+//        cmbOrigen.getStyleClass().add("combo-box-disabled");
+        ObservableList<String> rutasOrigen = FXCollections.observableArrayList(
+                rutas.stream()
+                        .map(ruta -> ruta.getOrigen())
+                        .distinct()
+                        .collect(Collectors.toList())
+        );
+        FxmlCargarUtil.cargarComboBox(rutasOrigen, cmbOrigen);
         ObservableList<String> rutasDestino = FXCollections.observableArrayList(
                 rutas.stream()
                         .map(ruta -> ruta.getDestino())
