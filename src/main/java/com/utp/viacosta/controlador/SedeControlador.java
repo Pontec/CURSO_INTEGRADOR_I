@@ -1,7 +1,7 @@
 package com.utp.viacosta.controlador;
 
-import com.utp.viacosta.modelo.SedeModelo;
-import com.utp.viacosta.servicio.SedeServicio;
+import com.utp.viacosta.modelo.EmpresaModelo;
+import com.utp.viacosta.servicio.EmpresaServicio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,22 +20,13 @@ import java.util.ResourceBundle;
 public class SedeControlador implements Initializable {
 
     @Autowired
-    private SedeServicio sedeServicio;
+    private EmpresaServicio empresaServicio;
 
     @FXML
     private TextField confTelefono;
 
     @FXML
-    private Button btnActualizar;
-
-    @FXML
-    private Button btnLogo;
-
-    @FXML
     private TextField confCiudad;
-
-    @FXML
-    private TextField cofDescripcion;
 
     @FXML
     private TextField confDepartamento;
@@ -52,65 +43,60 @@ public class SedeControlador implements Initializable {
     @FXML
     private TextField confRuc;
     @FXML
-    private TableColumn<SedeModelo, String> columnCiudad;
+    private TableColumn<EmpresaModelo, String> columnCiudad;
 
     @FXML
-    private TableColumn<SedeModelo,String> columnDepartamento;
+    private TableColumn<EmpresaModelo,String> columnDepartamento;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnDescripcion;
+    private TableColumn<EmpresaModelo, String> columnDireccion;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnDireccion;
+    private TableColumn<EmpresaModelo, String> columnNombre;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnNombre;
+    private TableColumn<EmpresaModelo, String> columnPais;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnPais;
+    private TableColumn<EmpresaModelo, String> columnRuc;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnRuc;
+    private TableColumn<EmpresaModelo, String> columnTelefono;
 
     @FXML
-    private TableColumn<SedeModelo, String> columnTelefono;
-
+    private TableView<EmpresaModelo> tablaEmpresa;
     @FXML
-    private TableView<SedeModelo> tablaEmpresa;
-
-
+    private Button btnEditar;
+    @FXML
+    private Button btnGuardar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        listarSedes();
-
+        listarEmpresa();
     }
-
 
     @FXML
     void btnActualizar(ActionEvent event) {
-        SedeModelo sedeModelo = new SedeModelo();
-        sedeModelo.setNombreSedes(confNombre.getText());
-        sedeModelo.setDireccion(confDireccion.getText());
-        sedeModelo.setTelefono(confTelefono.getText());
-        sedeModelo.setDepartamento(confDepartamento.getText());
-        sedeModelo.setCiudad(confCiudad.getText());
-        sedeModelo.setPais(confPais.getText());
+        EmpresaModelo empresaModelo = new EmpresaModelo();
+        empresaModelo.setRazonSocial(confNombre.getText());
+        empresaModelo.setDireccion(confDireccion.getText());
+        empresaModelo.setTelefono(confTelefono.getText());
+        empresaModelo.setDepartamento(confDepartamento.getText());
+        empresaModelo.setCiudad(confCiudad.getText());
+        empresaModelo.setPais(confPais.getText());
 
-
-        sedeServicio.guardarSede(sedeModelo);
+        empresaServicio.save(empresaModelo);
         clear();
     }
-    private void listarSedes(){
-        columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombreSedes"));
+    private void listarEmpresa(){
+        columnNombre.setCellValueFactory(new PropertyValueFactory<>("razonSocial"));
         columnRuc.setCellValueFactory(new PropertyValueFactory<>("ruc"));
         columnDireccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         columnCiudad.setCellValueFactory(new PropertyValueFactory<>("ciudad"));
         columnDepartamento.setCellValueFactory(new PropertyValueFactory<>("departamento"));
         columnPais.setCellValueFactory(new PropertyValueFactory<>("pais"));
-
-        tablaEmpresa.getItems().setAll(sedeServicio.listaSedes());
+        tablaEmpresa.getItems().setAll(empresaServicio.findAll());
     }
 
     //metodo de limpiar
@@ -126,5 +112,8 @@ public class SedeControlador implements Initializable {
 
     }
 
+    @FXML
+    public void btnGuardar(ActionEvent actionEvent) {
+    }
 }
 

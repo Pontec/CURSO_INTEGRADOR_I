@@ -9,28 +9,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.BusControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.BusControlador">
 
     <children>
-        <Pane layoutX="38.0" layoutY="74.0" prefHeight="609.0" prefWidth="226.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="37.0" AnchorPane.topAnchor="74.0">
+        <Pane layoutX="13.0" layoutY="12.0" prefHeight="694.0" prefWidth="1039.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="14.0" AnchorPane.topAnchor="12.0">
             <children>
-                <Label layoutX="27.0" layoutY="80.0" text="Placa:">
+                <Label layoutX="27.0" layoutY="75.0" text="Placa:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="145.0" text="Marca:">
+                <Label layoutX="25.0" layoutY="131.0" text="Marca:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="200.0" text="Modelo:">
+                <Label layoutX="26.0" layoutY="191.0" text="Modelo:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="254.0" text="Segundo Piso">
+                <Label layoutX="25.0" layoutY="312.0" text="Segundo Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="308.0" text="Primer Piso">
+                <Label layoutX="26.0" layoutY="252.0" text="Primer Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
@@ -38,45 +38,36 @@
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="46.0" prefHeight="20.0" prefWidth="165.0" text="Ingrese los datos de bus">
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <Label layoutX="23.0" layoutY="22.0" style="-fx-text-fill: #0066CC;" text="Registre nuevo Bus">
+                <Label layoutX="25.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Registre nuevo Bus">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-            <TextField fx:id="txt_placa" layoutX="25.0" layoutY="97.0" promptText="Ingresa la placa" />
-            <TextField fx:id="txt_marca" layoutX="25.0" layoutY="162.0" promptText="Ingresa la marca" />
-            <TextField fx:id="txt_modelo" layoutX="25.0" layoutY="217.0" promptText="Ingresa el moledo" />
-            <TextField fx:id="txt_asiento_vip" layoutX="25.0" layoutY="271.0" promptText="ejem. 10" />
-            <TextField fx:id="txt_asiento_econocimio" layoutX="25.0" layoutY="325.0" promptText="ejem. 20" />
-            <TextField fx:id="txt_carga_maxima" layoutX="25.0" layoutY="393.0" promptText="ejem. 2" />
-            <Button fx:id="btn_guardar" layoutX="74.0" layoutY="440.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
-            <Button fx:id="btn_actualizar" layoutX="74.0" layoutY="483.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="74.0" layoutY="525.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="25.0" prefWidth="100.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+            <TextField fx:id="txt_placa" layoutX="25.0" layoutY="92.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa la placa" stylesheets="@../css/style.css" />
+            <TextField fx:id="txt_marca" layoutX="25.0" layoutY="148.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa la marca" stylesheets="@../css/style.css" />
+            <TextField fx:id="txt_modelo" layoutX="25.0" layoutY="208.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa el moledo" stylesheets="@../css/style.css" />
+            <TextField fx:id="txtPiso2" layoutX="25.0" layoutY="329.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 20" stylesheets="@../css/style.css" />
+            <TextField fx:id="txtPiso1" layoutX="25.0" layoutY="269.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 10" stylesheets="@../css/style.css" />
+            <TextField fx:id="txt_carga_maxima" layoutX="25.0" layoutY="393.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 2000.00" stylesheets="@../css/style.css" />
+            <Button fx:id="btn_guardar" layoutX="24.0" layoutY="441.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="24.0" layoutY="483.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+            <Button fx:id="btn_eliminar" layoutX="23.0" layoutY="526.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+            <TableView fx:id="tablaBuses" layoutX="251.0" layoutY="20.0" prefHeight="656.0" prefWidth="773.0" style="-fx-border-color: CCC;">
+               <columns>
+                  <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
+                  <TableColumn fx:id="columnPlaca" prefWidth="153.60000610351562" text="PLACA" />
+                  <TableColumn fx:id="columnMarca" prefWidth="115.0" text="MARCA" />
+                  <TableColumn fx:id="columnModelo" prefWidth="177.0" text="MODELO" />
+                  <TableColumn fx:id="columnAsientoTotal" prefWidth="122.0" text="ASIENTOS" />
+                  <TableColumn fx:id="columnCarga" minWidth="0.0" prefWidth="154.0" text="CARGA" />
+               </columns>
+            </TableView>
+            <Label layoutX="25.0" layoutY="44.0" prefHeight="20.0" prefWidth="180.0" style="-fx-font-size: 14;" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Ingrese los datos del bus" textFill="#656565">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
-        <Pane layoutX="274.0" layoutY="74.0" prefHeight="609.0" prefWidth="757.0" style="-fx-border-color: CCC;">
-            <children>
-                <TableView fx:id="tablaBuses" layoutX="14.0" layoutY="22.0" prefHeight="573.0" prefWidth="733.0" style="-fx-border-color: CCC;">
-                    <columns>
-                        <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
-                        <TableColumn fx:id="columnPlaca" prefWidth="153.60000610351562" text="PLACA" />
-                        <TableColumn fx:id="columnMarca" prefWidth="115.0" text="MARCA" />
-                        <TableColumn fx:id="columnModelo" prefWidth="119.0" text="MODELO" />
-                        <TableColumn fx:id="columnAsientoTotal" prefWidth="146.0" text="ASIENTO TOTAL" />
-                        <TableColumn fx:id="columnCarga" minWidth="0.0" prefWidth="163.0" text="CARGA" />
-                    </columns>
-                </TableView>
-            </children>
-        </Pane>
-        <Label layoutX="38.0" layoutY="28.0" style="-fx-text-fill: #0066CC;" text="Gestion de  Buses">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Label>
     </children>
 </AnchorPane>

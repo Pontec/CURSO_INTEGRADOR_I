@@ -22,6 +22,7 @@ public class EmpresaModelo {
     @Column(name = "razon_social")
     private String razonSocial;
     private String ruc;
+    private String direccion;
     private String ciudad;
     private String departamento;
     private String pais;

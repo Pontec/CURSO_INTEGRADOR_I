@@ -39,6 +39,8 @@ public class AsientoControlador implements Initializable {
     private TextField txtPrecioAsiento;
     @FXML
     private Button btnActualizar;
+    @FXML
+    private Button btnActualizar1;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -72,17 +72,16 @@ public class BusControlador implements Initializable {
     @FXML
     private TextField txt_modelo;
     @FXML
-    private TextField txt_asiento_vip;
-    @FXML
-    private TextField txt_asiento_econocimio;
-    @FXML
     private TextField txt_carga_maxima;
+    @FXML
+    private TextField txtPiso2;
+    @FXML
+    private TextField txtPiso1;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         listarBuses();
-
         tablaBuses.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 seleccionarBus();
@@ -92,45 +91,37 @@ public class BusControlador implements Initializable {
 
     @FXML
     void actGuardar(ActionEvent event) {
+        int capacidadAsiento = Integer.parseInt(txtPiso1.getText()) + Integer.parseInt(txtPiso2.getText());
         BusModelo busModelo = new BusModelo();
-        int capacidadAsiento = Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
         busModelo.setPlaca(txt_placa.getText());
         busModelo.setMarca(txt_marca.getText());
         busModelo.setModelo(txt_modelo.getText());
-
         busModelo.setCapacidadAsientos(capacidadAsiento);
-        busModelo.setPrimerPiso(Integer.parseInt(txt_asiento_econocimio.getText()));
-        busModelo.setSegundoPiso(Integer.parseInt(txt_asiento_vip.getText()));
-
+        busModelo.setPrimerPiso(Integer.parseInt(txtPiso1.getText()));
+        busModelo.setSegundoPiso(Integer.parseInt(txtPiso2.getText()));
         busModelo.setCapacidadCarga(Double.parseDouble(txt_carga_maxima.getText()));
         BusModelo busGuardar = busServicio.save(busModelo);
         List<AsientoModelo> listaAsientos = new ArrayList<>();
         for (int i = 0; i < capacidadAsiento; i++) {
             AsientoModelo asientoModelo = new AsientoModelo();
-            asientoModelo.setNumeroAsiento(i + 1); // Asignar el número de asiento
+            asientoModelo.setNumeroAsiento(i + 1);
             asientoModelo.setPrecio(0);
-            asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
+            asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txtPiso2.getText()) ? 1 : 2);
             asientoModelo.setIdBus(busGuardar.getIdBus());
 
-            // Crear el estado del asiento como disponible
             AsientoEstadoFechaModelo estadoAsiento = new AsientoEstadoFechaModelo();
             estadoAsiento.setAsiento(asientoModelo);
             estadoAsiento.setFecha(LocalDate.now());
             estadoAsiento.setHora(LocalTime.now());
             estadoAsiento.setEstado(Estado.DISPONIBLE);
-
-            //asientoModelo.getEstadosFecha().add(estadoAsiento);
             listaAsientos.add(asientoModelo);
         }
-        //busModelo.setCapacidadAsientos(listaAsientos.size());
 
         listaAsientos.forEach(asientoServicio::save);
-
         listarBuses();
         limpiarCampos();
     }
 
-    //Método para mostrar en la tabla de los buses
     private void listarBuses(){
         columnId.setCellValueFactory(new PropertyValueFactory<>("idBus"));
         columnPlaca.setCellValueFactory(new PropertyValueFactory<>("placa"));
@@ -141,30 +132,29 @@ public class BusControlador implements Initializable {
         tablaBuses.getItems().setAll(busServicio.findAll());
     }
 
-    //Metodo para actualizar un bus
     @FXML
     void actActualizar(ActionEvent event) {
         BusModelo busModelo = tablaBuses.getSelectionModel().getSelectedItem();
         busModelo.setPlaca(txt_placa.getText());
         busModelo.setMarca(txt_marca.getText());
         busModelo.setModelo(txt_modelo.getText());
-        busModelo.setCapacidadAsientos(Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText()));
+        busModelo.setCapacidadAsientos(Integer.parseInt(txtPiso1.getText()) + Integer.parseInt(txtPiso2.getText()));
+        busModelo.setPrimerPiso(Integer.parseInt(txtPiso1.getText()));
+        busModelo.setSegundoPiso(Integer.parseInt(txtPiso2.getText()));
         busModelo.setCapacidadCarga(Double.parseDouble(txt_carga_maxima.getText()));
 
         List<AsientoModelo> listaAsientos = asientoServicio.getAsientosPorBus(busModelo.getIdBus());
-        int capacidadAsiento = Integer.parseInt(txt_asiento_econocimio.getText()) + Integer.parseInt(txt_asiento_vip.getText());
+        int capacidadAsiento = Integer.parseInt(txtPiso1.getText()) + Integer.parseInt(txtPiso2.getText());
         if (capacidadAsiento > listaAsientos.size()) {
             for (int i = listaAsientos.size(); i < capacidadAsiento; i++) {
                 AsientoModelo asientoModelo = new AsientoModelo();
-                asientoModelo.setNumeroAsiento(i + 1); // Asignar el número de asiento
+                asientoModelo.setNumeroAsiento(i + 1);
                 asientoModelo.setPrecio(0);
-                asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txt_asiento_vip.getText()) ? 1 : 2);
+                asientoModelo.setIdTipoAsiento(i < Integer.parseInt(txtPiso2.getText()) ? 1 : 2);
                 asientoModelo.setIdBus(busModelo.getIdBus());
 
-                // Inicializar la lista estadosFecha
                 asientoModelo.setEstadosFecha(new ArrayList<>());
 
-                // Crear el estado del asiento como disponible
                 AsientoEstadoFechaModelo estadoAsiento = new AsientoEstadoFechaModelo();
                 estadoAsiento.setAsiento(asientoModelo);
                 estadoAsiento.setFecha(LocalDate.now());
@@ -185,7 +175,6 @@ public class BusControlador implements Initializable {
         limpiarCampos();
     }
 
-    //Metodo para seleccionar un bus
     @FXML
     public void seleccionarBus(){
         BusModelo busModelo = tablaBuses.getSelectionModel().getSelectedItem();
@@ -197,13 +186,12 @@ public class BusControlador implements Initializable {
         long vipCount = asientoServicio.getAsientosPorBus(busModelo.getIdBus()).stream()
                 .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsiento.VIP))
                 .count();
-        txt_asiento_vip.setText(String.valueOf(vipCount));
-        txt_asiento_econocimio.setText(String.valueOf(busModelo.getCapacidadAsientos() - vipCount));
+        txtPiso2.setText(String.valueOf(vipCount));
+        txtPiso1.setText(String.valueOf(busModelo.getCapacidadAsientos() - vipCount));
 
         txt_carga_maxima.setText(String.valueOf(busModelo.getCapacidadCarga()));
     }
 
-    //Metodo para elimiar un bus
     @FXML
     void actEliminar(ActionEvent event) {
         BusModelo busModelo = tablaBuses.getSelectionModel().getSelectedItem();
@@ -211,25 +199,15 @@ public class BusControlador implements Initializable {
         listarBuses();
     }
 
-
-
-
     private void limpiarCampos(){
         txt_placa.setText("");
         txt_marca.setText("");
         txt_modelo.setText("");
-        txt_asiento_vip.setText("");
-        txt_asiento_econocimio.setText("");
+        txtPiso2.setText("");
+        txtPiso1.setText("");
         txt_carga_maxima.setText("");
     }
 
-
-
-
-
-
-
-    //Método para abrir la ventana de AsientoVista
     @Deprecated
     public void btnGestionAsiento(ActionEvent event) throws IOException {
         Parent fxmlLoader = FxmlCargarUtil.load("/vista/AsientoVista.fxml");
@@ -240,7 +218,6 @@ public class BusControlador implements Initializable {
         stage.show();
     }
 
-    //Metodo para abrir la gestion de buses a rutas
     @Deprecated
     void btnAsignacionAsiento(ActionEvent event) throws IOException {
         Parent fxmlLoader = FxmlCargarUtil.load("/vista/AsignacionRutasVista.fxml");
