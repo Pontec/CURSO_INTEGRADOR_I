@@ -9,5 +9,4 @@ public interface SedeServicio {
     SedeModelo guardarSede(SedeModelo sedeModelo);
     List<SedeModelo> listaSedes();
 
-
 }

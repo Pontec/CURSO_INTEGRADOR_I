@@ -5,8 +5,10 @@ import com.utp.viacosta.agregates.retrofit.ReniecService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.modelo.EmpleadoModelo;
 import com.utp.viacosta.modelo.RolModelo;
+import com.utp.viacosta.modelo.SedeModelo;
 import com.utp.viacosta.servicio.EmpleadoServicio;
 import com.utp.viacosta.servicio.RolServicio;
+import com.utp.viacosta.servicio.SedeServicio;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -33,12 +35,12 @@ public class EmpleadoControlador implements Initializable {
     private EmpleadoServicio empleadoServicio;
     @Autowired
     private RolServicio rolServicio;
+    @Autowired
+    private SedeServicio sedeServicio;
     @Value("${token.api}")
     private String tokenApi;
-
     @FXML
-    private Button btn_actualizar,btnLimpiar, btn_guardar;
-
+    private Button btn_actualizar, btnLimpiar, btn_guardar;
     @FXML
     private TableView<EmpleadoModelo> tabla_empleados;
     @FXML
@@ -50,21 +52,21 @@ public class EmpleadoControlador implements Initializable {
     @FXML
     private TableColumn<EmpleadoModelo, String> columnDni;
     @FXML
-    private TableColumn<EmpleadoModelo, String> columnId;
-    @FXML
     private TableColumn<RolModelo, String> columnRol;
     @FXML
     private TableColumn<EmpleadoModelo, String> columnTelefono;
     @FXML
     private TableColumn<EmpleadoModelo, Void> columnAcciones;
-
     @FXML
-    private TextField txt_apellido,txt_correo,txt_dni,txt_nombre,txt_telefono;
+    private TextField txt_apellido, txt_correo, txt_dni, txt_nombre, txt_telefono;
     @FXML
-    private ComboBox<RolModelo> cboxRol;
+    private ComboBox<RolModelo> cmbRol;
     @FXML
     private PasswordField txt_contraseña;
-
+    @FXML
+    private TableColumn<EmpleadoModelo, String> columnSede;
+    @FXML
+    private ComboBox<SedeModelo> cmbSede;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -82,13 +84,12 @@ public class EmpleadoControlador implements Initializable {
         });
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
-
     }
 
 
     @FXML
-    private void guardarEmpleados(ActionEvent event){
-        if (!validarEntradas()){
+    private void guardarEmpleados(ActionEvent event) {
+        if (!validarEntradas()) {
             return;
         }
         EmpleadoModelo empleado = new EmpleadoModelo();
@@ -99,8 +100,7 @@ public class EmpleadoControlador implements Initializable {
         empleado.setPassword(txt_contraseña.getText());
         empleado.setTelefono(txt_telefono.getText());
         empleado.setIdSede(1);
-
-        RolModelo rolSeleccionado = cboxRol.getValue();  // Obtener el rol seleccionado
+        RolModelo rolSeleccionado = cmbRol.getValue();  // Obtener el rol seleccionado
         Set<RolModelo> roles = new HashSet<>();  // Crear un Set de roles (o lista, dependiendo de tu modelo)
         roles.add(rolSeleccionado);  // Agregar el rol seleccionado al conjunto de roles
         empleado.setRoles(roles);  // Asignar el conjunto de roles al empleado
@@ -111,19 +111,20 @@ public class EmpleadoControlador implements Initializable {
     }
 
     @FXML
-    private void listarEmpleados(){
+    private void listarEmpleados() {
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
         columnCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         columnDni.setCellValueFactory(new PropertyValueFactory<>("dni"));
-        columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnRol.setCellValueFactory(new PropertyValueFactory<>("rolNombres"));
+        columnSede.setCellValueFactory(new PropertyValueFactory<>("sede"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
         // Configurar la columna de Estado
 
         columnAcciones.setCellFactory(col -> new TableCell<>() {
             private final Button iconoEstado = new Button();
+
             {
                 iconoEstado.setOnAction(event -> {
                     EmpleadoModelo empleado = getTableView().getItems().get(getIndex());
@@ -132,6 +133,7 @@ public class EmpleadoControlador implements Initializable {
                     listarEmpleados();
                 });
             }
+
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
@@ -148,8 +150,12 @@ public class EmpleadoControlador implements Initializable {
         tabla_empleados.getItems().setAll(empleadoServicio.findAll());
     }
 
-    private void cargarRoles(){
-        cboxRol.getItems().setAll(rolServicio.findAll());
+    private void cargarRoles() {
+        cmbRol.getItems().setAll(rolServicio.findAll());
+    }
+
+    private void cargarSedes() {
+        cmbSede.getItems().setAll(sedeServicio.listaSedes());
     }
 
     @FXML
@@ -164,7 +170,7 @@ public class EmpleadoControlador implements Initializable {
         empleadoSeleccionado.setPassword(txt_contraseña.getText());
         empleadoSeleccionado.setTelefono(txt_telefono.getText());
 
-        RolModelo rolSeleccionado = cboxRol.getValue();
+        RolModelo rolSeleccionado = cmbRol.getValue();
         if (rolSeleccionado != null) {
             Set<RolModelo> roles = new HashSet<>();
             roles.add(rolSeleccionado);  // Actualizar con el rol seleccionado
@@ -183,7 +189,7 @@ public class EmpleadoControlador implements Initializable {
     }
 
     @FXML
-    public void clear(){
+    public void clear() {
         txt_dni.setText("");
         txt_nombre.setText("");
         txt_apellido.setText("");
@@ -191,7 +197,8 @@ public class EmpleadoControlador implements Initializable {
         txt_contraseña.setText("");
         txt_telefono.setText("");
     }
-    public void btnLimpiar(){
+
+    public void btnLimpiar() {
         clear();
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
@@ -211,7 +218,7 @@ public class EmpleadoControlador implements Initializable {
 
             // Cargar el rol seleccionado en el ComboBox
             RolModelo rol = empleadoSeleccionado.getRoles().stream().findFirst().orElse(null);
-            cboxRol.setValue(rol);  // Seleccionar el rol en el ComboBox
+            cmbRol.setValue(rol);  // Seleccionar el rol en el ComboBox
         }
     }
 
@@ -224,10 +231,7 @@ public class EmpleadoControlador implements Initializable {
 
 
     private boolean validarEntradas() {
-        if (
-                txt_dni.getText().isEmpty() || txt_nombre.getText().isEmpty() ||
-                        txt_apellido.getText().isEmpty() || txt_correo.getText().isEmpty() ||
-                        txt_contraseña.getText().isEmpty() || cboxRol.getValue() == null ){
+        if (txt_dni.getText().isEmpty() || txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_correo.getText().isEmpty() || txt_contraseña.getText().isEmpty() || cmbRol.getValue() == null) {
             mostrarAlerta("Por favor, completa todos los campos.");
             return false;
         }

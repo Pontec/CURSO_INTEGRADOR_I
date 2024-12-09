@@ -11,81 +11,75 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.SedeControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.SedeControlador">
    <children>
-      <Pane layoutX="22.0" layoutY="7.0" prefHeight="708.0" prefWidth="1081.0" style="-fx-background-color: white;" stylesheets="@../css/style.css">
+      <Pane layoutX="14.0" layoutY="14.0" prefHeight="690.0" prefWidth="1040.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
          <children>
-            <Label layoutX="156.0" layoutY="30.0" prefHeight="36.0" prefWidth="392.0" text="Configuraciones de la Empresa">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="110.0" prefHeight="25.0" prefWidth="175.0" text="Nombre de la empresa">
+            <Label layoutX="24.0" layoutY="68.0" prefHeight="25.0" prefWidth="175.0" text="Nombre de la empresa">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="197.0" text="Dirección">
+            <Label layoutX="28.0" layoutY="141.0" text="Dirección">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="confNombre" layoutX="61.0" layoutY="138.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa nombre de la empresa" />
-            <TextField fx:id="confDireccion" layoutX="60.0" layoutY="216.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa direccion" />
-            <ImageView fitHeight="338.0" fitWidth="462.0" layoutX="687.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
+            <TextField fx:id="confNombre" layoutX="25.0" layoutY="96.0" prefHeight="30.0" prefWidth="254.0" promptText="Ingresa nombre de la empresa" />
+            <TextField fx:id="confDireccion" layoutX="25.0" layoutY="160.0" prefHeight="31.0" prefWidth="534.0" promptText="Ingresa direccion" />
+            <ImageView fitHeight="326.0" fitWidth="396.0" layoutX="590.0" layoutY="90.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/via_costa_dashboard.jpg" />
                </image>
             </ImageView>
-            <Label layoutX="369.0" layoutY="118.0" text="Ruc">
+            <Label layoutX="309.0" layoutY="71.0" text="Ruc">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="confRuc" layoutX="367.0" layoutY="139.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa ruc" />
-            <TextField fx:id="confDepartamento" layoutX="61.0" layoutY="303.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa el departamento" />
-            <Label layoutX="61.0" layoutY="279.0" text="Departamento">
+            <TextField fx:id="confRuc" layoutX="307.0" layoutY="94.0" prefHeight="30.0" prefWidth="254.0" promptText="Ingresa ruc" />
+            <TextField fx:id="confDepartamento" layoutX="306.0" layoutY="228.0" prefHeight="30.0" prefWidth="254.0" promptText="Ingresa el departamento" />
+            <Label layoutX="306.0" layoutY="204.0" text="Departamento">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="confCiudad" layoutX="365.0" layoutY="304.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa la ciudad" />
-            <Label layoutX="370.0" layoutY="280.0" text="Ciudad">
+            <TextField fx:id="confCiudad" layoutX="306.0" layoutY="300.0" prefHeight="30.0" prefWidth="254.0" promptText="Ingresa la ciudad" />
+            <Label layoutX="311.0" layoutY="276.0" text="Ciudad">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="confTelefono" layoutX="366.0" layoutY="219.0" prefHeight="25.0" prefWidth="254.0" promptText="ejem: 94548962" />
-            <Label layoutX="367.0" layoutY="198.0" text="Telefono">
+            <TextField fx:id="confTelefono" layoutX="25.0" layoutY="229.0" prefHeight="30.0" prefWidth="254.0" promptText="Ejem: 94548962" />
+            <Label layoutX="26.0" layoutY="208.0" text="Telefono">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="confPais" layoutX="60.0" layoutY="387.0" prefHeight="25.0" prefWidth="254.0" promptText="Ingresa país" />
-            <Label layoutX="63.0" layoutY="364.0" text="Pais">
+            <TextField fx:id="confPais" layoutX="25.0" layoutY="300.0" prefHeight="30.0" prefWidth="254.0" promptText="Ingresa país" />
+            <Label layoutX="28.0" layoutY="277.0" text="Pais">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="368.0" layoutY="365.0" text="Logo">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <Button fx:id="btnLogo" layoutX="366.0" layoutY="387.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="52.0" text="Button" />
-            <Button fx:id="btnActualizar" layoutX="219.0" layoutY="438.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="25.0" prefWidth="146.0" text="Guardar" />
-            <TableView fx:id="tablaEmpresa" layoutX="60.0" layoutY="514.0" prefHeight="121.0" prefWidth="796.0">
+            <Button fx:id="btnGuardar" layoutX="28.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnGuardar" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+            <TableView fx:id="tablaEmpresa" layoutX="28.0" layoutY="429.0" prefHeight="243.0" prefWidth="992.0">
               <columns>
-                <TableColumn fx:id="columnNombre" prefWidth="132.79998779296875" text="Nombre" />
-                <TableColumn fx:id="columnRuc" prefWidth="104.80001831054688" text="Ruc" />
-                  <TableColumn fx:id="columnDireccion" prefWidth="138.39999389648438" text="Direccion" />
-                  <TableColumn fx:id="columnTelefono" prefWidth="89.59991455078125" text="Telefono" />
-                  <TableColumn fx:id="columnCiudad" prefWidth="97.5999755859375" text="Ciudad" />
-                  <TableColumn fx:id="columnDepartamento" prefWidth="112.800048828125" text="Departamento" />
-                  <TableColumn fx:id="columnPais" prefWidth="93.60009765625" text="Pais" />
+                <TableColumn fx:id="columnNombre" prefWidth="166.0" text="NOMBRE" />
+                <TableColumn fx:id="columnRuc" prefWidth="124.0" text="RUC" />
+                  <TableColumn fx:id="columnDireccion" prefWidth="234.0" text="DIRECCION" />
+                  <TableColumn fx:id="columnTelefono" prefWidth="133.0" text="TELEFONO" />
+                  <TableColumn fx:id="columnCiudad" prefWidth="109.0" text="CIUDAD" />
+                  <TableColumn fx:id="columnDepartamento" prefWidth="135.0" text="DEPARTAMENTO" />
+                  <TableColumn fx:id="columnPais" prefWidth="87.0" text="PAIS" />
               </columns>
             </TableView>
-            <Button fx:id="btnEditar" layoutX="380.0" layoutY="438.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="25.0" prefWidth="146.0" text="Editar" />
+            <Button fx:id="btnEditar" layoutX="189.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Editar" />
+            <Label layoutX="24.0" layoutY="22.0" prefHeight="30.0" prefWidth="281.0" style="-fx-text-fill: #0066CC;" text="Configuración de la Empresa">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

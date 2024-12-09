@@ -55,16 +55,10 @@ public class AsignacionBusRuta implements Initializable {
     private TableColumn<AsignacionBusRutaModelo, String> columnHoraSalida;
     @FXML
     private TableView<AsignacionBusRutaModelo> tablaBusesRutas;
-
-    @Deprecated
-    void actFechaHoraSalida(ActionEvent event) {
-
-    }
-
-    @Deprecated
-    void actfechaHoraLlegada(ActionEvent event) {
-
-    }
+    @FXML
+    private TextField txtPrecio;
+    @FXML
+    private TableColumn<AsignacionBusRutaModelo, String> columnPrecio;
 
 
     @Override
@@ -81,6 +75,7 @@ public class AsignacionBusRuta implements Initializable {
         asignacionBusRutaModelo.setIdRuta(cmbRuta.getValue().getIdRuta());
         asignacionBusRutaModelo.setFechaSalida(fechaHoraSalida.getValue());
         asignacionBusRutaModelo.setHoraSalida(LocalTime.parse(txtHoraSalida.getText()));
+        asignacionBusRutaModelo.setPrecio(Double.parseDouble(txtPrecio.getText()));
 
         asignacionBusRutaService.save(asignacionBusRutaModelo);
         limpiarCampos();
@@ -111,6 +106,7 @@ public class AsignacionBusRuta implements Initializable {
         columnBus.setCellValueFactory(new PropertyValueFactory<>("busAsignado"));
         columnFechaSalida.setCellValueFactory(new PropertyValueFactory<>("fechaSalida"));
         columnHoraSalida.setCellValueFactory(new PropertyValueFactory<>("horaSalida"));
+        columnPrecio.setCellValueFactory(new PropertyValueFactory<>("precio"));
         tablaBusesRutas.getItems().setAll(asignacionBusRutaService.findAll());
     }
 
@@ -128,10 +124,6 @@ public class AsignacionBusRuta implements Initializable {
         listarAsignaciones();
     }
 
-
-    //Metodos de Apoyo
-
-    //Metodo para limipar campos
     public void limpiarCampos(){
         cmbBus.setValue(null);
         cmbRuta.setValue(null);
