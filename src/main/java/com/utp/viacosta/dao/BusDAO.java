@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BusDAO extends JpaRepository<BusModelo, Integer> {
-
+    BusModelo findByPlaca(String placa);
 }
