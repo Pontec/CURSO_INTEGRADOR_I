@@ -76,7 +76,7 @@ public class VentanaPrincipalControlador implements Initializable {
                     .collect(Collectors.toSet());
             btn_inicio.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
             btn_clientes.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
-            btn_monitoreo.setVisible(roles.contains("ADMINISTRADOR") || roles.contains("VENTAS"));
+            btn_monitoreo.setVisible(roles.contains("ADMINISTRADOR"));
             btn_empleados.setVisible(roles.contains("ADMINISTRADOR"));
             btn_buses.setVisible(roles.contains("ADMINISTRADOR"));
             //btn_asiento.setVisible(roles.contains("ADMINISTRADOR"));

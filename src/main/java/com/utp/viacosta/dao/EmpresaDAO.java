@@ -8,4 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EmpresaDAO extends JpaRepository<EmpresaModelo, Integer> {
+    EmpresaModelo findByRuc(String ruc);
 }

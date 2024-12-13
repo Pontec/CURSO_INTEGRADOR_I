@@ -22,4 +22,9 @@ public class EmpresaServicioImpl implements EmpresaServicio {
     public EmpresaModelo save(EmpresaModelo empresa) {
         return empresaDAO.save(empresa);
     }
+
+    @Override
+    public boolean existeRuc(String ruc) {
+        return empresaDAO.findByRuc(ruc) != null;
+    }
 }

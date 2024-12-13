@@ -26,9 +26,9 @@
             </AnchorPane>
             <Button fx:id="btn_inicio" mnemonicParsing="false" onAction="#btn_inicio" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="INICIO" />
             <Button fx:id="btn_facturacion" mnemonicParsing="false" onAction="#btnFacturacion" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="FACTURACION" />
-            <Button fx:id="btn_monitoreo" mnemonicParsing="false" onAction="#btn_monitoreo" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="MONITOREO BUSES" />
             <Button fx:id="btn_clientes" mnemonicParsing="false" onAction="#btn_clientes" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="CLIENTES" />
             <Button fx:id="btn_empleados" mnemonicParsing="false" onAction="#btn_empleados" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="EMPLEADOS" />
+            <Button fx:id="btn_monitoreo" mnemonicParsing="false" onAction="#btn_monitoreo" prefHeight="45.0" prefWidth="450.0" styleClass="btnAside" text="MONITOREO BUSES" />
 
 
             <VBox id="vBox" fx:id="vBox" layoutX="0.0" styleClass="vBox">
