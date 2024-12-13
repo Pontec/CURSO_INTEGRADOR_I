@@ -11,4 +11,5 @@ public interface ClienteServicio {
     void actualizarCliente(ClienteModelo clienteModelo);
     ClienteModelo save(ClienteModelo clienteModelo);
     ClienteModelo findByDni(String dni);
+    List<ClienteModelo> buscarClientes(String searchText); 
 }

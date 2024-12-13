@@ -38,9 +38,18 @@ public class EmpleadoServicioImpl implements EmpleadoServicio {
     @Override
     public EmpleadoModelo autenticar(String correo, String password) {
         EmpleadoModelo usuario = findByCorreo(correo);
-        if (usuario != null && usuario.getPassword().equals(password) && usuario.isEstado()==true) {
+        if (usuario != null && usuario.getPassword().equals(password) && usuario.isEstado() == true) {
             return usuario;
-        } throw new IllegalArgumentException("Credeciales incorrectas");
+        }
+        throw new IllegalArgumentException("Credeciales incorrectas");
+    }
+    
+    @Override
+    public List<EmpleadoModelo> buscarEmpleados(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            return empleadoDAO.findAll();
+        }
+        return empleadoDAO.findBySearchText(searchText.trim());
     }
 
 }
