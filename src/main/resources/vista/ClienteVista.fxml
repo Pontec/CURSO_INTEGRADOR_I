@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.ClienteControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.ClienteControlador">
    <children>
       <Pane layoutX="14.0" layoutY="12.0" prefHeight="694.0" prefWidth="1041.0" style="-fx-border-color: CCC;">
          <children>
@@ -56,7 +56,7 @@
                </font>
             </Label>
             <Button fx:id="btnLimpiar" layoutX="672.0" layoutY="160.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="30.0" prefWidth="120.0" styleClass="btn-clasic" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Limpiar" />
-            <TableView fx:id="tabla_clientes" layoutX="23.0" layoutY="265.0" prefHeight="402.0" prefWidth="988.0" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css">
+            <TableView fx:id="tabla_clientes" layoutX="23.0" layoutY="296.0" prefHeight="371.0" prefWidth="988.0" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css">
                <columns>
                   <TableColumn fx:id="columnId" prefWidth="34.0" text="ID" />
                   <TableColumn fx:id="columnNombre" prefWidth="179.0" text="NOMBRE" />
@@ -69,7 +69,12 @@
             <Label fx:id="error_Dni" layoutX="23.0" layoutY="123.0" styleClass="error-label" />
             <Label fx:id="error_tel" layoutX="24.0" layoutY="190.0" styleClass="error-label" />
             <Label fx:id="error_dir" layoutX="235.0" layoutY="189.0" styleClass="error-label" />
-            <TextField fx:id="txtBuscar" layoutX="24.0" layoutY="215.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="612.0" promptText="Buscar por nombre, apellido o dni" />
+            <TextField fx:id="txtBuscar" layoutX="23.0" layoutY="254.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="612.0" promptText="Buscar por nombre, apellido o dni" />
+            <Label layoutX="23.0" layoutY="213.0" style="-fx-text-fill: #0066CC;" text="Buscar Cliente">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </children>

@@ -59,6 +59,16 @@ public class AsignacionBusRuta implements Initializable {
     private TextField txtPrecio;
     @FXML
     private TableColumn<AsignacionBusRutaModelo, String> columnPrecio;
+    @FXML
+    private Label err_hora;
+    @FXML
+    private Label err_bus;
+    @FXML
+    private Label err_fecha;
+    @FXML
+    private Label err_precio;
+    @FXML
+    private Label err_ruta;
 
 
     @Override

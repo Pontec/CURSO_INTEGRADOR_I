@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.EmpleadoControlador">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.EmpleadoControlador">
    <children>
       <Pane layoutX="10.0" layoutY="13.0" prefHeight="696.0" prefWidth="1047.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="11.0" AnchorPane.topAnchor="13.0">
          <children>
@@ -77,15 +77,20 @@
             <Label fx:id="error_nombre" layoutX="226.0" layoutY="113.0" styleClass="error-label" />
             <Label fx:id="error_apellido" layoutX="438.0" layoutY="111.0" styleClass="error-label" />
             <Label fx:id="error_Correo" layoutX="19.0" layoutY="186.0" styleClass="error-label" />
-            <TextField fx:id="txtBuscar" layoutX="20.0" layoutY="210.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="818.0" promptText="Buscar por nombre, apellido, dni " />
-            <Label layoutX="20.0" layoutY="192.0" text="Buscar">
+            <TextField fx:id="txtBuscar" layoutX="20.0" layoutY="272.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="818.0" promptText="Buscar por nombre, apellido, dni " />
+            <Label layoutX="20.0" layoutY="254.0" text="Buscar">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Label layoutX="20.0" layoutY="217.0" prefHeight="30.0" prefWidth="188.0" style="-fx-text-fill: #0066CC;" text="Buscar Empleado">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
-      <TableView fx:id="tabla_empleados" layoutX="32.0" layoutY="281.0" prefHeight="416.0" prefWidth="1014.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
+      <TableView fx:id="tabla_empleados" layoutX="32.0" layoutY="330.0" prefHeight="367.0" prefWidth="1014.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
          <columns>
             <TableColumn fx:id="columnNombre" prefWidth="126.0" text="NOMBRE" />
             <TableColumn fx:id="columnApellido" prefWidth="135.0" text="APELLIDO" />

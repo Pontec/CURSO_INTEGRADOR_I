@@ -14,39 +14,39 @@
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.AsignacionBusRuta">
 
     <children>
-        <Pane layoutX="8.0" layoutY="15.0" prefHeight="697.0" prefWidth="1049.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="8.0" AnchorPane.topAnchor="15.0">
+        <Pane layoutX="8.0" layoutY="9.0" prefHeight="703.0" prefWidth="1049.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="8.0" AnchorPane.topAnchor="9.0">
             <children>
-                <Label layoutX="24.0" layoutY="77.0" text="Ruta:">
+                <Label layoutX="24.0" layoutY="72.0" text="Ruta:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="21.0" layoutY="197.0" text="Fecha de salida">
+                <Label layoutX="21.0" layoutY="212.0" text="Fecha de salida">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Button fx:id="btn_guardar" layoutX="21.0" layoutY="378.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
-                <Button fx:id="btn_actulizar" layoutX="20.0" layoutY="424.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
-                <Button fx:id="btn_eliminar" layoutX="20.0" layoutY="471.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
-                <Label layoutX="26.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Asignacion de Viajes">
+                <Button fx:id="btn_guardar" layoutX="21.0" layoutY="428.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+                <Button fx:id="btn_actulizar" layoutX="20.0" layoutY="474.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+                <Button fx:id="btn_eliminar" layoutX="20.0" layoutY="521.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+                <Label layoutX="26.0" layoutY="12.0" style="-fx-text-fill: #0066CC;" text="Asignacion de Viajes">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
-            <Label layoutX="26.0" layoutY="135.0" text="Bus:">
+            <Label layoutX="26.0" layoutY="141.0" text="Bus:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <ComboBox fx:id="cmbRuta" layoutX="22.0" layoutY="94.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Seleccion la ruta" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
-            <ComboBox fx:id="cmbBus" layoutX="21.0" layoutY="152.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Selecciona el Bus" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
-            <DatePicker fx:id="fechaHoraSalida" layoutX="23.0" layoutY="214.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
-            <TextField fx:id="txtHoraSalida" layoutX="21.0" layoutY="273.0" prefHeight="30.0" prefWidth="188.0" />
-            <Label layoutX="23.0" layoutY="256.0" text="Hora de salida">
+            <ComboBox fx:id="cmbRuta" layoutX="22.0" layoutY="89.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Seleccion la ruta" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
+            <ComboBox fx:id="cmbBus" layoutX="21.0" layoutY="158.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Selecciona el Bus" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
+            <DatePicker fx:id="fechaHoraSalida" layoutX="23.0" layoutY="229.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
+            <TextField fx:id="txtHoraSalida" layoutX="21.0" layoutY="297.0" prefHeight="30.0" prefWidth="188.0" />
+            <Label layoutX="23.0" layoutY="280.0" text="Hora de salida">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="tablaBusesRutas" layoutX="251.0" layoutY="9.0" prefHeight="685.0" prefWidth="784.0" stylesheets="@../css/style.css">
+            <TableView fx:id="tablaBusesRutas" layoutX="251.0" layoutY="140.0" prefHeight="545.0" prefWidth="784.0" stylesheets="@../css/style.css">
                <columns>
                   <TableColumn fx:id="columnId" prefWidth="33.0" text="ID" />
                   <TableColumn fx:id="columnRuta" prefWidth="227.0" text="RUTA" />
@@ -56,17 +56,22 @@
                   <TableColumn fx:id="columnPrecio" prefWidth="85.0" text="PRECIO" />
                </columns>
             </TableView>
-            <Label layoutX="24.0" layoutY="47.0" prefHeight="20.0" prefWidth="206.0" style="-fx-font-size: 14;" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Ingresa los datos del empleado" textFill="#656565">
+            <Label layoutX="24.0" layoutY="41.0" prefHeight="20.0" prefWidth="206.0" style="-fx-font-size: 14;" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Ingresa los datos del empleado" textFill="#656565">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="txtPrecio" layoutX="21.0" layoutY="330.0" prefHeight="30.0" prefWidth="188.0" />
-            <Label layoutX="23.0" layoutY="313.0" text="Precio">
+            <TextField fx:id="txtPrecio" layoutX="21.0" layoutY="367.0" prefHeight="30.0" prefWidth="188.0" />
+            <Label layoutX="23.0" layoutY="350.0" text="Precio">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Label fx:id="err_ruta" layoutX="23.0" layoutY="119.0" styleClass="error-label" />
+            <Label fx:id="err_bus" layoutX="21.0" layoutY="188.0" styleClass="error-label" />
+            <Label fx:id="err_fecha" layoutX="23.0" layoutY="258.0" styleClass="error-label" />
+            <Label fx:id="err_hora" layoutX="21.0" layoutY="328.0" styleClass="error-label" />
+            <Label fx:id="err_precio" layoutX="23.0" layoutY="398.0" styleClass="error-label" />
             </children>
         </Pane>
     </children>
