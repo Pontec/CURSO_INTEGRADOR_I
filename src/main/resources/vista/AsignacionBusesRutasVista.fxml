@@ -67,19 +67,19 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TextField fx:id="txtBuscar" layoutX="251.0" layoutY="89.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="388.0" promptText="Buscar por ruta o bus" />
+            <TextField fx:id="txtBuscar" layoutX="251.0" layoutY="89.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="317.0" promptText="Buscar por ruta o bus" />
             <Label layoutX="251.0" layoutY="64.0" text="Buscar Viaje:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <DatePicker fx:id="fechaFin" layoutX="861.0" layoutY="89.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="165.0" />
-            <Label layoutX="673.0" layoutY="64.0" text="Fecha Inicio:">
+            <DatePicker fx:id="fechaFin" editable="false" layoutX="759.0" layoutY="87.0" minHeight="30.0" minWidth="143.0" prefHeight="30.0" prefWidth="143.0" />
+            <Label layoutX="588.0" layoutY="62.0" text="Fecha Inicio:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="861.0" layoutY="64.0" text="Fecha Final:">
+            <Label layoutX="759.0" layoutY="62.0" text="Fecha Final:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -89,7 +89,8 @@
             <Label fx:id="err_fecha" layoutX="23.0" layoutY="258.0" styleClass="error-label" />
             <Label fx:id="err_hora" layoutX="21.0" layoutY="328.0" styleClass="error-label" />
             <Label fx:id="err_precio" layoutX="23.0" layoutY="398.0" styleClass="error-label" />
-            <DatePicker fx:id="fechaInicio" layoutX="669.0" layoutY="89.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="165.0" />
+            <DatePicker fx:id="fechaInicio" editable="false" layoutX="584.0" layoutY="87.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="152.0" />
+            <Button layoutX="919.0" layoutY="87.0" mnemonicParsing="false" onMouseClicked="#btnRefresh" prefHeight="31.0" prefWidth="114.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Refresh" />
             </children>
         </Pane>
     </children>

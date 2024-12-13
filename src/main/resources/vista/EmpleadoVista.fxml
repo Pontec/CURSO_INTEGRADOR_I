@@ -88,6 +88,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button layoutX="858.0" layoutY="272.0" mnemonicParsing="false" onMouseClicked="#btnRefresh" prefHeight="31.0" prefWidth="118.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Refresh" />
          </children>
       </Pane>
       <TableView fx:id="tabla_empleados" layoutX="32.0" layoutY="330.0" prefHeight="367.0" prefWidth="1014.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">

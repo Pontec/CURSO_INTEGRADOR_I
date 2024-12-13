@@ -7,6 +7,7 @@ import com.utp.viacosta.servicio.AsignacionBusRutaServicio;
 import com.utp.viacosta.servicio.BusServicio;
 import com.utp.viacosta.servicio.RutaServicio;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -360,5 +361,13 @@ private void configureTimeField(TextField textField, Label err_hora) {
     @FXML
     public void actLimpiar(ActionEvent actionEvent) {
         limpiarCampos();
+    }
+
+    @FXML
+    public void btnRefresh(Event event) {
+        txtBuscar.clear();
+        fechaInicio.setValue(null);
+        fechaFin.setValue(null);
+        listarAsignaciones();
     }
 }

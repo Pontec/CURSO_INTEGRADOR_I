@@ -455,4 +455,9 @@ public class EmpleadoControlador implements Initializable {
         }
     }
 
+    @FXML
+    public void btnRefresh(Event event) {
+        txtBuscar.setText("");
+        listarEmpleados();
+    }
 }

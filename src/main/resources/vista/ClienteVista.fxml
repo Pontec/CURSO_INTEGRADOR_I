@@ -75,6 +75,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button layoutX="672.0" layoutY="253.0" mnemonicParsing="false" onMouseClicked="#btnRefresh" prefHeight="31.0" prefWidth="120.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Refresh" />
          </children>
       </Pane>
    </children>

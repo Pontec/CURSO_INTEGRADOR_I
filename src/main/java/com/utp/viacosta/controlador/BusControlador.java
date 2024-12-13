@@ -10,6 +10,7 @@ import com.utp.viacosta.servicio.BusServicio;
 import com.utp.viacosta.servicio.TipoAsientoServicio;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -421,4 +422,10 @@ private void agregarValidacionAsientos(TextField textField, Label errorLabel, in
         tablaBuses.getItems().setAll(busesFiltrados);
     }
 }
+
+    @FXML
+    public void btnRefresh(Event event) {
+        txtBuscar.setText("");
+        listarBuses();
+    }
 }

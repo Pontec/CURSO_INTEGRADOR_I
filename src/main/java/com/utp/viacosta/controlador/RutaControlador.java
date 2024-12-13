@@ -272,4 +272,10 @@ public class RutaControlador implements Initializable {
     public void handleBuscarRutas(Event event) {
         buscarRutas(txtBuscar.getText());
     }
+
+    @FXML
+    public void btnRefresh(Event event) {
+        txtBuscar.setText("");
+        listarRutas();
+    }
 }

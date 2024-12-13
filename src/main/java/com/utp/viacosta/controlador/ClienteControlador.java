@@ -35,7 +35,7 @@ public class ClienteControlador implements Initializable {
     private String tokenApi;
 
     @FXML
-    private Button btn_actualizar, btn_guardar, btnLimpiar, btnBuscar;
+    private Button btn_actualizar, btn_guardar, btnLimpiar;
     @FXML
     private TableColumn<ClienteModelo, String> columnApellido;
     @FXML
@@ -57,8 +57,6 @@ public class ClienteControlador implements Initializable {
     private Label error_Dni;
     @FXML
     private Label error_tel;
-    @FXML
-    private Label error_dir;
     @FXML
     private TextField txt_telefono;
     @FXML
@@ -288,4 +286,9 @@ public class ClienteControlador implements Initializable {
         }
     }
 
+    @FXML
+    public void btnRefresh(Event event) {
+        txtBuscar.setText("");
+        listarClientes();
+    }
 }

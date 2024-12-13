@@ -53,12 +53,13 @@
             <Label fx:id="error_origen" layoutX="28.0" layoutY="122.0" styleClass="error-label" />
             <Label fx:id="error_destino" layoutX="28.0" layoutY="194.0" styleClass="error-label" />
             <Label fx:id="error_duracion" layoutX="28.0" layoutY="267.0" styleClass="error-label" />
-            <TextField fx:id="txtBuscar" layoutX="272.0" layoutY="90.0" onKeyPressed="#handleBuscarRutas" prefHeight="31.0" prefWidth="746.0" promptText="Busca la ruta por Origen o Destino" />
+            <TextField fx:id="txtBuscar" layoutX="272.0" layoutY="90.0" onKeyPressed="#handleBuscarRutas" prefHeight="31.0" prefWidth="643.0" promptText="Busca la ruta por Origen o Destino" />
             <Label layoutX="272.0" layoutY="67.0" text="Buscar Ruta:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
+            <Button layoutX="924.0" layoutY="90.0" mnemonicParsing="false" onMouseClicked="#btnRefresh" prefHeight="31.0" prefWidth="94.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Refresh" />
             </children>
         </Pane>
     </children>
