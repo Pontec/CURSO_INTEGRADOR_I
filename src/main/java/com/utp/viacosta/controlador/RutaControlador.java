@@ -3,6 +3,7 @@ package com.utp.viacosta.controlador;
 import com.utp.viacosta.modelo.RutaModelo;
 import com.utp.viacosta.servicio.RutaServicio;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -52,7 +54,7 @@ public class RutaControlador implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iconoEliminar = new Image(getClass().getResourceAsStream("/img/eliminar.png"));
         txt_duracion.setPromptText("HH:mm");
-        configureTimeField(txt_duracion);
+        agregarValidaciones();
         listarRutas();
         tabla_rutas.getSelectionModel().selectedItemProperty().addListener((obs, anteriorSeleccion, nuevaSeleccion) -> {
             if (nuevaSeleccion != null) {
@@ -76,43 +78,17 @@ public class RutaControlador implements Initializable {
             validarOrigenDestino(txt_destino, error_destino);
 //            validarRutasDiferentes(txt_origen, txt_destino, error_origen);
         });
-        txt_duracion.textProperty().addListener((observable, oldValue, newValue) -> validarDuracion(txt_duracion, error_duracion));
-    }
-
-    private boolean validarDuracion(TextField textField, Label errorLabel) {
-        String text = textField.getText();
-        if (text.isEmpty()) {
-            errorLabel.setText("El campo no puede estar vacío.");
-            textField.setStyle("-fx-border-color: red;");
-            return false;
-        }
-        if (!text.matches("\\d*")) {
-            errorLabel.setText("Ingrese un número.");
-            textField.setStyle("-fx-border-color: red;");
-            return false;
-        }
-        int duracion = Integer.parseInt(text);
-        if (duracion < 0 || duracion > 48) {
-            errorLabel.setText("Entre 0 y 48 horas.");
-            textField.setStyle("-fx-border-color: red;");
-            return false;
-        } else {
-            errorLabel.setText("");
-            textField.setStyle("");
-            return true;
-        }
+        configureTimeField(txt_duracion, error_duracion);
     }
 
     private boolean validarOrigenDestino(TextField textField, Label errorLabel) {
         String text = textField.getText().toLowerCase();
         if (text.isEmpty()) {
             errorLabel.setText("El campo no puede estar vacío.");
-            textField.setStyle("-fx-border-color: red;");
             return false;
         }
         if (text.matches(".*\\d.*")) {
             errorLabel.setText("El campo no debe contener números.");
-            textField.setStyle("-fx-border-color: red;");
             return false;
         } else {
             errorLabel.setText("");
@@ -121,18 +97,36 @@ public class RutaControlador implements Initializable {
         }
     }
 
-    private boolean validarRutasDiferentes(TextField origen, TextField destino, Label errorLabel) {
+    private boolean validarRutasDiferentes(TextField origen, TextField destino) {
         if (origen.getText().toLowerCase().equals(destino.getText().toLowerCase())) {
-            errorLabel.setText("El origen y el destino no pueden ser iguales.");
-            origen.setStyle("-fx-border-color: red;");
-            destino.setStyle("-fx-border-color: red;");
+            mostrarAlerta("Las rutas deben ser diferentes.");
             return false;
         } else {
-            errorLabel.setText("");
             origen.setStyle("");
             destino.setStyle("");
             return true;
         }
+    }
+
+    private void configureTimeField(TextField textField, Label error_duracion) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Limitar a 5 caracteres (HH:mm)
+            if (newValue.length() > 5) {
+                textField.setText(oldValue);
+                error_duracion.setText("Formato incorrecto.");
+                return;
+            }
+            // Agregar ":" automáticamente en la posición correcta
+            if (newValue.length() == 2 && !newValue.contains(":")) {
+                textField.setText(newValue + ":");
+            }
+            // Asegurarse de que solo haya números y ":" en el formato correcto
+            if (!newValue.matches("\\d{0,2}:?\\d{0,2}")) {
+                textField.setText(oldValue);
+                error_duracion.setText("Formato incorrecto.");
+            }
+            error_duracion.setText("");
+        });
     }
 
 
@@ -144,12 +138,14 @@ public class RutaControlador implements Initializable {
         if (!validarOrigenDestino(txt_destino, error_destino)) {
             isValid = false;
         }
-        if (!validarDuracion(txt_duracion, error_duracion)) {
+        if (!validarRutasDiferentes(txt_origen, txt_destino)) {
             isValid = false;
         }
-//        if (!validarRutasDiferentes(txt_origen, txt_destino, error_origen)) {
-//            isValid = false;
-//        }
+        if(!txt_duracion.getText().matches("\\d{2}:\\d{2}")){
+            error_duracion.setText("Formato incorrecto.");
+            isValid = false;
+        }
+
         return isValid;
     }
 
@@ -168,7 +164,7 @@ public class RutaControlador implements Initializable {
         RutaModelo ruta = new RutaModelo();
         ruta.setOrigen(txt_origen.getText());
         ruta.setDestino(txt_destino.getText());
-        ruta.setDuracion(txt_duracion.getText() + " horas");
+        ruta.setDuracion(txt_duracion.getText());
 
         rutaServicio.guardarRuta(ruta);
         listarRutas();
@@ -190,7 +186,7 @@ public class RutaControlador implements Initializable {
 
         ruta.setOrigen(txt_origen.getText());
         ruta.setDestino(txt_destino.getText());
-        ruta.setDuracion(txt_duracion.getText() + " horas");
+        ruta.setDuracion(txt_duracion.getText());
 
         rutaServicio.actualizarRuta(ruta);
         listarRutas();
@@ -246,6 +242,10 @@ public class RutaControlador implements Initializable {
         txt_origen.setText("");
         txt_destino.setText("");
         txt_duracion.setText("");
+
+        error_origen.setText("");
+        error_destino.setText("");
+        error_duracion.setText("");
     }
 
     @FXML
@@ -262,27 +262,14 @@ public class RutaControlador implements Initializable {
         alert.show();
     }
 
-    private void configureTimeField(TextField textField) {
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Limitar a 5 caracteres (HH:mm)
-            if (newValue.length() > 5) {
-                textField.setText(oldValue);
-                return;
-            }
-            // Agregar ":" automáticamente en la posición correcta
-            if (newValue.length() == 2 && !newValue.contains(":")) {
-                textField.setText(newValue + ":");
-            }
-            // Asegurarse de que solo haya números y ":" en el formato correcto
-            if (!newValue.matches("\\d{0,2}:?\\d{0,2}")) {
-                textField.setText(oldValue);
-            }
-        });
-    }
-
 
     private void buscarRutas(String searchText) {
         List<RutaModelo> rutas = rutaServicio.buscarRutas(searchText);
         tabla_rutas.getItems().setAll(rutas);
+    }
+
+    @FXML
+    public void handleBuscarRutas(Event event) {
+        buscarRutas(txtBuscar.getText());
     }
 }

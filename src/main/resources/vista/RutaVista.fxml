@@ -25,7 +25,7 @@
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <TextField fx:id="txt_duracion" layoutX="26.0" layoutY="237.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa tu direccion" />
+                <TextField fx:id="txt_duracion" layoutX="26.0" layoutY="237.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="HH:mm" />
             <TextField fx:id="txt_destino" layoutX="25.0" layoutY="164.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa el destino" />
             <TextField fx:id="txt_origen" layoutX="26.0" layoutY="92.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa el origen" />
             <Button fx:id="btn_agregar" layoutX="26.0" layoutY="293.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" />
@@ -50,11 +50,10 @@
                   <TableColumn fx:id="columnAcciones" prefWidth="113.0" text="ACCIONES" />
                </columns>
             </TableView>
-            <TextField fx:id="txtBuscar" layoutX="266.0" layoutY="32.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="494.0" promptText="ingresa tu direccion" />
             <Label fx:id="error_origen" layoutX="28.0" layoutY="122.0" styleClass="error-label" />
             <Label fx:id="error_destino" layoutX="28.0" layoutY="194.0" styleClass="error-label" />
             <Label fx:id="error_duracion" layoutX="28.0" layoutY="267.0" styleClass="error-label" />
-            <TextField layoutX="272.0" layoutY="90.0" prefHeight="31.0" prefWidth="746.0" promptText="Busca la ruta por Origen o Destino" />
+            <TextField fx:id="txtBuscar" layoutX="272.0" layoutY="90.0" onKeyPressed="#handleBuscarRutas" prefHeight="31.0" prefWidth="746.0" promptText="Busca la ruta por Origen o Destino" />
             <Label layoutX="272.0" layoutY="67.0" text="Buscar Ruta:">
                <font>
                   <Font name="System Bold" size="12.0" />
