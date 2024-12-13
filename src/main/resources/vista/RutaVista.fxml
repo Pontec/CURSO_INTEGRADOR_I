@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.RutaControlador">
+<AnchorPane prefHeight="720" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.RutaControlador">
     <children>
         <Pane layoutX="16.0" layoutY="17.0" prefHeight="691.0" prefWidth="1038.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="17.0">
             <children>

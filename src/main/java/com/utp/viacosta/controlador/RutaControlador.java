@@ -45,6 +45,8 @@ public class RutaControlador implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iconoEliminar = new Image(getClass().getResourceAsStream("/img/eliminar.png"));
+        txt_duracion.setPromptText("HH:mm");
+        configureTimeField(txt_duracion);
         listarRutas();
         tabla_rutas.getSelectionModel().selectedItemProperty().addListener((obs, anteriorSeleccion, nuevaSeleccion) -> {
             if (nuevaSeleccion != null) {
@@ -169,6 +171,24 @@ public class RutaControlador implements Initializable {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText(mensaje);
         alert.show();
+    }
+
+    private void configureTimeField(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Limitar a 5 caracteres (HH:mm)
+            if (newValue.length() > 5) {
+                textField.setText(oldValue);
+                return;
+            }
+            // Agregar ":" automáticamente en la posición correcta
+            if (newValue.length() == 2 && !newValue.contains(":")) {
+                textField.setText(newValue + ":");
+            }
+            // Asegurarse de que solo haya números y ":" en el formato correcto
+            if (!newValue.matches("\\d{0,2}:?\\d{0,2}")) {
+                textField.setText(oldValue);
+            }
+        });
     }
 
 }
