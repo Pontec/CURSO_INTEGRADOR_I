@@ -37,15 +37,21 @@ public class RutaControlador implements Initializable {
     @FXML
     private TableView<RutaModelo> tabla_rutas;
     private Image iconoEliminar;
-
     @FXML
-    private TextField txt_destino, txt_duracion,txt_origen;
+    private TextField txt_destino, txt_duracion, txt_origen;
+    @FXML
+    private Label error_origen;
+    @FXML
+    private Label error_destino;
+    @FXML
+    private Label error_duracion;
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         iconoEliminar = new Image(getClass().getResourceAsStream("/img/eliminar.png"));
         listarRutas();
+        agregarValidaciones();
         tabla_rutas.getSelectionModel().selectedItemProperty().addListener((obs, anteriorSeleccion, nuevaSeleccion) -> {
             if (nuevaSeleccion != null) {
                 seleccionarRuta();
@@ -59,21 +65,134 @@ public class RutaControlador implements Initializable {
         btn_agregar.setVisible(true);
     }
 
+    private void agregarValidaciones() {
+        txt_origen.textProperty().addListener((observable, oldValue, newValue) -> {
+            validarOrigenDestino(txt_origen, error_origen);
+//            validarRutasDiferentes(txt_origen, txt_destino, error_origen);
+        });
+        txt_destino.textProperty().addListener((observable, oldValue, newValue) -> {
+            validarOrigenDestino(txt_destino, error_destino);
+//            validarRutasDiferentes(txt_origen, txt_destino, error_origen);
+        });
+        txt_duracion.textProperty().addListener((observable, oldValue, newValue) -> validarDuracion(txt_duracion, error_duracion));
+    }
+
+    private boolean validarDuracion(TextField textField, Label errorLabel) {
+        String text = textField.getText();
+        if (text.isEmpty()) {
+            errorLabel.setText("El campo no puede estar vacío.");
+            textField.setStyle("-fx-border-color: red;");
+            return false;
+        }
+        if (!text.matches("\\d*")) {
+            errorLabel.setText("Ingrese un número.");
+            textField.setStyle("-fx-border-color: red;");
+            return false;
+        }
+        int duracion = Integer.parseInt(text);
+        if (duracion < 0 || duracion > 48) {
+            errorLabel.setText("Entre 0 y 48 horas.");
+            textField.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            errorLabel.setText("");
+            textField.setStyle("");
+            return true;
+        }
+    }
+
+    private boolean validarOrigenDestino(TextField textField, Label errorLabel) {
+        String text = textField.getText().toLowerCase();
+        if (text.isEmpty()) {
+            errorLabel.setText("El campo no puede estar vacío.");
+            textField.setStyle("-fx-border-color: red;");
+            return false;
+        }
+        if (text.matches(".*\\d.*")) {
+            errorLabel.setText("El campo no debe contener números.");
+            textField.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            errorLabel.setText("");
+            textField.setStyle("");
+            return true;
+        }
+    }
+
+    private boolean validarRutasDiferentes(TextField origen, TextField destino, Label errorLabel) {
+        if (origen.getText().toLowerCase().equals(destino.getText().toLowerCase())) {
+            errorLabel.setText("El origen y el destino no pueden ser iguales.");
+            origen.setStyle("-fx-border-color: red;");
+            destino.setStyle("-fx-border-color: red;");
+            return false;
+        } else {
+            errorLabel.setText("");
+            origen.setStyle("");
+            destino.setStyle("");
+            return true;
+        }
+    }
+
+
+    private boolean validarCampos() {
+        boolean isValid = true;
+        if (!validarOrigenDestino(txt_origen, error_origen)) {
+            isValid = false;
+        }
+        if (!validarOrigenDestino(txt_destino, error_destino)) {
+            isValid = false;
+        }
+        if (!validarDuracion(txt_duracion, error_duracion)) {
+            isValid = false;
+        }
+//        if (!validarRutasDiferentes(txt_origen, txt_destino, error_origen)) {
+//            isValid = false;
+//        }
+        return isValid;
+    }
+
+
     @FXML
     void act_guardar(ActionEvent event) {
-        if(validarRutas()){
+        if (!validarCampos()) {
+            return;
+        }
+
+        if (rutaServicio.rutaExiste(txt_origen.getText(), txt_destino.getText(), null)) {
+            mostrarAlerta("La ruta ya existe.");
             return;
         }
 
         RutaModelo ruta = new RutaModelo();
         ruta.setOrigen(txt_origen.getText());
         ruta.setDestino(txt_destino.getText());
-        ruta.setDuracion(txt_duracion.getText());
+        ruta.setDuracion(txt_duracion.getText() + " horas");
 
         rutaServicio.guardarRuta(ruta);
         listarRutas();
         limpiarCampos();
+    }
 
+
+    @FXML
+    void act_actualizar(ActionEvent event) {
+        if (!validarCampos()) {
+            return;
+        }
+
+        RutaModelo ruta = tabla_rutas.getSelectionModel().getSelectedItem();
+        if (rutaServicio.rutaExiste(txt_origen.getText(), txt_destino.getText(), ruta.getIdRuta())) {
+            mostrarAlerta("La ruta ya existe.");
+            return;
+        }
+
+        ruta.setOrigen(txt_origen.getText());
+        ruta.setDestino(txt_destino.getText());
+        ruta.setDuracion(txt_duracion.getText() + " horas");
+
+        rutaServicio.actualizarRuta(ruta);
+        listarRutas();
+        limpiarCampos();
     }
 
     private void listarRutas() {
@@ -83,6 +202,7 @@ public class RutaControlador implements Initializable {
         columnDuracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
         columnAcciones.setCellFactory(param -> new TableCell<>() {
             ImageView icono = new ImageView(iconoEliminar);
+
             {
                 icono.setFitHeight(20);
                 icono.setFitWidth(20);
@@ -95,7 +215,8 @@ public class RutaControlador implements Initializable {
                     activarGuardar();
                     listarRutas();
                 });
-           }
+            }
+
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -106,65 +227,41 @@ public class RutaControlador implements Initializable {
     }
 
     @FXML
-    void act_actualizar(ActionEvent event) {
-        if(validarRutas()){
-            return;
-        }
-
-        RutaModelo ruta = tabla_rutas.getSelectionModel().getSelectedItem();
-        ruta.setOrigen(txt_origen.getText());
-        ruta.setDestino(txt_destino.getText());
-        ruta.setDuracion(txt_duracion.getText());
-
-        rutaServicio.actualizarRuta(ruta);
-        listarRutas();
-        limpiarCampos();
-    }
-
-    @FXML
     void actLimpiar(ActionEvent event) {
         limpiarCampos();
         activarGuardar();
     }
 
-    public void activarGuardar(){
+    public void activarGuardar() {
         btn_agregar.setVisible(true);
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
     }
 
 
-
-
-
     //Metodos de apoyo
-    private void limpiarCampos(){
+    private void limpiarCampos() {
         txt_origen.setText("");
         txt_destino.setText("");
         txt_duracion.setText("");
+
+        error_origen.setText("");
+        error_destino.setText("");
+        error_duracion.setText("");
+
+        txt_origen.setStyle("");
+        txt_destino.setStyle("");
+        txt_duracion.setStyle("");
     }
 
     @FXML
-    private void seleccionarRuta(){
+    private void seleccionarRuta() {
         RutaModelo ruta = tabla_rutas.getSelectionModel().getSelectedItem();
         txt_origen.setText(ruta.getOrigen());
         txt_destino.setText(ruta.getDestino());
         txt_duracion.setText(ruta.getDuracion());
     }
 
-    //Validar que el origen y destino no sean iguales
-
-
-    //Validar que las rutas no sean vacias
-    private boolean validarRutas(){
-        if(txt_origen.getText().isEmpty() || txt_destino.getText().isEmpty()){
-            mostrarAlerta("Los campos de origen y destino no pueden estar vacios");
-            return true;
-        }
-        return false;
-    }
-
-    //Mostrar alerta
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText(mensaje);

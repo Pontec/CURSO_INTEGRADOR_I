@@ -60,5 +60,13 @@ public class RutaServicioImpl implements RutaServicio {
         return rutaDAO.findTopRutas();
     }
 
+    @Override
+    public boolean rutaExiste(String origen, String destino, Integer excludeId) {
+        return listarRutas().stream()
+                .anyMatch(ruta -> !ruta.getIdRuta().equals(excludeId) &&
+                        ruta.getOrigen().equalsIgnoreCase(origen) &&
+                        ruta.getDestino().equalsIgnoreCase(destino));
+    }
+
 
 }

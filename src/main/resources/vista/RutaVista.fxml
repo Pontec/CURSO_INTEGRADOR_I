@@ -11,31 +11,31 @@
 
 <AnchorPane prefHeight="720" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.RutaControlador">
     <children>
-        <Pane layoutX="16.0" layoutY="17.0" prefHeight="691.0" prefWidth="1038.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="17.0">
+        <Pane layoutX="16.0" layoutY="17.0" prefHeight="691.0" prefWidth="1038.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="17.0">
             <children>
                 <Label layoutX="23.0" layoutY="86.0" text="Origen:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <Label layoutX="23.0" layoutY="146.0" text="Destino">
+                <Label layoutX="23.0" layoutY="158.0" text="Destino">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <Label layoutX="25.0" layoutY="208.0" text="Duracion">
+                <Label layoutX="25.0" layoutY="231.0" text="Duracion">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font></Label>
-                <TextField fx:id="txt_duracion" layoutX="24.0" layoutY="225.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa tu direccion" />
-            <TextField fx:id="txt_destino" layoutX="23.0" layoutY="163.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa el destino" />
+                <TextField fx:id="txt_duracion" layoutX="24.0" layoutY="248.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa tu direccion" />
+            <TextField fx:id="txt_destino" layoutX="23.0" layoutY="175.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa el destino" />
             <TextField fx:id="txt_origen" layoutX="24.0" layoutY="103.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ingresa el origen" />
-            <Button fx:id="btn_agregar" layoutX="24.0" layoutY="282.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" />
-            <Button fx:id="btn_actualizar" layoutX="24.0" layoutY="282.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+            <Button fx:id="btn_agregar" layoutX="24.0" layoutY="312.0" mnemonicParsing="false" onAction="#act_guardar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Agregar" />
+            <Button fx:id="btn_actualizar" layoutX="24.0" layoutY="312.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
             <Label layoutX="24.0" layoutY="17.0" style="-fx-text-fill: #0066CC;" text="Registrar Nueva Ruta">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnLimpiar" layoutX="25.0" layoutY="330.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
+            <Button fx:id="btnLimpiar" layoutX="25.0" layoutY="360.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="31.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
             <Label layoutX="23.0" layoutY="53.0" prefHeight="20.0" prefWidth="206.0" style="-fx-font-size: 14;" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Ingresa datos de la ruta" textFill="#656565">
                <font>
                   <Font size="14.0" />
@@ -50,6 +50,9 @@
                   <TableColumn fx:id="columnAcciones" prefWidth="113.0" text="ACCIONES" />
                </columns>
             </TableView>
+            <Label fx:id="error_origen" layoutX="26.0" layoutY="133.0" styleClass="error-label" />
+            <Label fx:id="error_destino" layoutX="26.0" layoutY="205.0" styleClass="error-label" />
+            <Label fx:id="error_duracion" layoutX="26.0" layoutY="278.0" styleClass="error-label" />
             </children>
         </Pane>
     </children>

@@ -15,4 +15,5 @@ public interface RutaServicio {
     void actualizarRuta(RutaModelo ruta);
     boolean existsByOrigen(String origen);
     List<Object[]> obtenerRutasMasVendidas();
+    public boolean rutaExiste(String origen, String destino, Integer excludeId);
 }
