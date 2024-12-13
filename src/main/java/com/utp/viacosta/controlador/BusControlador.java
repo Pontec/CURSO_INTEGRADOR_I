@@ -351,11 +351,8 @@ private void agregarValidacionAsientos(TextField textField, Label errorLabel, in
         txt_marca.setText(busModelo.getMarca());
         txt_modelo.setText(busModelo.getModelo());
 
-        long vipCount = asientoServicio.getAsientosPorBus(busModelo.getIdBus()).stream()
-                .filter(asiento -> asiento.getTipoAsiento() != null && asiento.getTipoAsiento().getNombre().equals(TipoAsiento.VIP))
-                .count();
-        txtPiso1.setText(String.valueOf(vipCount));
-        txtPiso2.setText(String.valueOf(busModelo.getCapacidadAsientos() - vipCount));
+        txtPiso1.setText(String.valueOf(busModelo.getPrimerPiso()));
+        txtPiso2.setText(String.valueOf(busModelo.getSegundoPiso()));
 
         txt_carga_maxima.setText(String.valueOf(busModelo.getCapacidadCarga()));
     }
