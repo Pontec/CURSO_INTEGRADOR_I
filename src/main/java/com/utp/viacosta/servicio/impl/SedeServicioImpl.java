@@ -25,4 +25,5 @@ public class SedeServicioImpl implements SedeServicio {
     public List<SedeModelo> listaSedes() {
         return sedeDAO.findAll();
     }
+
 }

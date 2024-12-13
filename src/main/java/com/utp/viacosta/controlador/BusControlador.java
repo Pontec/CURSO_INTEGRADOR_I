@@ -77,6 +77,18 @@ public class BusControlador implements Initializable {
     private TextField txtPiso2;
     @FXML
     private TextField txtPiso1;
+    @FXML
+    private Label error_placa;
+    @FXML
+    private Label error_primer;
+    @FXML
+    private Label error_modelo;
+    @FXML
+    private Label error_cap;
+    @FXML
+    private Label error_seg;
+    @FXML
+    private Label error_marca;
 
 
     @Override

@@ -18,23 +18,23 @@
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="131.0" text="Marca:">
+                <Label layoutX="25.0" layoutY="144.0" text="Marca:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="191.0" text="Modelo:">
+                <Label layoutX="26.0" layoutY="216.0" text="Modelo:">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="312.0" text="Segundo Piso">
+                <Label layoutX="24.0" layoutY="358.0" text="Segundo Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="26.0" layoutY="252.0" text="Primer Piso">
+                <Label layoutX="25.0" layoutY="286.0" text="Primer Piso">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
-                <Label layoutX="25.0" layoutY="370.0" text="Capacidad carga (T):">
+                <Label layoutX="24.0" layoutY="427.0" text="Capacidad carga (T):">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font></Label>
@@ -44,14 +44,14 @@
                     </font>
                 </Label>
             <TextField fx:id="txt_placa" layoutX="25.0" layoutY="92.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa la placa" stylesheets="@../css/style.css" />
-            <TextField fx:id="txt_marca" layoutX="25.0" layoutY="148.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa la marca" stylesheets="@../css/style.css" />
-            <TextField fx:id="txt_modelo" layoutX="25.0" layoutY="208.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa el moledo" stylesheets="@../css/style.css" />
-            <TextField fx:id="txtPiso2" layoutX="25.0" layoutY="329.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 20" stylesheets="@../css/style.css" />
-            <TextField fx:id="txtPiso1" layoutX="25.0" layoutY="269.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 10" stylesheets="@../css/style.css" />
-            <TextField fx:id="txt_carga_maxima" layoutX="25.0" layoutY="393.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 2000.00" stylesheets="@../css/style.css" />
-            <Button fx:id="btn_guardar" layoutX="24.0" layoutY="441.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
-            <Button fx:id="btn_actualizar" layoutX="24.0" layoutY="483.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
-            <Button fx:id="btn_eliminar" layoutX="23.0" layoutY="526.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="27.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
+            <TextField fx:id="txt_marca" layoutX="25.0" layoutY="161.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa la marca" stylesheets="@../css/style.css" />
+            <TextField fx:id="txt_modelo" layoutX="25.0" layoutY="233.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa el moledo" stylesheets="@../css/style.css" />
+            <TextField fx:id="txtPiso2" layoutX="24.0" layoutY="375.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 20" stylesheets="@../css/style.css" />
+            <TextField fx:id="txtPiso1" layoutX="24.0" layoutY="303.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 10" stylesheets="@../css/style.css" />
+            <TextField fx:id="txt_carga_maxima" layoutX="24.0" layoutY="450.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Ejem. 2000.00" stylesheets="@../css/style.css" />
+            <Button fx:id="btn_guardar" layoutX="25.0" layoutY="524.0" minHeight="30.0" minWidth="188.0" mnemonicParsing="false" onAction="#actGuardar" prefHeight="30.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+            <Button fx:id="btn_actualizar" layoutX="25.0" layoutY="624.0" minHeight="30.0" minWidth="188.0" mnemonicParsing="false" onAction="#actActualizar" prefHeight="30.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Actualizar" />
+            <Button fx:id="btn_eliminar" layoutX="24.0" layoutY="576.0" minHeight="30.0" minWidth="188.0" mnemonicParsing="false" onAction="#actEliminar" prefHeight="30.0" prefWidth="188.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Eliminar" />
             <TableView fx:id="tablaBuses" layoutX="251.0" layoutY="20.0" prefHeight="656.0" prefWidth="773.0" style="-fx-border-color: CCC;">
                <columns>
                   <TableColumn fx:id="columnId" prefWidth="39.999969482421875" text="ID" />
@@ -67,6 +67,12 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="error_placa" layoutX="27.0" layoutY="122.0" styleClass="error-label" />
+            <Label fx:id="error_marca" layoutX="27.0" layoutY="191.0" styleClass="error-label" />
+            <Label fx:id="error_modelo" layoutX="28.0" layoutY="263.0" styleClass="error-label" />
+            <Label fx:id="error_primer" layoutX="24.0" layoutY="333.0" styleClass="error-label" />
+            <Label fx:id="error_seg" layoutX="28.0" layoutY="405.0" styleClass="error-label" />
+            <Label fx:id="error_cap" layoutX="25.0" layoutY="480.0" styleClass="error-label" />
             </children>
         </Pane>
     </children>

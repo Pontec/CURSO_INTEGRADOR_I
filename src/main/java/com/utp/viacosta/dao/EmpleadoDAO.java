@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface EmpleadoDAO extends JpaRepository<EmpleadoModelo, Integer> {
 
     EmpleadoModelo findByCorreo(String usuario);
+    EmpleadoModelo findByDni(String dni);
 
 
 }

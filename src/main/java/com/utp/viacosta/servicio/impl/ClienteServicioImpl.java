@@ -41,4 +41,9 @@ public class ClienteServicioImpl implements ClienteServicio {
     public ClienteModelo save(ClienteModelo clienteModelo) {
         return clienteDAO.save(clienteModelo);
     }
+
+    @Override
+    public ClienteModelo findByDni(String dni) {
+        return clienteDAO.findByDni(dni);
+    }
 }

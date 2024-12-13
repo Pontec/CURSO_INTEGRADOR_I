@@ -11,12 +11,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.ClienteControlador">
    <children>
-      <Label layoutX="14.0" layoutY="15.0" style="-fx-text-fill: #0066CC;" text="Gestion de Clientes">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Pane layoutX="14.0" layoutY="56.0" prefHeight="650.0" prefWidth="1041.0" style="-fx-border-color: CCC;">
+      <Pane layoutX="14.0" layoutY="12.0" prefHeight="694.0" prefWidth="1041.0" style="-fx-border-color: CCC;">
          <children>
             <Label layoutX="23.0" layoutY="76.0" style="-fx-font-weight: bold;" text="DNI:">
                <font>
@@ -33,21 +28,21 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="23.0" layoutY="132.0" text="Telefono">
+            <Label layoutX="23.0" layoutY="143.0" text="Telefono">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="237.0" layoutY="132.0" text="Dirección">
+            <Label layoutX="237.0" layoutY="143.0" text="Dirección">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <TextField fx:id="txt_apellido" editable="false" layoutX="444.0" layoutY="93.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
-            <TextField fx:id="txt_telefono" layoutX="23.0" layoutY="149.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ejem. 931749376" />
+            <TextField fx:id="txt_telefono" layoutX="23.0" layoutY="160.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="ejem. 931749376" />
             <Button fx:id="btn_guardar" layoutX="672.0" layoutY="93.0" mnemonicParsing="false" onAction="#act_save" prefHeight="30.0" prefWidth="120.0" styleClass="btn-clasic" text="Guardar" />
             <Button fx:id="btn_actualizar" layoutX="672.0" layoutY="93.0" mnemonicParsing="false" onAction="#act_actualizar" prefHeight="30.0" prefWidth="120.0" styleClass="btn-clasic" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Actualizar" />
-            <TextField fx:id="txt_correo" layoutX="235.0" layoutY="149.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="399.0" promptText="Ingrese la dirección del cliente" />
+            <TextField fx:id="txt_direccion" layoutX="235.0" layoutY="160.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="399.0" promptText="Ingrese la dirección del cliente" />
             <TextField fx:id="txt_dni" layoutX="23.0" layoutY="93.0" minHeight="30.0" minWidth="188.0" onKeyReleased="#actBuscar" prefHeight="30.0" prefWidth="188.0" promptText="Ingresa el dni" />
             <TextField fx:id="txt_nombre" editable="false" layoutX="235.0" layoutY="93.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="23.0" layoutY="14.0" style="-fx-text-fill: #0066CC;" text="Agregar Cliente">
@@ -60,8 +55,8 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="btnLimpiar" layoutX="672.0" layoutY="149.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="30.0" prefWidth="120.0" styleClass="btn-clasic" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Limpiar" />
-            <TableView fx:id="tabla_clientes" layoutX="23.0" layoutY="208.0" prefHeight="426.0" prefWidth="988.0" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css">
+            <Button fx:id="btnLimpiar" layoutX="672.0" layoutY="160.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="30.0" prefWidth="120.0" styleClass="btn-clasic" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Limpiar" />
+            <TableView fx:id="tabla_clientes" layoutX="23.0" layoutY="221.0" prefHeight="446.0" prefWidth="988.0" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css">
                <columns>
                   <TableColumn fx:id="columnId" prefWidth="34.0" text="ID" />
                   <TableColumn fx:id="columnNombre" prefWidth="179.0" text="NOMBRE" />
@@ -71,6 +66,9 @@
                   <TableColumn fx:id="columnCorreo" prefWidth="325.0" text="DIRECCION" />
                </columns>
             </TableView>
+            <Label fx:id="error_Dni" layoutX="23.0" layoutY="123.0" styleClass="error-label" />
+            <Label fx:id="error_tel" layoutX="24.0" layoutY="190.0" styleClass="error-label" />
+            <Label fx:id="error_dir" layoutX="235.0" layoutY="189.0" styleClass="error-label" />
          </children>
       </Pane>
    </children>
