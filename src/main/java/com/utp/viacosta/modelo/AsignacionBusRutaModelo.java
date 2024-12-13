@@ -1,5 +1,6 @@
 package com.utp.viacosta.modelo;
 
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class AsignacionBusRutaModelo {
     @Column(name = "hora_salida")
     private LocalTime horaSalida;
     private Double precio;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado")
+    private EstadoAsignacion estado;
     @ManyToOne
     @JoinColumn(name = "id_bus", insertable = false, updatable = false)
     private BusModelo busAsignado;

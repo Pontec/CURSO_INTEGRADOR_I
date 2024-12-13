@@ -2,6 +2,7 @@ package com.utp.viacosta.util;
 
 import com.utp.viacosta.dao.*;
 import com.utp.viacosta.modelo.*;
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import com.utp.viacosta.modelo.enums.TipoAsiento;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -167,6 +168,7 @@ public class DatabaseInitializer {
                     fecha,             // fechaSalida
                     tiempo,            // horaSalida
                     35.0,              // precio
+                    EstadoAsignacion.PROGRAMADO,
                     bus,               // busAsignado
                     ruta,              // rutaAsignada
                     null,              // detalleBoletaModelo

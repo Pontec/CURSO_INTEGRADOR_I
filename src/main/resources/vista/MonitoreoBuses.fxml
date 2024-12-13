@@ -38,15 +38,15 @@
                         </Label>
                         <Button layoutX="629.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Poner en Marcha" />
                         <Button layoutX="629.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#fnExportarExcel" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: green;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Exportar en Excel" />
-                        <TableView layoutX="14.0" layoutY="54.0" prefHeight="481.0" prefWidth="753.0" stylesheets="@../css/style.css">
+                        <TableView fx:id="tablaPasajeros" layoutX="14.0" layoutY="54.0" prefHeight="481.0" prefWidth="753.0" stylesheets="@../css/style.css">
                           <columns>
-                            <TableColumn prefWidth="125.0" text="Nombre" />
-                            <TableColumn prefWidth="103.0" text="Apellidos" />
-                              <TableColumn prefWidth="76.0" text="DNI" />
-                              <TableColumn prefWidth="59.0" text="Asiento" />
-                              <TableColumn prefWidth="93.0" text="Bus" />
-                              <TableColumn prefWidth="122.0" text="Ruta" />
-                              <TableColumn prefWidth="169.0" text="Vendedor" />
+                            <TableColumn fx:id="colNombre" prefWidth="125.0" text="Nombre" />
+                            <TableColumn fx:id="colApellido" prefWidth="103.0" text="Apellidos" />
+                              <TableColumn fx:id="colDNI" prefWidth="76.0" text="DNI" />
+                              <TableColumn fx:id="colAsiento" prefWidth="59.0" text="Asiento" />
+                              <TableColumn fx:id="colBus" prefWidth="93.0" text="Bus" />
+                              <TableColumn fx:id="colRuta" prefWidth="122.0" text="Ruta" />
+                              <TableColumn fx:id="colVendedor" prefWidth="169.0" text="Vendedor" />
                           </columns>
                         </TableView>
                      </children>

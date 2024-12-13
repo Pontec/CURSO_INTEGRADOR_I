@@ -3,6 +3,7 @@ package com.utp.viacosta.servicio.impl;
 
 import com.utp.viacosta.dao.AsignacionBusRutaDAO;
 import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import com.utp.viacosta.servicio.AsignacionBusRutaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,12 @@ public class AsignacionBusRutaServicioImpl implements AsignacionBusRutaServicio 
         return asignacionBusRutaDAO.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino,
                 fecha);
     }
-    
+
+    @Override
+    public List<AsignacionBusRutaModelo> buscarAsignacionConEstado(String origen, String destino, LocalDate fechaSalida, EstadoAsignacion estado) {
+        return asignacionBusRutaDAO.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalidaAndEstado(origen, destino, fechaSalida, estado);
+    }
+
     @Override
     public List<AsignacionBusRutaModelo> buscarAsignaciones(String searchText, LocalDate fechaInicio, LocalDate fechaFin) {
         if (searchText != null) {
@@ -48,5 +54,10 @@ public class AsignacionBusRutaServicioImpl implements AsignacionBusRutaServicio 
             }
         }
         return asignacionBusRutaDAO.findBySearchTextAndFechas(searchText, fechaInicio, fechaFin);
+    }
+
+    @Override
+    public List<AsignacionBusRutaModelo> buscarAsignacionesDelDia(LocalDate fechaSalida, EstadoAsignacion estado) {
+        return asignacionBusRutaDAO.findByFechaSalidaAndEstado(fechaSalida, estado);
     }
 }

@@ -1,6 +1,7 @@
 package com.utp.viacosta.dao;
 
 import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,11 +17,21 @@ public interface AsignacionBusRutaDAO extends JpaRepository<AsignacionBusRutaMod
             String origen,
             String destino,
             LocalDate fechaSalida);
+
+    List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalidaAndEstado(
+            String origen,
+            String destino,
+            LocalDate fechaSalida,
+            EstadoAsignacion estado);
+
+    List<AsignacionBusRutaModelo> findByFechaSalidaAndEstado(
+            LocalDate fechaSalida,
+            EstadoAsignacion estado);
             
     @Query("SELECT a FROM AsignacionBusRutaModelo a WHERE " +
            "(:searchText IS NULL OR " +
-           "CAST(a.rutaAsignada.id AS string) LIKE CONCAT('%', :searchText, '%') OR " +
-           "CAST(a.busAsignado.id AS string) LIKE CONCAT('%', :searchText, '%') OR " +
+           "CAST(a.rutaAsignada.idRuta AS string) LIKE CONCAT('%', :searchText, '%') OR " +
+           "CAST(a.busAsignado.idBus AS string) LIKE CONCAT('%', :searchText, '%') OR " +
            "LOWER(a.rutaAsignada.origen) LIKE LOWER(CONCAT('%', :searchText, '%')) OR " +
            "LOWER(a.rutaAsignada.destino) LIKE LOWER(CONCAT('%', :searchText, '%')) OR " +
            "LOWER(a.busAsignado.placa) LIKE LOWER(CONCAT('%', :searchText, '%'))) " +

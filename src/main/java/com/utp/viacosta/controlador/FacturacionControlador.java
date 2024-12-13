@@ -7,6 +7,7 @@ import com.utp.viacosta.agregates.retrofit.SunatService;
 import com.utp.viacosta.agregates.retrofit.api.ReniecCliente;
 import com.utp.viacosta.dao.AsientoDAO;
 import com.utp.viacosta.modelo.*;
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import com.utp.viacosta.servicio.*;
 import com.utp.viacosta.util.AuthLogin;
 import com.utp.viacosta.util.FxmlCargarUtil;
@@ -388,7 +389,7 @@ public class FacturacionControlador implements Initializable {
             LocalDate fecha = dateFechaViaje.getValue();
             String origen = cmbOrigen.getValue().toString();
             String destino = cmbDestino.getValue().toString();
-            List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
+            List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.buscarAsignacionConEstado(origen, destino, fecha, EstadoAsignacion.PROGRAMADO);
             setearBus(listaAsignaciones);
         }
     }

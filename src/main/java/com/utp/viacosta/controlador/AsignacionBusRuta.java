@@ -3,6 +3,7 @@ package com.utp.viacosta.controlador;
 import com.utp.viacosta.modelo.AsignacionBusRutaModelo;
 import com.utp.viacosta.modelo.BusModelo;
 import com.utp.viacosta.modelo.RutaModelo;
+import com.utp.viacosta.modelo.enums.EstadoAsignacion;
 import com.utp.viacosta.servicio.AsignacionBusRutaServicio;
 import com.utp.viacosta.servicio.BusServicio;
 import com.utp.viacosta.servicio.RutaServicio;
@@ -237,6 +238,7 @@ private void configureTimeField(TextField textField, Label err_hora) {
             asignacionBusRutaModelo.setFechaSalida(fechaHoraSalida.getValue());
             asignacionBusRutaModelo.setHoraSalida(LocalTime.parse(txtHoraSalida.getText()));
             asignacionBusRutaModelo.setPrecio(Double.parseDouble(txtPrecio.getText()));
+            asignacionBusRutaModelo.setEstado(EstadoAsignacion.PROGRAMADO);
 
             asignacionBusRutaService.save(asignacionBusRutaModelo);
             limpiarCampos();
