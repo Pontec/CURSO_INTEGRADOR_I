@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 
 import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
@@ -84,6 +85,8 @@ public class EmpleadoControlador implements Initializable {
     private Label error_nombre;
     @FXML
     private Label error_apellido;
+    @FXML
+    private TextField txtBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -101,6 +104,10 @@ public class EmpleadoControlador implements Initializable {
         });
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
+
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+        buscarEmpleados(newValue);
+    });
     }
 
     private void inicializarValidacion() {
@@ -425,8 +432,7 @@ public class EmpleadoControlador implements Initializable {
                         ReniecRespuesta datosPersona = response.body();
                         txt_nombre.setText(datosPersona.getNombres());
                         txt_apellido.setText(
-                                datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno()
-                        );
+                                datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
                     } else {
                         error_Dni.setText("DNI no encontrado");
                     }
@@ -437,6 +443,15 @@ public class EmpleadoControlador implements Initializable {
                     mostrarAlerta("Error al conectarse al servicio: " + t.getMessage());
                 }
             });
+        }
+    }
+
+    private void buscarEmpleados(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            listarEmpleados();
+        } else {
+            List<EmpleadoModelo> empleadosFiltrados = empleadoServicio.buscarEmpleados(searchText);
+            tabla_empleados.getItems().setAll(empleadosFiltrados);
         }
     }
 

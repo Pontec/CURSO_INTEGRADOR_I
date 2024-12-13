@@ -9,5 +9,8 @@ public interface EmpleadoServicio {
     EmpleadoModelo findByCorreo(String usuario);
     EmpleadoModelo findByDni(String dni);
     EmpleadoModelo save(EmpleadoModelo empleado);
+
     EmpleadoModelo autenticar(String correo, String password);
+    List<EmpleadoModelo> buscarEmpleados(String searchText);
+
 }

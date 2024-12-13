@@ -63,6 +63,8 @@ public class AsignacionBusRuta implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        txtHoraSalida.setPromptText("HH:mm");
+        configureTimeField(txtHoraSalida);
         listarAsignaciones();
         cargarBuses();
         cargarRutas();
@@ -129,6 +131,24 @@ public class AsignacionBusRuta implements Initializable {
         cmbRuta.setValue(null);
         fechaHoraSalida.setValue(null);
         txtHoraSalida.clear();
+    }
+
+    private void configureTimeField(TextField textField) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Limitar a 5 caracteres (HH:mm)
+            if (newValue.length() > 5) {
+                textField.setText(oldValue);
+                return;
+            }
+            // Agregar ":" automáticamente en la posición correcta
+            if (newValue.length() == 2 && !newValue.contains(":")) {
+                textField.setText(newValue + ":");
+            }
+            // Asegurarse de que solo haya números y ":" en el formato correcto
+            if (!newValue.matches("\\d{0,2}:?\\d{0,2}")) {
+                textField.setText(oldValue);
+            }
+        });
     }
 
 }

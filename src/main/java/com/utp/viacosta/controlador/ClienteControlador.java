@@ -20,6 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -34,7 +35,7 @@ public class ClienteControlador implements Initializable {
     private String tokenApi;
 
     @FXML
-    private Button btn_actualizar, btn_guardar, btnLimpiar;
+    private Button btn_actualizar, btn_guardar, btnLimpiar, btnBuscar;
     @FXML
     private TableColumn<ClienteModelo, String> columnApellido;
     @FXML
@@ -65,7 +66,7 @@ public class ClienteControlador implements Initializable {
     @FXML
     private TextField txt_dni;
     @FXML
-    private TextField txt_direccion;
+    private TextField txt_direccion, txtBuscar;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -83,7 +84,10 @@ public class ClienteControlador implements Initializable {
         btn_guardar.setVisible(true);
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
-
+        // Añadir listener al campo de búsqueda
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            buscarClientes(newValue);
+    });
     }
 
     private void inicializarValidacion() {
@@ -272,6 +276,15 @@ public class ClienteControlador implements Initializable {
                     mostrarAlerta("Error en la llamada: " + t.getMessage());
                 }
             });
+        }
+    }
+
+    private void buscarClientes(String searchText) {
+        if (searchText == null || searchText.isEmpty()) {
+            listarClientes(); // Mostrar todos los clientes si no hay texto
+        } else {
+            List<ClienteModelo> clientesFiltrados = clienteServicio.buscarClientes(searchText);
+            tabla_clientes.getItems().setAll(clientesFiltrados);
         }
     }
 

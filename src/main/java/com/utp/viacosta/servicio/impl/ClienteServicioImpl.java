@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+ 
 @Service
 public class ClienteServicioImpl implements ClienteServicio {
 
@@ -45,5 +45,13 @@ public class ClienteServicioImpl implements ClienteServicio {
     @Override
     public ClienteModelo findByDni(String dni) {
         return clienteDAO.findByDni(dni);
+    }
+
+    @Override
+    public List<ClienteModelo> buscarClientes(String searchText) {
+    if (searchText == null || searchText.trim().isEmpty()) {
+        return clienteDAO.findAll();
+    }
+        return clienteDAO.findBySearchText(searchText.trim());
     }
 }
