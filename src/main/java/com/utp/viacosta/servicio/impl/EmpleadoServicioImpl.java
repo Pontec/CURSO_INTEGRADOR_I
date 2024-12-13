@@ -25,6 +25,11 @@ public class EmpleadoServicioImpl implements EmpleadoServicio {
     }
 
     @Override
+    public EmpleadoModelo findByDni(String dni) {
+        return empleadoDAO.findByDni(dni);
+    }
+
+    @Override
     public EmpleadoModelo save(EmpleadoModelo empleado) {
         return empleadoDAO.save(empleado);
     }

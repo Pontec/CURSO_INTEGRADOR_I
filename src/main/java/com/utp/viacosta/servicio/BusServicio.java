@@ -12,4 +12,5 @@ public interface BusServicio {
     BusModelo save(BusModelo bus);
     void deleteById(Integer id);
     BusModelo update(BusModelo bus);
+    BusModelo findByPlaca(String placa);
 }

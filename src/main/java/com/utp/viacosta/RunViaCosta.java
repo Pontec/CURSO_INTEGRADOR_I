@@ -1,5 +1,6 @@
 package com.utp.viacosta;
 
+import com.utp.viacosta.util.DatabaseInitializer;
 import com.utp.viacosta.util.FxmlCargarUtil;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,8 +8,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
+@Import(DatabaseInitializer.class)
 public class RunViaCosta extends Application{
 
 	public static void main(String[] args) {

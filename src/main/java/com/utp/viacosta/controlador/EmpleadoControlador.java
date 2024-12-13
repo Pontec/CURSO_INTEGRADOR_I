@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -67,13 +68,29 @@ public class EmpleadoControlador implements Initializable {
     private TableColumn<EmpleadoModelo, String> columnSede;
     @FXML
     private ComboBox<SedeModelo> cmbSede;
+    @FXML
+    private Label error_Dni;
+    @FXML
+    private Label error_Correo;
+    @FXML
+    private Label error_tel;
+    @FXML
+    private Label error_sede;
+    @FXML
+    private Label error_rol;
+    @FXML
+    private Label error_contra;
+    @FXML
+    private Label error_nombre;
+    @FXML
+    private Label error_apellido;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarEmpleados();
         cargarRoles();
-
-        // Listener para detectar la selección en la tabla y cargar los datos en los campos
+        cargarSedes();
+        inicializarValidacion();
         tabla_empleados.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 seleccionarActualizar();
@@ -86,10 +103,142 @@ public class EmpleadoControlador implements Initializable {
         btnLimpiar.setVisible(false);
     }
 
+    private void inicializarValidacion() {
+        agregarValidacionDni(txt_dni, error_Dni);
+        agregarValidacionTelefono(txt_telefono, error_tel);
+        agregarValidacionCorreoConLabel(txt_correo, error_Correo);
+        agregarValidacionNotEmpty(txt_contraseña, error_contra);
+        agregarValidacionComboBox(cmbRol, error_rol);
+        agregarValidacionComboBox(cmbSede, error_sede);
+    }
+
+    private boolean validarEntradas(boolean validarDni, String currentCorreo) {
+        boolean isValid = true;
+
+        if (validarDni) {
+            if (txt_dni.getText().length() != 8 || txt_dni.getText().isEmpty()) {
+                error_Dni.setText("El DNI debe tener 8 dígitos.");
+                isValid = false;
+            } else {
+                error_Dni.setText("");
+            }
+
+            if (empleadoServicio.findByDni(txt_dni.getText()) != null) {
+                error_Dni.setText("El DNI ya existe.");
+                isValid = false;
+            }
+        }
+
+        if (txt_telefono.getText().length() != 9 || txt_telefono.getText().isEmpty()) {
+            error_tel.setText("El teléfono debe tener 9 dígitos.");
+            isValid = false;
+        } else {
+            error_tel.setText("");
+        }
+
+        if (!txt_correo.getText().matches(".*@gmail\\.com") || txt_correo.getText().isEmpty()) {
+            error_Correo.setText("El correo no es válido.");
+            isValid = false;
+        } else {
+            error_Correo.setText("");
+        }
+
+        if (txt_contraseña.getText().isEmpty()) {
+            error_contra.setText("La contraseña es obligatoria.");
+            isValid = false;
+        } else {
+            error_contra.setText("");
+        }
+
+        if (cmbRol.getValue() == null) {
+            error_rol.setText("Seleccione un rol");
+            isValid = false;
+        } else {
+            error_rol.setText("");
+        }
+
+        if (cmbSede.getValue() == null) {
+            error_sede.setText("Seleccione una sede");
+            isValid = false;
+        } else {
+            error_sede.setText("");
+        }
+
+        if (!txt_correo.getText().equals(currentCorreo) && empleadoServicio.findByCorreo(txt_correo.getText()) != null) {
+            error_Correo.setText("El correo ya existe.");
+            isValid = false;
+        }
+
+        return isValid;
+    }
+
+    private void agregarValidacionNotEmpty(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                errorLabel.setText("Este campo es obligatorio.");
+                textField.setStyle("-fx-border-color: red;");
+            } else {
+                errorLabel.setText(""); // Limpiar el mensaje si es válido
+                textField.setStyle(""); // Restablecer el estilo
+            }
+        });
+    }
+
+    private void agregarValidacionCorreoConLabel(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches(".*@gmail\\.com")) { // Si no incluye '@gmail.com'
+                errorLabel.setText("El correo debe incluir '@gmail.com'");
+                textField.setStyle("-fx-border-color: red;");
+            } else {
+                errorLabel.setText(""); // Limpiar el mensaje si es válido
+                textField.setStyle(""); // Restablecer el estilo
+            }
+        });
+    }
+
+    private void agregarValidacionDni(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*") || newValue.length() > 8) {
+                textField.setText(oldValue); // Restore the previous value
+            }
+            if (newValue.length() == 8) {
+                errorLabel.setText(""); // Clear the error message if valid
+                textField.setStyle(""); // Reset the style
+            }
+        });
+    }
+
+    private void agregarValidacionTelefono(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*") || newValue.length() > 9) {
+                textField.setText(oldValue); // Restore the previous value
+            }
+            if (newValue.length() == 9 && newValue.startsWith("9")) {
+                errorLabel.setText(""); // Clear the error message if valid
+                textField.setStyle(""); // Reset the style
+            } else if (newValue.length() == 9 && !newValue.startsWith("9")) {
+                errorLabel.setText("El teléfono debe comenzar con 9.");
+                textField.setStyle("-fx-border-color: red;");
+            }
+        });
+    }
+
+    private void agregarValidacionComboBox(ComboBox comboBox, Label errorLabel) {
+        comboBox.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                errorLabel.setText("Seleccione una opción.");
+                comboBox.setStyle("-fx-border-color: red;");
+            } else {
+                errorLabel.setText("");
+                comboBox.setStyle("");
+            }
+        });
+    }
+
 
     @FXML
     private void guardarEmpleados(ActionEvent event) {
-        if (!validarEntradas()) {
+        if (!validarEntradas(true, null)) {
             return;
         }
         EmpleadoModelo empleado = new EmpleadoModelo();
@@ -99,15 +248,46 @@ public class EmpleadoControlador implements Initializable {
         empleado.setCorreo(txt_correo.getText());
         empleado.setPassword(txt_contraseña.getText());
         empleado.setTelefono(txt_telefono.getText());
-        empleado.setIdSede(1);
-        RolModelo rolSeleccionado = cmbRol.getValue();  // Obtener el rol seleccionado
-        Set<RolModelo> roles = new HashSet<>();  // Crear un Set de roles (o lista, dependiendo de tu modelo)
-        roles.add(rolSeleccionado);  // Agregar el rol seleccionado al conjunto de roles
-        empleado.setRoles(roles);  // Asignar el conjunto de roles al empleado
-
+        empleado.setIdSede(cmbSede.getValue().getId());
+        RolModelo rolSeleccionado = cmbRol.getValue();
+        Set<RolModelo> roles = new HashSet<>();
+        roles.add(rolSeleccionado);
+        empleado.setRoles(roles);
         empleadoServicio.save(empleado);
         listarEmpleados();
         clear();
+    }
+
+    @FXML
+    void act_actualizar(ActionEvent event) {
+        EmpleadoModelo empleadoSeleccionado = tabla_empleados.getSelectionModel().getSelectedItem();
+        if (empleadoSeleccionado == null) {
+            mostrarAlerta("Seleccione un empleado para actualizar.");
+            return;
+        }
+        String currentCorreo = empleadoSeleccionado.getCorreo();
+        if (!validarEntradas(false, currentCorreo)) {
+            return;
+        }
+
+        empleadoSeleccionado.setNombre(txt_nombre.getText());
+        empleadoSeleccionado.setApellido(txt_apellido.getText());
+        empleadoSeleccionado.setCorreo(txt_correo.getText());
+        empleadoSeleccionado.setPassword(txt_contraseña.getText());
+        empleadoSeleccionado.setTelefono(txt_telefono.getText());
+        empleadoSeleccionado.setIdSede(cmbSede.getValue().getId());
+
+        RolModelo rolSeleccionado = cmbRol.getValue();
+        if (rolSeleccionado != null) {
+            Set<RolModelo> roles = new HashSet<>();
+            roles.add(rolSeleccionado);
+            empleadoSeleccionado.setRoles(roles);
+        }
+
+        empleadoServicio.save(empleadoSeleccionado);
+        listarEmpleados();
+        clear();
+        btnLimpiar();
     }
 
     @FXML
@@ -119,8 +299,6 @@ public class EmpleadoControlador implements Initializable {
         columnRol.setCellValueFactory(new PropertyValueFactory<>("rolNombres"));
         columnSede.setCellValueFactory(new PropertyValueFactory<>("sede"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-
-        // Configurar la columna de Estado
 
         columnAcciones.setCellFactory(col -> new TableCell<>() {
             private final Button iconoEstado = new Button();
@@ -158,30 +336,6 @@ public class EmpleadoControlador implements Initializable {
         cmbSede.getItems().setAll(sedeServicio.listaSedes());
     }
 
-    @FXML
-    void act_actualizar(ActionEvent event) {
-        EmpleadoModelo empleadoSeleccionado = tabla_empleados.getSelectionModel().getSelectedItem();
-
-        // Actualizar los campos del empleado seleccionado
-        empleadoSeleccionado.setDni(txt_dni.getText());
-        empleadoSeleccionado.setNombre(txt_nombre.getText());
-        empleadoSeleccionado.setApellido(txt_apellido.getText());
-        empleadoSeleccionado.setCorreo(txt_correo.getText());
-        empleadoSeleccionado.setPassword(txt_contraseña.getText());
-        empleadoSeleccionado.setTelefono(txt_telefono.getText());
-
-        RolModelo rolSeleccionado = cmbRol.getValue();
-        if (rolSeleccionado != null) {
-            Set<RolModelo> roles = new HashSet<>();
-            roles.add(rolSeleccionado);  // Actualizar con el rol seleccionado
-            empleadoSeleccionado.setRoles(roles);
-        }
-        empleadoServicio.save(empleadoSeleccionado);
-        listarEmpleados();
-        clear();
-        btnLimpiar();// Ocultar los botones de limpiar y actualizar
-    }
-
     //Metodos de apoyo
     @FXML
     void actLimpiar(ActionEvent event) {
@@ -196,6 +350,28 @@ public class EmpleadoControlador implements Initializable {
         txt_correo.setText("");
         txt_contraseña.setText("");
         txt_telefono.setText("");
+        cmbSede.setValue(null);
+        cmbRol.setValue(null);
+        txt_dni.setDisable(false);
+
+        // Clear error labels and reset styles
+        error_Dni.setText("");
+        error_Correo.setText("");
+        error_tel.setText("");
+        error_sede.setText("");
+        error_rol.setText("");
+        error_contra.setText("");
+        error_nombre.setText("");
+        error_apellido.setText("");
+
+        txt_dni.setStyle("");
+        txt_nombre.setStyle("");
+        txt_apellido.setStyle("");
+        txt_correo.setStyle("");
+        txt_contraseña.setStyle("");
+        txt_telefono.setStyle("");
+        cmbRol.setStyle("");
+        cmbSede.setStyle("");
     }
 
     public void btnLimpiar() {
@@ -215,13 +391,12 @@ public class EmpleadoControlador implements Initializable {
             txt_correo.setText(empleadoSeleccionado.getCorreo());
             txt_contraseña.setText(empleadoSeleccionado.getPassword());
             txt_telefono.setText(empleadoSeleccionado.getTelefono());
-
-            // Cargar el rol seleccionado en el ComboBox
+            cmbSede.setValue(empleadoSeleccionado.getSede());
             RolModelo rol = empleadoSeleccionado.getRoles().stream().findFirst().orElse(null);
-            cmbRol.setValue(rol);  // Seleccionar el rol en el ComboBox
+            cmbRol.setValue(rol);
+            txt_dni.setDisable(true);
         }
     }
-
 
     private void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -229,33 +404,11 @@ public class EmpleadoControlador implements Initializable {
         alert.show();
     }
 
-
-    private boolean validarEntradas() {
-        if (txt_dni.getText().isEmpty() || txt_nombre.getText().isEmpty() || txt_apellido.getText().isEmpty() || txt_correo.getText().isEmpty() || txt_contraseña.getText().isEmpty() || cmbRol.getValue() == null) {
-            mostrarAlerta("Por favor, completa todos los campos.");
-            return false;
-        }
-        if (txt_dni.getText().length() != 8) {
-            mostrarAlerta("El DNI debe tener 8 dígitos.");
-            return false;
-        }
-        if (txt_telefono.getText().length() != 9) {
-            mostrarAlerta("El teléfono debe tener 9 dígitos.");
-            return false;
-        }
-
-        if (!txt_correo.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            mostrarAlerta("El correo no es válido.");
-            return false;
-        }
-        return true;
-    }
-
     @FXML
-    public void handleKeyEmpleado(Event event) {
+    public void handleKeyEmpleado(KeyEvent event) {
         if (txt_dni.getText().length() < 8) {
-            txt_nombre.setText("");
-            txt_apellido.setText("");
+            txt_nombre.clear();
+            txt_apellido.clear();
             return;
         }
 
@@ -264,23 +417,27 @@ public class EmpleadoControlador implements Initializable {
             ReniecService reniecService = retrofit.create(ReniecService.class);
             String token = "Bearer " + tokenApi;
             Call<ReniecRespuesta> call = reniecService.getDatosPersona(token, txt_dni.getText());
+
             call.enqueue(new Callback<ReniecRespuesta>() {
                 @Override
                 public void onResponse(Call<ReniecRespuesta> call, Response<ReniecRespuesta> response) {
-                    if (response.isSuccessful()) {
+                    if (response.isSuccessful() && response.body() != null) {
                         ReniecRespuesta datosPersona = response.body();
                         txt_nombre.setText(datosPersona.getNombres());
-                        txt_apellido.setText(datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno());
+                        txt_apellido.setText(
+                                datosPersona.getApellidoPaterno() + " " + datosPersona.getApellidoMaterno()
+                        );
                     } else {
-                        mostrarAlerta("Error en la respuesta: " + response.errorBody());
+                        error_Dni.setText("DNI no encontrado");
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ReniecRespuesta> call, Throwable t) {
-                    mostrarAlerta("Error en la llamada: " + t.getMessage());
+                    mostrarAlerta("Error al conectarse al servicio: " + t.getMessage());
                 }
             });
         }
     }
+
 }

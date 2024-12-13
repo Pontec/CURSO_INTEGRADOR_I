@@ -40,4 +40,9 @@ public class BusServicioImpl implements BusServicio {
         busDAO.findById(bus.getIdBus()).orElseThrow(() -> new RuntimeException("El bus no existe"));
         return busDAO.save(bus);
     }
+
+    @Override
+    public BusModelo findByPlaca(String placa) {
+        return busDAO.findByPlaca(placa);
+    }
 }

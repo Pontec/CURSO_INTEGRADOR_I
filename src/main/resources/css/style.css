@@ -195,3 +195,14 @@
 .combo-box-disabled {
     -fx-opacity: 1.0;
 }
+
+.error-label{
+    -fx-text-fill: red;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.error-text-field{
+    -fx-border-color: red;
+    -fx-border-radius: 5px;
+}

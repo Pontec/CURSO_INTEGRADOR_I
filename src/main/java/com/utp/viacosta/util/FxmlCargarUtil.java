@@ -25,12 +25,6 @@ public class FxmlCargarUtil {
         return fxmlLoader.load();
     }
 
-    /**
-     * Metodo para cargar un ComboBox en JavaFX
-     *
-     * @param listaCmb Lista de elementos a cargar
-     * @param cmb      ComboBox a cargar
-     */
     public static void cargarComboBox(ObservableList<String> listaCmb, ComboBox<String> cmb) {
         cmb.setItems(listaCmb);
         if (!listaCmb.isEmpty()) {

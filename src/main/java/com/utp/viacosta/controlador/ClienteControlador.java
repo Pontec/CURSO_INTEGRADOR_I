@@ -34,7 +34,7 @@ public class ClienteControlador implements Initializable {
     private String tokenApi;
 
     @FXML
-    private Button btn_actualizar,btn_guardar, btnLimpiar;
+    private Button btn_actualizar, btn_guardar, btnLimpiar;
     @FXML
     private TableColumn<ClienteModelo, String> columnApellido;
     @FXML
@@ -51,11 +51,26 @@ public class ClienteControlador implements Initializable {
     private TableView<ClienteModelo> tabla_clientes;
 
     @FXML
-    private TextField txt_apellido, txt_correo, txt_nombre, txt_telefono, txt_dni;
+    private TextField txt_apellido;
+    @FXML
+    private Label error_Dni;
+    @FXML
+    private Label error_tel;
+    @FXML
+    private Label error_dir;
+    @FXML
+    private TextField txt_telefono;
+    @FXML
+    private TextField txt_nombre;
+    @FXML
+    private TextField txt_dni;
+    @FXML
+    private TextField txt_direccion;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         listarClientes();
+        inicializarValidacion();
 
         tabla_clientes.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -71,9 +86,68 @@ public class ClienteControlador implements Initializable {
 
     }
 
+    private void inicializarValidacion() {
+        agregarValidacionDni(txt_dni, error_Dni);
+        agregarValidacionTelefono(txt_telefono, error_tel);
+    }
+
+    private void agregarValidacionDni(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*") || newValue.length() > 8) {
+                textField.setText(oldValue); // Restore the previous value
+            }
+            if (newValue.length() == 8) {
+                errorLabel.setText(""); // Clear the error message if valid
+                textField.setStyle(""); // Reset the style
+            }
+        });
+    }
+
+    private void agregarValidacionTelefono(TextField textField, Label errorLabel) {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*") || newValue.length() > 9) {
+                textField.setText(oldValue); // Restore the previous value
+            }
+            if (newValue.length() == 9 && newValue.startsWith("9")) {
+                errorLabel.setText(""); // Clear the error message if valid
+                textField.setStyle(""); // Reset the style
+            } else if (newValue.length() == 9 && !newValue.startsWith("9")) {
+                errorLabel.setText("El teléfono debe comenzar con 9.");
+                textField.setStyle("-fx-border-color: red;");
+            }
+        });
+    }
+
+    private boolean validarEntradas(boolean validarDni) {
+        boolean isValid = true;
+
+        if (validarDni) {
+            if (txt_dni.getText().length() != 8 || txt_dni.getText().isEmpty()) {
+                error_Dni.setText("El DNI debe tener 8 dígitos.");
+                isValid = false;
+            } else {
+                error_Dni.setText("");
+            }
+
+            if (clienteServicio.findByDni(txt_dni.getText()) != null) {
+                error_Dni.setText("El DNI ya existe.");
+                isValid = false;
+            }
+        }
+
+        if (!txt_telefono.getText().isEmpty() && txt_telefono.getText().length() != 9) {
+            error_tel.setText("El teléfono debe tener 9 dígitos.");
+            isValid = false;
+        } else {
+            error_tel.setText("");
+        }
+
+        return isValid;
+    }
+
     @FXML
     void act_save(ActionEvent event) {
-        if (!validarEntradas()) {
+        if (!validarEntradas(true)) {
             return;
         }
 
@@ -82,9 +156,28 @@ public class ClienteControlador implements Initializable {
         clienteModelo.setApellido(txt_apellido.getText());
         clienteModelo.setDni(txt_dni.getText());
         clienteModelo.setTelefono(txt_telefono.getText());
-        clienteModelo.setDireccion("Direccion de prueba");
+        clienteModelo.setDireccion(txt_direccion.getText());
 
         clienteServicio.save(clienteModelo);
+        listarClientes();
+        limpiar();
+        limpiarStyles();
+    }
+
+
+    @FXML
+    void act_actualizar(ActionEvent event) {
+        if (!validarEntradas(false)) {
+            return;
+        }
+        ClienteModelo clienteModelo = tabla_clientes.getSelectionModel().getSelectedItem();
+        clienteModelo.setNombre(txt_nombre.getText());
+        clienteModelo.setApellido(txt_apellido.getText());
+        clienteModelo.setDni(txt_dni.getText());
+        clienteModelo.setCorreo(txt_direccion.getText());
+        clienteModelo.setTelefono(txt_telefono.getText());
+
+        clienteServicio.actualizarCliente(clienteModelo);
         listarClientes();
         limpiar();
         limpiarStyles();
@@ -98,29 +191,10 @@ public class ClienteControlador implements Initializable {
         columnCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
         columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 
-        //configurar la columna de acciones
-
-
         tabla_clientes.getItems().setAll(clienteServicio.listaClientes());
     }
 
-    @FXML
-    void act_actualizar(ActionEvent event) {
-        if (!validarEntradas()) {
-            return;
-        }
-        ClienteModelo clienteModelo = tabla_clientes.getSelectionModel().getSelectedItem();
-        clienteModelo.setNombre(txt_nombre.getText());
-        clienteModelo.setApellido(txt_apellido.getText());
-        clienteModelo.setDni(txt_dni.getText());
-        clienteModelo.setCorreo(txt_correo.getText());
-        clienteModelo.setTelefono(txt_telefono.getText());
 
-        clienteServicio.actualizarCliente(clienteModelo);
-        listarClientes();
-        limpiar();
-        limpiarStyles();
-    }
     @FXML
     public void actLimpiar(ActionEvent event) {
         limpiar();
@@ -136,8 +210,9 @@ public class ClienteControlador implements Initializable {
         txt_nombre.setText("");
         txt_apellido.setText("");
         txt_dni.setText("");
-        txt_correo.setText("");
+        txt_direccion.setText("");
         txt_telefono.setText("");
+        txt_dni.setDisable(false);
     }
 
     @FXML
@@ -146,53 +221,10 @@ public class ClienteControlador implements Initializable {
         txt_nombre.setText(clienteModelo.getNombre());
         txt_apellido.setText(clienteModelo.getApellido());
         txt_dni.setText(clienteModelo.getDni());
-        txt_correo.setText(clienteModelo.getCorreo());
+        txt_direccion.setText(clienteModelo.getDireccion());
         txt_telefono.setText(clienteModelo.getTelefono());
-    }
 
-
-
-    //Metodos para validar los campos
-    private boolean validarNombre() {
-        if (txt_nombre.getText().isEmpty()) {
-            txt_nombre.setStyle("-fx-border-color: red");
-            mostrarAlerta("El nombre no puede estar vacio.");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validarApellido() {
-        if (txt_apellido.getText().isEmpty()) {
-            txt_apellido.setStyle("-fx-border-color: red");
-            mostrarAlerta("El apellido no puede estar vacio.");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validarDni() {
-        String dni = txt_dni.getText();
-        if (dni.isEmpty() || dni.length() != 8) {
-            txt_dni.setStyle("-fx-border-color: red");
-            mostrarAlerta("El DNI debe tener 8 digitos.");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validarCorreo() {
-        String correo = txt_correo.getText();
-        if ( !correo.isEmpty() && !correo.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            txt_correo.setStyle("-fx-border-color: red");
-            mostrarAlerta("Ingrese un correo valido");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean validarEntradas() {
-        return validarDni() && validarNombre() && validarApellido() && validarCorreo();
+        txt_dni.setDisable(true);
     }
 
     private void mostrarAlerta(String mensaje) {
@@ -205,7 +237,7 @@ public class ClienteControlador implements Initializable {
         txt_nombre.setStyle("");
         txt_apellido.setStyle("");
         txt_dni.setStyle("");
-        txt_correo.setStyle("");
+        txt_direccion.setStyle("");
         txt_telefono.setStyle("");
     }
 

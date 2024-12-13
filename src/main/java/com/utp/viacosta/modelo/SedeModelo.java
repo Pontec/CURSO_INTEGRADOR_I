@@ -34,4 +34,9 @@ public class SedeModelo {
     @JoinColumn(name = "id_empresa")
     private EmpresaModelo empresa;
 
+    @Override
+    public String toString() {
+        return ciudad;
+    }
+
 }
