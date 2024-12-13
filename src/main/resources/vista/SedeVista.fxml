@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.SedeControlador">
+<AnchorPane prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.SedeControlador">
    <children>
-      <Pane layoutX="14.0" layoutY="14.0" prefHeight="690.0" prefWidth="1040.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css">
+      <Pane fx:id="paneEmpresa" layoutX="14.0" layoutY="14.0" prefHeight="690.0" prefWidth="1040.0" style="-fx-border-color: CCC;" stylesheets="@../css/style.css" visible="false">
          <children>
             <Label layoutX="24.0" layoutY="68.0" prefHeight="25.0" prefWidth="175.0" text="Nombre de la empresa">
                <font>
@@ -74,12 +74,68 @@
                   <TableColumn fx:id="columnPais" prefWidth="87.0" text="PAIS" />
               </columns>
             </TableView>
-            <Button fx:id="btnEditar" layoutX="189.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Editar" />
-            <Label layoutX="24.0" layoutY="22.0" prefHeight="30.0" prefWidth="281.0" style="-fx-text-fill: #0066CC;" text="Configuración de la Empresa">
+            <Button fx:id="btnEditar" layoutX="28.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnActualizar" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Editar" />
+            <Label layoutX="24.0" layoutY="22.0" prefHeight="30.0" prefWidth="418.0" style="-fx-text-fill: #0066CC;" text="Configuración de la Empresa VIA COSTA">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
+            <Button fx:id="btnLimpiar" layoutX="185.0" layoutY="361.0" mnemonicParsing="false" onAction="#actLimpiar" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
+            <Button fx:id="btnRevisarSedes" layoutX="397.0" layoutY="361.0" mnemonicParsing="false" onAction="#btnRevisarSedes" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Revisar Sedes" />
+         </children>
+      </Pane>
+      <Pane fx:id="paneSede" prefHeight="720.0" prefWidth="1068.0">
+         <children>
+            <TextField fx:id="txtTelefonoSede" layoutX="765.0" layoutY="128.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="264.0" promptText="ejemplo: 936489654" />
+            <Label layoutX="765.0" layoutY="111.0" text="Telefono">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtDepartamentoSede" layoutX="498.0" layoutY="128.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="234.0" promptText="ejemplo: Ancash" />
+            <Label layoutX="765.0" layoutY="39.0" text="Pais">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="496.0" layoutY="111.0" text="Departamento">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtPaisSede" layoutX="765.0" layoutY="60.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="264.0" promptText="ejemplo: Peru" />
+            <TextField fx:id="txtCiudadSede" layoutX="498.0" layoutY="60.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="234.0" promptText="ejemplo: Chimbote" />
+            <Label layoutX="498.0" layoutY="39.0" text="Ciudad">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tablaSedes" layoutX="50.0" layoutY="273.0" prefHeight="433.0" prefWidth="980.0">
+               <columns>
+                  <TableColumn fx:id="columnNombreSede" prefWidth="166.0" text="NOMBRE" />
+                  <TableColumn fx:id="columnCiudadSede" prefWidth="124.0" text="CIUDAD" />
+                  <TableColumn fx:id="columnDireccionSede" prefWidth="234.0" text="DIRECCION" />
+                  <TableColumn fx:id="columnTelefonoSede" prefWidth="133.0" text="TELEFONO" />
+                  <TableColumn fx:id="columnPaisSede" prefWidth="109.0" text="PAIS" />
+                  <TableColumn fx:id="columnDepartamentoSede" prefWidth="201.59991455078125" text="DEPARTAMENTO" />
+               </columns>
+            </TableView>
+            <TextField fx:id="txtDireccionSede" layoutX="50.0" layoutY="128.0" prefHeight="31.0" prefWidth="418.0" promptText="Ingresa direccion" />
+            <TextField fx:id="txtNombreSede" layoutX="50.0" layoutY="60.0" prefHeight="30.0" prefWidth="418.0" promptText="Ingresa nombre de la empresa" />
+            <Label layoutX="50.0" layoutY="111.0" text="Dirección">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="35.0" prefHeight="25.0" prefWidth="175.0" text="Nombre de la sede">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="guardarSede" layoutX="50.0" layoutY="225.0" mnemonicParsing="false" onAction="#guardarSede" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Guardar" />
+            <Button fx:id="btnEditarSede" layoutX="210.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnEditarSede" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Editar" />
+            <Button fx:id="btnLimpiarSede" layoutX="372.0" layoutY="225.0" mnemonicParsing="false" onAction="#btnLimpiarSede" prefHeight="25.0" prefWidth="146.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Limpiar" />
+            <TextField fx:id="txtBuscarSede" layoutX="50.0" layoutY="187.0" prefHeight="31.0" prefWidth="684.0" promptText="Ingresa direccion" />
          </children>
       </Pane>
    </children>

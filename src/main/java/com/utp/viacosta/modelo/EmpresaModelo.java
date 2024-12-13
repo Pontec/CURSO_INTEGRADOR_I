@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "empresa")
 public class EmpresaModelo {
-    @Id
+    @Id   
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_empresa")
     private Integer id;

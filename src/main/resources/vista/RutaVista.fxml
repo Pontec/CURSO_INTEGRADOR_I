@@ -50,7 +50,7 @@
                   <TableColumn fx:id="columnAcciones" prefWidth="113.0" text="ACCIONES" />
                </columns>
             </TableView>
-            <TextField fx:id="txtBuscar" layoutX="266.0" layoutY="32.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="494.0" promptText="ingresa tu direccion" />
+            <TextField fx:id="txtBuscar" layoutX="266.0" layoutY="32.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="494.0" promptText="Busca por ruta de origen o destino" />
             </children>
         </Pane>
     </children>

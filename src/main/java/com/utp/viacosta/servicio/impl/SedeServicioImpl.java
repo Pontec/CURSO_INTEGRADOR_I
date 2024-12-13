@@ -26,4 +26,12 @@ public class SedeServicioImpl implements SedeServicio {
         return sedeDAO.findAll();
     }
 
+    @Override
+    public List<SedeModelo> buscarSedes(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            return sedeDAO.findAll();
+        }
+        return sedeDAO.findByNombreSedesContainingIgnoreCase(searchText.trim());
+    }
+
 }
