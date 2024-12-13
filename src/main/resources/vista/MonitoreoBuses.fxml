@@ -40,13 +40,12 @@
                         <Button layoutX="629.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#fnExportarExcel" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: green;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Exportar en Excel" />
                         <TableView fx:id="tablaPasajeros" layoutX="14.0" layoutY="54.0" prefHeight="481.0" prefWidth="753.0" stylesheets="@../css/style.css">
                           <columns>
-                            <TableColumn fx:id="colNombre" prefWidth="125.0" text="Nombre" />
-                            <TableColumn fx:id="colApellido" prefWidth="103.0" text="Apellidos" />
-                              <TableColumn fx:id="colDNI" prefWidth="76.0" text="DNI" />
-                              <TableColumn fx:id="colAsiento" prefWidth="59.0" text="Asiento" />
-                              <TableColumn fx:id="colBus" prefWidth="93.0" text="Bus" />
-                              <TableColumn fx:id="colRuta" prefWidth="122.0" text="Ruta" />
-                              <TableColumn fx:id="colVendedor" prefWidth="169.0" text="Vendedor" />
+                            <TableColumn fx:id="colNombre" prefWidth="206.0" text="Nombre Completo" />
+                              <TableColumn fx:id="colAsiento" prefWidth="73.0" text="Asiento" />
+                              <TableColumn fx:id="colBus" prefWidth="68.0" text="Bus" />
+                              <TableColumn fx:id="colRuta" prefWidth="147.0" text="Ruta" />
+                              <TableColumn fx:id="colVendedor" prefWidth="180.0" text="Vendedor" />
+                              <TableColumn fx:id="colFirma" prefWidth="76.0" text="Firma" />
                           </columns>
                         </TableView>
                      </children>
@@ -58,9 +57,9 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Button layoutX="625.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Finalizar Viaje" />
-                        <Button layoutX="473.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnPonerEnMarcha" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: red;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Cancelar Marcha" />
-                        <ImageView fitHeight="447.0" fitWidth="742.0" layoutX="21.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+                        <Button layoutX="625.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnFinalizarViaje" prefHeight="31.0" prefWidth="130.0" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Finalizar Viaje" />
+                        <Button layoutX="473.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#fnCancelarMarcha" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: red;" styleClass="btn-clasic" stylesheets="@../css/style.css" text="Cancelar Marcha" />
+                        <ImageView fx:id="imageBus" fitHeight="447.0" fitWidth="742.0" layoutX="21.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../img/mapa-buses.PNG" />
                            </image>
@@ -102,6 +101,21 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
+                  </GridPane>
+                  <GridPane fx:id="gridBusesEnMarcha" layoutX="14.0" layoutY="82.0" prefHeight="481.0" prefWidth="213.0" visible="false">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
                   </GridPane>
                </children>
             </Pane>

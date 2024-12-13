@@ -390,6 +390,9 @@ public class FacturacionControlador implements Initializable {
             String origen = cmbOrigen.getValue().toString();
             String destino = cmbDestino.getValue().toString();
             List<AsignacionBusRutaModelo> listaAsignaciones = asignacionBusRutaService.buscarAsignacionConEstado(origen, destino, fecha, EstadoAsignacion.PROGRAMADO);
+            if (listaAsignaciones.isEmpty()) {
+                mostrarAlerta("No hay viajes programados para la fecha seleccionada");
+            }
             setearBus(listaAsignaciones);
         }
     }
