@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface SedeDAO extends JpaRepository<SedeModelo, Integer> {
-
+List<SedeModelo> findByNombreSedesContainingIgnoreCase(String nombre);
 }

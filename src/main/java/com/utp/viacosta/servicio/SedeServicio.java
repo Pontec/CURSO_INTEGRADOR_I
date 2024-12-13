@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface SedeServicio {
     SedeModelo guardarSede(SedeModelo sedeModelo);
+
     List<SedeModelo> listaSedes();
+    List<SedeModelo> buscarSedes(String searchText);
 }
