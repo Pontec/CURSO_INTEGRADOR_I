@@ -86,6 +86,8 @@ public class BusControlador implements Initializable {
     private Label error_seg;
     @FXML
     private Label error_marca;
+    @FXML
+    private TextField txtBuscar;
 
 
     @Override
@@ -97,6 +99,9 @@ public class BusControlador implements Initializable {
                 seleccionarBus();
             }
         });
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+        buscarBuses(newValue);
+    });
     }
 
     public void inicializarValidaciones() {
@@ -408,4 +413,12 @@ private void agregarValidacionAsientos(TextField textField, Label errorLabel, in
     }
 
 
+    private void buscarBuses(String searchText) {
+    if (searchText == null || searchText.isEmpty()) {
+        listarBuses();
+    } else {
+        List<BusModelo> busesFiltrados = busServicio.buscarBuses(searchText);
+        tablaBuses.getItems().setAll(busesFiltrados);
+    }
+}
 }

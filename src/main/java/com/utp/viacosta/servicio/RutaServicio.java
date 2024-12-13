@@ -16,4 +16,5 @@ public interface RutaServicio {
     boolean existsByOrigen(String origen);
     List<Object[]> obtenerRutasMasVendidas();
     public boolean rutaExiste(String origen, String destino, Integer excludeId);
+    List<RutaModelo> buscarRutas(String searchText);
 }

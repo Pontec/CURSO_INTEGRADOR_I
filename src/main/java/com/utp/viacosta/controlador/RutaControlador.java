@@ -37,8 +37,9 @@ public class RutaControlador implements Initializable {
     @FXML
     private TableView<RutaModelo> tabla_rutas;
     private Image iconoEliminar;
+
     @FXML
-    private TextField txt_destino, txt_duracion, txt_origen;
+    private TextField txt_destino, txt_duracion,txt_origen,txtBuscar;
     @FXML
     private Label error_origen;
     @FXML
@@ -53,7 +54,6 @@ public class RutaControlador implements Initializable {
         txt_duracion.setPromptText("HH:mm");
         configureTimeField(txt_duracion);
         listarRutas();
-        agregarValidaciones();
         tabla_rutas.getSelectionModel().selectedItemProperty().addListener((obs, anteriorSeleccion, nuevaSeleccion) -> {
             if (nuevaSeleccion != null) {
                 seleccionarRuta();
@@ -234,7 +234,7 @@ public class RutaControlador implements Initializable {
         activarGuardar();
     }
 
-    public void activarGuardar() {
+    public void activarGuardar(){
         btn_agregar.setVisible(true);
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
@@ -242,22 +242,14 @@ public class RutaControlador implements Initializable {
 
 
     //Metodos de apoyo
-    private void limpiarCampos() {
+    private void limpiarCampos(){
         txt_origen.setText("");
         txt_destino.setText("");
         txt_duracion.setText("");
-
-        error_origen.setText("");
-        error_destino.setText("");
-        error_duracion.setText("");
-
-        txt_origen.setStyle("");
-        txt_destino.setStyle("");
-        txt_duracion.setStyle("");
     }
 
     @FXML
-    private void seleccionarRuta() {
+    private void seleccionarRuta(){
         RutaModelo ruta = tabla_rutas.getSelectionModel().getSelectedItem();
         txt_origen.setText(ruta.getOrigen());
         txt_destino.setText(ruta.getDestino());
@@ -288,4 +280,9 @@ public class RutaControlador implements Initializable {
         });
     }
 
+
+    private void buscarRutas(String searchText) {
+        List<RutaModelo> rutas = rutaServicio.buscarRutas(searchText);
+        tabla_rutas.getItems().setAll(rutas);
+    }
 }

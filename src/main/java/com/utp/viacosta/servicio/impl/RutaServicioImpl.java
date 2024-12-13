@@ -68,5 +68,12 @@ public class RutaServicioImpl implements RutaServicio {
                         ruta.getDestino().equalsIgnoreCase(destino));
     }
 
+    @Override
+    public List<RutaModelo> buscarRutas(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            return rutaDAO.findAll();
+        }
+        return rutaDAO.findBySearchText(searchText.trim());
+    }
 
 }

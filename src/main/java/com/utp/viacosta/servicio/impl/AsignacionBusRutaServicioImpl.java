@@ -19,7 +19,7 @@ public class AsignacionBusRutaServicioImpl implements AsignacionBusRutaServicio 
     @Override
     public List<AsignacionBusRutaModelo> findAll() {
         return asignacionBusRutaDAO.findAll();
-    }
+    } 
 
     @Override
     public AsignacionBusRutaModelo findById(Integer id) {
@@ -33,7 +33,20 @@ public class AsignacionBusRutaServicioImpl implements AsignacionBusRutaServicio 
     }
 
     @Override
-    public List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen, String destino, LocalDate fecha) {
-        return asignacionBusRutaDAO.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino, fecha);
+    public List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen,
+            String destino, LocalDate fecha) {
+        return asignacionBusRutaDAO.findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(origen, destino,
+                fecha);
+    }
+    
+    @Override
+    public List<AsignacionBusRutaModelo> buscarAsignaciones(String searchText, LocalDate fechaInicio, LocalDate fechaFin) {
+        if (searchText != null) {
+            searchText = searchText.trim();
+            if (searchText.isEmpty()) {
+                searchText = null;
+            }
+        }
+        return asignacionBusRutaDAO.findBySearchTextAndFechas(searchText, fechaInicio, fechaFin);
     }
 }

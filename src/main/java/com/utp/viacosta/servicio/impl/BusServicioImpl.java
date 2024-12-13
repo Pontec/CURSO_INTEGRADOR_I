@@ -45,4 +45,12 @@ public class BusServicioImpl implements BusServicio {
     public BusModelo findByPlaca(String placa) {
         return busDAO.findByPlaca(placa);
     }
+
+    @Override
+    public List<BusModelo> buscarBuses(String searchText) {
+        if (searchText == null || searchText.trim().isEmpty()) {
+            return busDAO.findAll();
+        }
+        return busDAO.findBySearchText(searchText.trim());
+    }
 }

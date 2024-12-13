@@ -50,6 +50,7 @@
                   <TableColumn fx:id="columnAcciones" prefWidth="113.0" text="ACCIONES" />
                </columns>
             </TableView>
+            <TextField fx:id="txtBuscar" layoutX="266.0" layoutY="32.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="494.0" promptText="ingresa tu direccion" />
             <Label fx:id="error_origen" layoutX="28.0" layoutY="122.0" styleClass="error-label" />
             <Label fx:id="error_destino" layoutX="28.0" layoutY="194.0" styleClass="error-label" />
             <Label fx:id="error_duracion" layoutX="28.0" layoutY="267.0" styleClass="error-label" />

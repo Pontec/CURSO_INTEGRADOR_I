@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,7 +30,6 @@ public class AsignacionBusRuta implements Initializable {
     private BusServicio busServicio;
     @Autowired
     private RutaServicio rutaServicio;
-
 
     @FXML
     private Button btn_actulizar, btn_eliminar, btn_guardar;
@@ -70,6 +70,12 @@ public class AsignacionBusRuta implements Initializable {
     @FXML
     private Label err_ruta;
 
+    @FXML
+    private TextField txtBuscar;
+    @FXML
+    private DatePicker fechaInicio;
+    @FXML
+    private DatePicker fechaFin;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -78,6 +84,18 @@ public class AsignacionBusRuta implements Initializable {
         listarAsignaciones();
         cargarBuses();
         cargarRutas();
+
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+            buscarAsignaciones();
+        });
+
+        fechaInicio.valueProperty().addListener((observable, oldValue, newValue) -> {
+            buscarAsignaciones();
+        });
+
+        fechaFin.valueProperty().addListener((observable, oldValue, newValue) -> {
+            buscarAsignaciones();
+        });
     }
 
     @FXML
@@ -95,12 +113,12 @@ public class AsignacionBusRuta implements Initializable {
     }
 
     //cargando los buses en el combobox
-    public void cargarBuses(){
+    public void cargarBuses() {
         cmbBus.getItems().setAll(busServicio.findAll());
     }
 
     //cargando las rutas en el combobox
-    public void cargarRutas(){
+    public void cargarRutas() {
         cmbRuta.getItems().setAll(rutaServicio.listarRutas());
     }
 
@@ -112,7 +130,7 @@ public class AsignacionBusRuta implements Initializable {
     }
 
     //llenando la tabla con los datos de la base de datos
-    public void listarAsignaciones(){
+    public void listarAsignaciones() {
         columnId.setCellValueFactory(new PropertyValueFactory<>("idAsignacion"));
         columnRuta.setCellValueFactory(new PropertyValueFactory<>("rutaAsignada"));
         columnBus.setCellValueFactory(new PropertyValueFactory<>("busAsignado"));
@@ -136,7 +154,7 @@ public class AsignacionBusRuta implements Initializable {
         listarAsignaciones();
     }
 
-    public void limpiarCampos(){
+    public void limpiarCampos() {
         cmbBus.setValue(null);
         cmbRuta.setValue(null);
         fechaHoraSalida.setValue(null);
@@ -161,4 +179,23 @@ public class AsignacionBusRuta implements Initializable {
         });
     }
 
+    private void buscarAsignaciones() {
+        String searchText = txtBuscar.getText();
+        LocalDate fechaIni = fechaInicio.getValue();
+        LocalDate fechaFinal = fechaFin.getValue();
+
+        List<AsignacionBusRutaModelo> resultados = asignacionBusRutaService.buscarAsignaciones(
+                searchText, fechaIni, fechaFinal);
+
+        tablaBusesRutas.getItems().setAll(resultados);
+    }
+
+    @FXML
+    private void limpiarFiltros() {
+        txtBuscar.clear();
+        fechaInicio.setValue(null);
+        fechaFin.setValue(null);
+        listarAsignaciones();
+
+    }
 }
