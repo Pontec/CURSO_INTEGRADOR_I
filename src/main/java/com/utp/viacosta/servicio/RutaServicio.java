@@ -15,4 +15,5 @@ public interface RutaServicio {
     void actualizarRuta(RutaModelo ruta);
     boolean existsByOrigen(String origen);
     List<Object[]> obtenerRutasMasVendidas();
+    List<RutaModelo> buscarRutas(String searchText);
 }

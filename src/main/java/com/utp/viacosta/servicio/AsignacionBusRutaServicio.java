@@ -12,5 +12,11 @@ public interface AsignacionBusRutaServicio {
     List<AsignacionBusRutaModelo> findAll();
     AsignacionBusRutaModelo findById(Integer id);
     AsignacionBusRutaModelo save(AsignacionBusRutaModelo asignacionBusRutaModelo);
-    List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen, String destino, LocalDate fecha);
+
+    List<AsignacionBusRutaModelo> findByRutaAsignadaOrigenAndRutaAsignadaDestinoAndFechaSalida(String origen,
+            String destino, LocalDate fecha);
+
+    List<AsignacionBusRutaModelo> buscarAsignaciones(String searchText, LocalDate fechaInicio, LocalDate fechaFin);
+
+    
 }

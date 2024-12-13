@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 @Component
@@ -39,7 +40,7 @@ public class RutaControlador implements Initializable {
     private Image iconoEliminar;
 
     @FXML
-    private TextField txt_destino, txt_duracion,txt_origen;
+    private TextField txt_destino, txt_duracion,txt_origen,txtBuscar;
 
 
     @Override
@@ -59,8 +60,12 @@ public class RutaControlador implements Initializable {
         btn_actualizar.setVisible(false);
         btnLimpiar.setVisible(false);
         btn_agregar.setVisible(true);
-    }
 
+        txtBuscar.textProperty().addListener((observable, oldValue, newValue) -> {
+        buscarRutas(newValue);
+    });
+    }
+ 
     @FXML
     void act_guardar(ActionEvent event) {
         if(validarRutas()){
@@ -135,7 +140,7 @@ public class RutaControlador implements Initializable {
         btnLimpiar.setVisible(false);
     }
 
-
+ 
 
 
 
@@ -191,4 +196,9 @@ public class RutaControlador implements Initializable {
         });
     }
 
+
+    private void buscarRutas(String searchText) {
+        List<RutaModelo> rutas = rutaServicio.buscarRutas(searchText);
+        tabla_rutas.getItems().setAll(rutas);
+    }
 }

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.AsignacionBusRuta">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1068.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.utp.viacosta.controlador.AsignacionBusRuta">
 
     <children>
         <Pane layoutX="8.0" layoutY="15.0" prefHeight="697.0" prefWidth="1049.0" style="-fx-border-color: CCC;" AnchorPane.bottomAnchor="8.0" AnchorPane.topAnchor="15.0">
@@ -39,21 +39,21 @@
             </Label>
             <ComboBox fx:id="cmbRuta" layoutX="22.0" layoutY="94.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Seleccion la ruta" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
             <ComboBox fx:id="cmbBus" layoutX="21.0" layoutY="152.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" promptText="Selecciona el Bus" style="-fx-background-color: F4F4F4; -fx-border-color: CCC; -fx-border-radius: 4px;" />
-            <DatePicker fx:id="fechaHoraSalida" layoutX="23.0" layoutY="214.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="188.0" />
+            <DatePicker fx:id="fechaInicio" layoutX="674.0" layoutY="38.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" />
             <TextField fx:id="txtHoraSalida" layoutX="21.0" layoutY="273.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="23.0" layoutY="256.0" text="Hora de salida">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <TableView fx:id="tablaBusesRutas" layoutX="251.0" layoutY="9.0" prefHeight="685.0" prefWidth="784.0" stylesheets="@../css/style.css">
+            <TableView fx:id="tablaBusesRutas" layoutX="251.0" layoutY="77.0" prefHeight="617.0" prefWidth="784.0" stylesheets="@../css/style.css">
                <columns>
                   <TableColumn fx:id="columnId" prefWidth="33.0" text="ID" />
                   <TableColumn fx:id="columnRuta" prefWidth="227.0" text="RUTA" />
                   <TableColumn fx:id="columnBus" prefWidth="159.0" text="BUS" />
                   <TableColumn fx:id="columnFechaSalida" prefWidth="141.0" text="FECHA SALIDA" />
-                  <TableColumn fx:id="columnHoraSalida" prefWidth="130.0" text="HORA SALIDA" />
-                  <TableColumn fx:id="columnPrecio" prefWidth="85.0" text="PRECIO" />
+                  <TableColumn fx:id="columnHoraSalida" prefWidth="112.0" text="HORA SALIDA" />
+                  <TableColumn fx:id="columnPrecio" prefWidth="91.199951171875" text="PRECIO" />
                </columns>
             </TableView>
             <Label layoutX="24.0" layoutY="47.0" prefHeight="20.0" prefWidth="206.0" style="-fx-font-size: 14;" stylesheets="@../../../../../../viacosta-pasajes/src/main/resources/css/style.css" text="Ingresa los datos del empleado" textFill="#656565">
@@ -63,6 +63,23 @@
             </Label>
             <TextField fx:id="txtPrecio" layoutX="21.0" layoutY="330.0" prefHeight="30.0" prefWidth="188.0" />
             <Label layoutX="23.0" layoutY="313.0" text="Precio">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtBuscar" layoutX="251.0" layoutY="38.0" minHeight="30.0" minWidth="188.0" prefHeight="30.0" prefWidth="388.0" promptText="Buscar por ruta o bus" />
+            <Label layoutX="251.0" layoutY="20.0" text="Buscar">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="fechaFin" layoutX="852.0" layoutY="38.0" minHeight="30.0" minWidth="150.0" prefHeight="30.0" prefWidth="150.0" />
+            <Label layoutX="674.0" layoutY="21.0" text="Fecha Inicio:">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="852.0" layoutY="21.0" text="Fecha Final:">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
